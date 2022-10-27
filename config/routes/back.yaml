@@ -1,0 +1,3 @@
+app_back_dashboard:
+  path: /dashboard
+  controller: App\Controller\Foundation\Back\IndexController::index

@@ -1,0 +1,43 @@
+{% extends 'foundation/front/front.html.twig' %}
+{% block front %}
+    <nav class="navigation-breadcrumb"> <!--To provide navigation links-->
+        <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="{{ path('app_foundation_front_homepage') }}">
+                    <span itemprop="name">Home</span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </li>
+
+            {% block backLinks %}{% endblock %}
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="#">
+                    <span itemprop="name">Level 1</span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="#">
+                    <span itemprop="name">Level 2</span>
+                </a>
+                <meta itemprop="position" content="3" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="#">
+                                            <span itemprop="name">
+                                                {% block currentTitleBread %}{% endblock %}
+                                            </span>
+                </a>
+                <meta itemprop="position" content="4" />
+            </li>
+
+        </ol>
+    </nav>
+    {% block outContainer %}{% endblock %}
+    {% block mainContainer %}{% endblock %}
+    {% block outOfContainer %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,306 @@
+{% extends 'foundation/back/back.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+{% block internalClass %}dashboad{% endblock %}
+{% block back %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-0" id="my-profile-card" style="min-height: 222px;">
+                    <div class="card-header p-2 bg-light"><h6 class="m-0">My Profile</h6></div>
+                    <div class="card-body d-flex flex-column px-2">
+                        <div class=" d-flex mt-2">
+
+                            {% include 'user/back/consultant/shared/avatar.html.twig' with {'item':consultant} %}
+                            <div class="d-flex flex-column justify-content-center ml-2">
+                                <h6 class="m-0">{{ consultant.fullname }}</h6>
+                                <span class="mt-2">
+                                    <img src="https://img.icons8.com/color/20/000000/facebook-circled.png" alt="facebook"/>
+                                    <img src="https://img.icons8.com/color/20/000000/linkedin-circled.png" alt="linkedin"/>
+                                    <img src="https://img.icons8.com/color/20/000000/twitter-circled.png" alt="twitter"/>
+                                    <img src="https://img.icons8.com/color/20/000000/skype--v1.png" alt="skype"/>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="m-1"><h6 class="m-0">About Me</h6></div>
+                        <div class="m-1"><p>tiam ut purus mattis mauris sodales aliquam. Sed libero. Pellentesque ut neque. Aenean massa. Quisque ut nisi.</p></div>
+                    </div>
+                </div>
+                <div class="card mb-0" id="consultant-summary-card">
+                    <div class="card-header p-2 bg-light">
+                        <h6 class="m-0">Consultant Summary</h6>
+                        <button class="rounded px-1 ml-auto border-0" data-toggle="collapse" data-target="#consultant-summary-content" aria-expanded="true" aria-controls="consultant-summary-content">
+                            <i class="ik ik-eye"></i>
+                        </button>
+                    </div>
+                    <div class="card-body p-0 collapse show" id="consultant-summary-content">
+                        <ul class="p-2">
+                            <li>All Projects : <span class="font-weight-bold">{{ (projects.count > 9) ? '' : '0' }}{{projects.count}}</span></li>
+                            <li class="bg-light">Ongoing projects : <span class="font-weight-bold">{{ (projects.pending > 9) ? '' : '0' }}{{projects.pending}}</span></li>
+                            <li>Delivrable : <span class="font-weight-bold">{{ (invoices.count > 9) ? '' : '0' }}{{invoices.count}}</span></li>
+                            <li class="bg-light">Global income : <span class="font-weight-bold">{{ invoices.amount|localizedcurrency(currency, locale) }}</span></li>
+                            <li>Paid income : <span class="font-weight-bold">{{ invoices.amountPaid|localizedcurrency(currency, locale) }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card" id="deliverable-summary-card" style="min-height: 322px;">
+                    <div class="card-header p-2 bg-light"><h6 class="m-0">Delivrable Summary</h6></div>
+                    <div class="card-body p-0">
+                        <div id="deliverable-summary-chart" class="d-flex justify-content-center align-items-center w-100" style="height: 350px; width: 100%">loading...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 pl-0">
+                <div class="card mb-0" id="welcome-card">
+                    <div class="card-header p-2 bg-light"><h6 class="m-0">Welcome</h6></div>
+                    <div class="card-body p-2" >
+                        <div class="p-2" style="background-image: url('{{ asset('img/defaults/smarterBuilding.jpg') }}'); background-position: center; background-size: cover; height: 170px">
+                            <div class="m-1"><h6>Welcome to your dashboard</h6></div>
+                            <div class="m-1 w-50"><p>tiam ut purus mattis mauris sodales aliquam. Sed libero. Pellentesque ut neque. Aenean massa. Quisque ut nisi.</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" >
+                        <div class="card mb-0" id="sources-analytics-card">
+                            <div class="card-header p-2 bg-light"><h6 class="m-0">Your Recent Activity</h6></div>
+                            <div class="card-body p-0">
+                                <div id="source-analytics-chart" class="d-flex justify-content-center align-items-center" style="height: 310px; width: 100%">loading...</div>
+                            </div>
+                        </div>
+                        <div class="card"  id="pending-livrable-card">
+                            <div class="card-header p-2 bg-light">
+                                <h6 class="m-0">Pending Recents Deliverables</h6>
+                                <span class="more-back-link-content ml-2">
+                                    <a href="#"> {{'button.see_more'| trans([],'core')}}</a>
+                                </span>
+                                <button class="rounded px-1 ml-auto border-0" data-toggle="collapse" data-target="#pending-livrable-content" aria-expanded="true" aria-controls="pending-livrable-content">
+                                    <i class="ik ik-eye"></i>
+                                </button>
+                            </div>
+                            <div class="card-body collapse show p-2" id="pending-livrable-content">
+                                <table class="table table-striped inner-table m-0" id="tableLivrables">
+                                    <thead>
+                                        <tr>
+                                            <th>Réfence</th>
+                                            <th>Libellé</th>
+                                            <th>Montant</th>
+                                            <th>Pourcentage</th>
+                                            <th>Date rémise</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="innner-body-items">
+                                    {% for invoice in invoices.recents %}
+                                        <tr id="deliverable_{{ loop.index }}">
+                                            <td>
+                                                {{invoice.reference}}
+                                                <br>
+                                                <small>{{ 'created_on'|trans({}, 'external') }} {{ invoice.dateAdd|localizeddate('medium','none') }}</small>
+
+                                            </td>
+                                            <td>{{invoice.name}}</td>
+                                            {% if invoice.contract.currency is not null %}
+                                                <td>{{ invoice.amount | localizedcurrency(invoice.contract.currency.code,locale) }}</td>
+                                            {% else %}
+                                                <td>{{ invoice.amount | localizedcurrency(currency,locale) }}</td>
+                                            {% endif %}
+                                            {% if invoice.percentage is not null %}
+                                                <td>{{invoice.percentage}} %</td>
+                                            {% else %}
+                                                <td> N/A </td>
+                                            {% endif %}
+                                            <td>{{invoice.expectedDate | localizeddate('medium','none')}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 pl-0">
+                        <div class="card mb-0" style="min-height: 202px;">
+                            <div class="card-header p-2 bg-light"><h6 class="m-0">Projects Sommary</h6></div>
+                            <div class="card-body p-0">
+                                <div id="project-summary-chart" class="d-flex justify-content-center align-items-center" style="height: 200px;">loading...</div>
+                            </div>
+                        </div>
+                        <div class="card" style="min-height: 122px;">
+                            <div class="card-header p-2 bg-light"><h6 class="m-0">Invoice States</h6></div>
+                            <div class="card-body p-0">
+                                <div id="invoice-summary-chart" class="d-flex justify-content-center align-items-center" style="height: 250px;">loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <style>
+    </style>
+    <script>
+        $(document).ready(() => {
+            const tips = [
+                {
+                    element: '#welcome-card',
+                    popover: {
+                        title: 'Welcome',
+                        description: 'You are welcome there',
+                        position: 'bottom'
+                    }
+                },
+                {
+                    element: '#my-profile-card',
+                    popover: {
+                        className: 'first-step-popover-class',
+                        title: 'My Profile',
+                        description: 'See more details about your informations',
+                        position: 'bottom'
+                    }
+                },
+                {
+                    element: '#consultant-summary-card',
+                    popover: {
+                        title: 'Consultant summary',
+                        description: 'Summary of your recent actions',
+                        position: 'right'
+                    }
+                },
+                {
+                    element: '#deliverable-summary-card',
+                    popover: {
+                        title: 'Deliverable Summary',
+                        description: 'All your Deliverables States',
+                        position: 'right'
+                    }
+                },
+                {
+                    element: '#sources-analytics-card',
+                    popover: {
+                        title: 'Analytics',
+                        description: 'Your yearly analytics',
+                        position: 'top'
+                    }
+                },
+                {
+                    element: '#pending-livrable-card',
+                    popover: {
+                        title: 'Livrables',
+                        description: 'Ongoing Livrable in current projects',
+                        position: 'top'
+                    }
+                },
+            ];
+            foundationBack.handleDriver(tips);
+
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawActivityChart);
+            google.charts.setOnLoadCallback(drawDeliverableSummaryChart);
+            google.charts.setOnLoadCallback(drawProjectSummaryChart);
+            google.charts.setOnLoadCallback(drawInvoiceSummaryChart);
+
+            function drawDeliverableSummaryChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['States', 'Quantities'],
+                    ['validate',     {{invoices.validate}}],
+                    ['cancelled',     {{invoices.cancelled}}],
+                    ['pending',     {{invoices.pending}}],
+                    ['received',     {{invoices.received}}],
+                ])
+
+                var options = {
+                    pieHole: 0.6,
+                    legend: {position:'bottom'},
+                    slices: {
+                        0: { color: '#008080' },
+                        1: { color: '#8294a8' },
+                        2: { color: '#008BB4' },
+                        3: { color: '#00478E' }
+                    }
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('deliverable-summary-chart'));
+                chart.draw(data, options);
+            }
+            function drawProjectSummaryChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['States', 'Quantities'],
+                    ['ended',   {{projects.ended}}],
+                    ['pending', {{projects.pending}}],
+                ])
+
+                var options = {
+                    legend: {position:'bottom'},
+                    slices: {
+                        0: { color: '#008BB4' },
+                        1: { color: '#00478E' },
+                    }
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('project-summary-chart'));
+                chart.draw(data, options);
+            }
+            function drawActivityChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Days', 'Current periode', 'Last preriode'],
+                    ['26',  {v:6,f:'6 H'}, {v:4,f:'4 H'}],
+                    ['27',  5,      3],
+                    ['28',  7,      1],
+                    ['29',  1,      8],
+                    ['30',  2,      4],
+                    ['31',  2,      4],
+                    ['01',  0.8,      5],
+                    ['02',  1.5,      4],
+                    ['03',  0.3,      3],
+                    ['04',  2,      2.5],
+                ]);
+
+                var options = {
+                    colors: ['#00478E', '#008BB4'],
+                    hAxis: {title: 'Days',  titleTextStyle: {color: '#333'}},
+                    vAxis: {title: 'Hours (H)',minValue: 0, maxValue: 12},
+                    legend: {position: 'top'}
+                };
+
+                var chart = new google.visualization.AreaChart(document.getElementById('source-analytics-chart'));
+                chart.draw(data, options);
+            }
+            function drawInvoiceSummaryChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Type de Facture');
+                data.addColumn('number', 'Paid');
+                data.addColumn({type:'string', role:'annotation'});
+                data.addColumn('number', 'Unpaid');
+                data.addColumn({type:'string', role:'annotation'});
+
+                data.addRows([
+                    [
+                        {v: 'FC', f: 'Invoice (Qte)'},
+                        {
+                            v:{{invoices.amountPaid}},
+                            f:`{{invoices.amountPaid | localizedcurrency(currency, locale)}}`
+                        },`{{invoices.amountPaidCount}}`,
+                        {
+                            v:{{invoices.amountUnPaid}},
+                            f:`{{invoices.amountUnPaid | localizedcurrency(currency, locale)}}`
+                        },`{{invoices.amountUnPaidCount}}`
+                    ],
+                ]);
+
+                var options = {
+                    colors: ['#00478E', '#008BB4'],
+                    legend: {position: 'top'},
+                    hAxis: {},
+                    vAxis: {
+                        title: 'Amount (in XAF)'
+                    }
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('invoice-summary-chart'));
+                chart.draw(data, options);
+            }
+        })
+    </script>
+{% endblock %}

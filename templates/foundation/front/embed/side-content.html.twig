@@ -1,0 +1,43 @@
+<div class="side-menu__block">
+    <div class="side-menu__block-overlay custom-cursor__overlay side-menu__toggler">
+        <div class="cursor"></div>
+        <div class="cursor-follower"></div>
+    </div><!-- /.side-menu__block-overlay -->
+    <div class="side-menu__block-inner ">
+        <span class="side-menu__close side-menu__toggler"></span>
+        <a href="{{path('app_foundation_front_homepage')}}">
+            <img src="{{ asset('images/resources/logo-1.png')}}" alt="" style="width: 100%;">
+        </a>
+        <div class="side-menu__block-about">
+            <h3 class="side-menu__block__title">{{'text.about-us' | trans([], 'core')}}</h3><!-- /.side-menu__block__title -->
+            <div class="side-menu__block-about__text">
+                {{ item.i18n(locale).description | reader(50) |raw }}
+            </div><!-- /.side-menu__block-about__text -->
+            <a href="{{ path('app_foundation_front_contact') }}" class="thm-btn side-menu__block-about__btn">{{'text.email_us' | trans([], 'core')}}</a>
+        </div><!-- /.side-menu__block-about -->
+        <hr class="side-menu__block-line"/>
+        <div class="side-menu__block-contact">
+            <h3 class="side-menu__block__title">{{'detail.contact' | trans([], 'core')}}</h3><!-- /.side-menu__block__title -->
+            <ul class="side-menu__block-contact__list">
+                <li class="side-menu__block-contact__list-item">
+                    <i class="fa fa-map-marker"></i>
+                    {{adress | raw}}
+                </li><!-- /.side-menu__block-contact__list-item -->
+                <li class="side-menu__block-contact__list-item">
+                    <i class="fa fa-phone"></i>
+                    {{numtel}}
+                </li><!-- /.side-menu__block-contact__list-item -->
+                <li class="side-menu__block-contact__list-item">
+                    <i class="fa fa-envelope"></i>
+                    {{email}}
+                </li><!-- /.side-menu__block-contact__list-item -->
+                <li class="side-menu__block-contact__list-item">
+                    <i class="fa fa-clock"></i>
+                    {{openhour | raw}}
+                </li><!-- /.side-menu__block-contact__list-item -->
+            </ul><!-- /.side-menu__block-contact__list -->
+        </div><!-- /.side-menu__block-contact -->
+        <p class="side-menu__block__text site-footer__copy-text">{{copyright | raw}}
+        </p>
+    </div><!-- /.side-menu__block-inner -->
+</div>

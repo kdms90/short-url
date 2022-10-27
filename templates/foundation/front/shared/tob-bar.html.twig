@@ -1,0 +1,36 @@
+<div class="p-3 bg-light position-sticky">
+    <div class="d-flex w-100 justify-content-around flex-wrap">
+{#        <div class="col-lg-3 col-md-6 col-sm-6 small_media">#}
+        <div class="small_media">
+            <div class="address media">
+                <i class="fas fa-street-view d-flex align-self-start my-auto mr-2 nd-color" aria-hidden="true"></i>
+                <div class="media-body"><span class="font-weight-bold hi_bold mr-2 pr-color">Localisation</span>
+                    <span class="hi_normal">{{ adress | raw }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="small_media">
+            <div class="address media">
+                <i class="fas fa-phone-volume d-flex align-self-start my-auto mr-2 nd-color" aria-hidden="true"></i>
+                <div class="media-body"><span class="font-weight-bold hi_bold mr-2 pr-color">Contact</span><span class="hi_normal">{{ numtel | raw }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="small_media">
+            <div class="address media">
+                <i class="far fa-envelope-open d-flex align-self-start my-auto mr-2 nd-color" aria-hidden="true"></i>
+                <div class="media-body"><span class="font-weight-bold hi_bold mr-2 pr-color">Email</span>
+                    <span class="hi_normal">{{ email | raw }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="small_media">
+            <div class="address media">
+                <i class="far fa-clock d-flex align-self-start my-auto mr-2 nd-color" aria-hidden="true"></i>
+                <div class="media-body"><span class="font-weight-bold hi_bold mr-2 pr-color">Disponibilité</span>
+                    <span class="hi_normal">{{ available | raw }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+{% extends 'foundation/back/form/back-form-add-right-side-i18n.html.twig' %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Statut</div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                <div class="">
+                    <p class="simple-compant-name">
+                        Date de création : {{ item.dateAdd|localizeddate('medium','none') }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h2 class="components-panel__body-title">
+            <button type="button" aria-expanded="false" class="components-button">
+                <span aria-hidden="true">Icone</span>
+            </button>
+        </h2>
+        <div class="card-body-c">
+            <div class="">
+                <div class="row form-row">
+                    <div class="col-md-12">
+                        {{ form_label(form.iconClass) }}
+                    </div>
+                    <div class="col-md-12">
+                        {% if form.iconClass.vars.errors|length %}
+                            <div class="has-error">{{ form_errors(form.iconClass) }}</div>
+                        {% endif %}
+                        <div class="input-group" id="color-picker">
+                            {{ form_widget(form.iconClass) }}
+                            <span class="{{ item.iconClass }}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'foundation/back/shared/form/thumnail.html.twig' with {'item':item,'form':form} %}
+{% endblock %}

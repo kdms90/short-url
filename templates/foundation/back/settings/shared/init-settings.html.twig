@@ -1,0 +1,28 @@
+
+<div id="init-settings">
+    <h2>Configurations</h2>
+    <div class="row mt16 apps_container">
+        <div class="col-12 col-lg-6 app_box">
+            <div class="app_left_pane">1.</div>
+            <div class="app_right_pane">
+                <span class="o_form_label">Devise principale, Position des comptes, ...</span>
+                <div class="text-muted">
+                    Définissez le comportement de l'application suivant les différents cas de mise en oeuvre
+                </div>
+                <div class="content-group">
+                    <div class="row mt16">
+                        <div class="o_field_widget col-lg">
+                            {% if companyWorkSpace is not null %}
+                                <p class="color-green">Configuré</p>
+                            {% else %}
+                                <a href="{{ path('app_accounting_back_accounting_general_settings',{'class':'class-2'}) }}"
+                                   class="o_form_label btn btn-sm btn-outline-secondary w-100 d-block">Configurer</a>
+                            {% endif %}
+                        </div>
+                        <label class="o_form_label col-lg-5 o_light_label"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

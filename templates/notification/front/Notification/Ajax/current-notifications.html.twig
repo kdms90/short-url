@@ -1,0 +1,17 @@
+{% for notification in lastNotifications %}
+    <li>
+        <a href="{{ notification.link }}" class="noReaded">
+                    <span class="title">
+                        {{ notification.label|raw }}
+                    </span>
+            <span class="times">{{ notification.date }}</span>
+        </a>
+    </li>
+{% endfor %}
+<li class="readMore">
+    {% if lastNotifications|length > 0 %}
+        <a href="{{ path('app_notification_front_notifications') }}">Voir toutes les notifications</a>
+    {% else %}
+        <a href="{{ path('app_notification_front_notifications') }}">Vous n'avez aucune notifications</a>
+    {% endif %}
+</li>

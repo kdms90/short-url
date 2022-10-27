@@ -1,0 +1,31 @@
+<div class="app-sidebar colored" id="app-header">
+    <div class="sidebar-header" >
+        <!-- menu profile quick info -->
+        <div class="profile py-2">
+            <a href="{{ path('app_back_dashboard') }}">
+                {% if 1 == 2 %}
+                {#{% if app.user.avatar is not null and  app.user.avatar.imageExists %}#}
+                    <img src="{{ asset(app.user.avatar.webPath) }}" alt="..." class="img-circle profile_img">
+                {% else %}
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="..." class="">
+                {% endif %}
+            </a>
+        </div>
+        <button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
+        <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+        <div class="clearfix"></div>
+    </div>
+    <div class="sidebar-content">
+        <div class="nav-container">
+            <nav id="main-menu-navigation" class="navigation-main">
+{#                <div class="nav-lavel">Bureau</div>#}
+                <div class="nav-item">
+                    <a href="{{ path('app_back_dashboard') }}"><i class="ik ik-layout"></i><span class="text-uppercase">{{ 'menu.dashbord'|trans({},'core') }}</span></a>
+                </div>
+                {% include 'contract/back/shared/consultant-sidebar-menu.html.twig' %}
+                {% include 'user/back/shared/consultant-sidebar-menu.html.twig' %}
+                {% include 'accounting/back/shared/consultant-sidebar-menu.html.twig' %}
+            </nav>
+        </div>
+    </div>
+</div>

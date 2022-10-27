@@ -1,0 +1,166 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block initApp %}{% endblock %}
+{% block body_class %}form{% endblock %}
+{% block back %}
+    {% block beforeFrom %}{% endblock %}
+    {{ form_start(form, {attr: {novalidate: 'novalidate', class:'form-w mx-auto'}}) }}
+    <div class="row form-card no-gutters">
+        <div class="col-md-9 col-12">
+            <div class="main-form-card pt-0">
+                <div class="row form-main-input-title content-form-item">
+                    <div class="col-md-12">
+                        {% block mainHeaderInputs %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="translations">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                {% for translation in form.i18ns %}
+                                                    <div id="translation-{{ translation.vars.value.locale }}-name-{{ form.vars.id }}"
+                                                         class="edit-i18n d-none edit-i18n-{{ translation.vars.value.locale }}">
+                                                        {% for element in translation %}
+                                                            {#{{ dump(element) }}#}
+                                                            {% if element.vars.name == 'name' %}
+                                                                {{ form_row(element) }}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="inpuFname">{{ 'input_i18n'|trans({}, 'external') }}</label>
+                                                    <div class="input-group below24 bias-input-group switch-i18n">
+                                                        <div class="input-group-btn bs-dropdown-to-select-group">
+                                                            <button type="button"
+                                                                    class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select"
+                                                                    data-toggle="dropdown" tabindex="-1">
+                                                        <span data-bind="bs-drp-sel-label" class="bs-drp-sel-label"><i
+                                                                    class="ion-android-globe"></i> [{{ locale|upper }}
+                                                            ]</span>
+                                                                <input type="hidden" data-bind="bs-drp-sel-value"
+                                                                       class="current-i18nuage"
+                                                                       value="translation-{{ locale }}-name-{{ form.vars.id }}">
+                                                                <span class="ik ik-chevron-down"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                <!-- Loop -->
+                                                                {% for translation in form.i18ns %}
+                                                                    <li data-i18n="{{ translation.vars.value.locale }}" class="dropdown-item"
+                                                                        data-content="translation-{{ translation.vars.value.locale }}-name-{{ form.vars.id }}">
+                                                                        {% set language = 'locale.'~translation.vars.value.locale %}
+                                                                        <a href="#">
+                                                                            <span class="lang-code">[ <span class="lang-code-value">{{ translation.vars.value.locale|upper }}</span>]-</span>
+                                                                            <span class="lang-label">{{ language|trans({},'core') }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                                <!-- END Loop -->
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endblock %}
+                        {% block headerInputs %}{% endblock %}
+                    </div>
+                </div>
+                {% block afterHeaderInputs %}{% endblock %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="content-form-item">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#{% block defaultTabLink%}infos{% endblock %}">{% block defaultTabTitle %}{{ 'Essentiel'|trans({}, 'core') }}{% endblock %}</a>
+                                </li>
+                                {% block additionnalTabHeader %}{% endblock %}
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="min-height: 350px">
+                                <div id="{% block defaultTabId%}infos{% endblock %}" class="tab-pane active">
+                                    {% block tabBody %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            {% set enabledSwitch = false %}
+                                                            {% for translation in form.i18ns %}
+                                                                <div id="translation-{{ translation.vars.value.locale }}-desc-{{ form.vars.id }}"
+                                                                     class="edit-i18n d-none edit-i18n-{{ translation.vars.value.locale }}">
+                                                                    {% for element in translation %}
+                                                                        {#{{ dump(element) }}#}
+                                                                        {% if element.vars.name == 'description' %}
+                                                                            {{ form_row(element) }}
+                                                                            {% set enabledSwitch = true %}
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% if enabledSwitch %}
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="inpuFname">{{ 'input_i18n'|trans({}, 'external') }}</label>
+                                                                    <div class="input-group below24 bias-input-group  switch-i18n">
+                                                                        <div class="input-group-btn bs-dropdown-to-select-group">
+                                                                            <button type="button"
+                                                                                    class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select"
+                                                                                    data-toggle="dropdown"
+                                                                                    tabindex="-1">
+                                                                            <span data-bind="bs-drp-sel-label"
+                                                                                  class="bs-drp-sel-label"><i
+                                                                                        class="ion-android-globe"></i> [{{ locale|upper }}
+                                                                                ]</span>
+                                                                                <input type="hidden"
+                                                                                       data-bind="bs-drp-sel-value"
+                                                                                       class="current-i18nuage"
+                                                                                       value="translation-{{ locale }}-desc-{{ form.vars.id }}">
+                                                                                <span class="ik ik-chevron-down"></span>
+                                                                            </button>
+                                                                            <ul class="dropdown-menu" role="menu">
+                                                                                <!-- Loop -->
+                                                                                {% for translation in form.i18ns %}
+                                                                                    <li data-i18n="{{ translation.vars.value.locale }}"
+                                                                                        class="dropdown-item"
+                                                                                        data-content="translation-{{ translation.vars.value.locale }}-desc-{{ form.vars.id }}">
+                                                                                        {% set language = 'locale.'~translation.vars.value.locale %}
+                                                                                        <a href="#">
+                                                                                            <span class="lang-code">[ <span class="lang-code-value">{{ translation.vars.value.locale|upper }}</span>]-</span>
+                                                                                            <span class="lang-label">{{ language|trans({},'core') }}</span>
+                                                                                        </a>
+                                                                                    </li>
+                                                                                {% endfor %}
+                                                                                <!-- END Loop -->
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endblock %}
+                                </div>
+                                {% block additionnalTabContent %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-12 left-form-side">
+            <div class="form-card-side">
+                {% block sideCard %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,33 @@
+<h4 class="form-section-title mt-2">Applications</h4>
+<table class="table table-striped inner-table">
+    <thead>
+    <tr>
+        <th class="text-left"></th>
+        <th class="text-center">Accès en lecture</th>
+        <th class="text-center">Accès en modification</th>
+        <th class="text-center">Droit de création</th>
+        <th class="text-center">Droit de suppression</th>
+{#        <th class="text-justify"><span class="text-justify d-none">Description</span></th>#}
+    </tr>
+    </thead>
+    <tbody>
+    {% for field, value in rules %}
+        <tr class="o_data_row">
+            <td class="text-left">{{ form_label(form[field]) }}</td>
+            <td class="text-center">
+                {{ form_widget(form[field][0]) }}
+            </td>
+            <td class="text-center">
+                {{ form_widget(form[field][1]) }}
+            </td>
+            <td class="text-center">
+                {{ form_widget(form[field][2]) }}
+            </td>
+            <td class="text-center">
+                {{ form_widget(form[field][3]) }}
+            </td>
+{#            <td class="text-justify">Petite decription du role</td>#}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

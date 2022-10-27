@@ -1,0 +1,66 @@
+{% extends 'foundation/back/form/back-form-add-right-side-i18n.html.twig' %}
+{% block mainHeaderInputs %}
+    {{ form_row(form.label) }}
+{% endblock %}
+{% block tabBody %}
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="row form-row">
+                <div class="col-md-5 col-xs-12 form-label">
+                    {{ form_label(form.code) }}
+                </div>
+                <div class="col-md-7 col-xs-12 form-input">
+                    {% if form.code.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.code) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.code) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="row form-row">
+                <div class="col-md-5 col-xs-12 form-label">
+                    {{ form_label(form.file) }}
+                </div>
+                <div class="col-md-7 col-xs-12 form-input">
+                    {% if form.file.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.file) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.file) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            {{ form_row(form.value) }}
+        </div>
+    </div>
+{% endblock %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Informations</div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                <p class="simple-compant-name">
+                    Date de création : {{ item.dateAdd|localizeddate('medium','none') }}
+                </p>
+                <p class="simple-compant-name">
+                    Dernière mise à jour : {{ item.dateUpd|localizeddate('medium','none') }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Documentation</div>
+        </div>
+        <div class="card-body-c">
+            <p class="alert-dark alert size12">
+                Veuillez vous rassurer de l'intégirté de vos données avant insertion. Le système ne controllera pas la nature des données saisies.
+            </p>
+        </div>
+    </div>
+{% endblock %}

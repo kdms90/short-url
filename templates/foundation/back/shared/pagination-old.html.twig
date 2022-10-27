@@ -1,0 +1,75 @@
+
+{% for p in range(1, nb_page) %}
+    {% if i == 0 and loop.revindex > 2 %}
+        <li class="paginate_button previous">
+            {% if pagerValue is defined and pagerKey is defined %}
+                <a href="{{ path(path,{'page': p,(pagerKey) : pagerValue}) }}{{ addParams }}"><i
+                            class="fa fa-chevron-left"></i></a>
+            {% else %}
+                <a href="{{ path(path,{'page': page-1}) }}{{ addParams }}"><i
+                            class="fa fa-chevron-left"></i></a>
+            {% endif %}
+        </li>
+        {% set i = 1 %}
+    {% endif %}
+    {% if p <= 10 %}
+        {% if loop.first %}
+            <li class="paginate_button previous {% if p == page %}active{% endif %}">
+                {#<a href="{{ path(path,{'page': p}) }}{{ addParams }}">{{ p }}</a>#}
+                {% if pagerValue is defined and pagerKey is defined %}
+                    <a href="{{ path(path,{(pagerKey):pagerValue,'page': p}) }}{{ addParams }}">{{ p }}</a>
+                {% else %}
+                    <a href="{{ path(path,{'page': p}) }}{{ addParams }}">{{ p }}</a>
+                {% endif %}
+            </li>
+        {% else %}
+            {% if p <8 %}
+                <li class="paginate_button {% if p == page %}active{% endif %}">
+                    {#<a href="{{ path(path,{'page': p}) }}{{ addParams }}">{{ p }}</a>#}
+                    {% if pagerValue is defined and pagerKey is defined %}
+                        <a href="{{ path(path,{(pagerKey):pagerValue,'page': p}) }}{{ addParams }}">{{ p }}</a>
+                    {% else %}
+                        <a href="{{ path(path,{'page': p}) }}{{ addParams }}">{{ p }}</a>
+                    {% endif %}
+                </li>
+            {% else %}
+                {% if p == 8 %}
+                    <li class="dropdown paginate_button ">
+                        <a class="btn btn-default dropdown-toggle dropdown-pagination" type="button"
+                           data-toggle="dropdown"><i class="fa fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu" id="pagination-dropdown">
+                            {% for j in range(8, nb_page) %}
+                                <li>
+                                    {#<a class="{% if j == page %}active{% endif %}"#}
+                                    {#href="{{ path(path,{'page': j}) }}{{ addParams }}">{{ j }}</a>#}
+                                    {% if pagerValue is defined and pagerKey is defined %}
+                                        <a class="{% if j == page %}active{% endif %}"
+                                           href="{{ path(path,{(pagerKey):pagerValue,'page': j}) }}{{ addParams }}">{{ j }}</a>
+                                    {% else %}
+                                        <a class="{% if j == page %}active{% endif %}"
+                                           href="{{ path(path,{'page': j}) }}{{ addParams }}">{{ j }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if loop.last and page < nb_page %}
+        <li class="">
+            {#<a href="{{ path(path,{'page': page+1}) }}{{ addParams }}"> <i class="fa fa-chevron-right"></i>#}
+            {#</a>#}
+            {% if pagerValue is defined and pagerKey is defined %}
+                <a href="{{ path(path,{(pagerKey): pagerValue,'page': page+1}) }}{{ addParams }}">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            {% else %}
+                <a href="{{ path(path,{'page': page+1}) }}{{ addParams }}">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            {% endif %}
+        </li>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,30 @@
+{% extends 'foundation/front/front.html.twig' %}
+{% block title %}Inscription{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ asset('assets/js/front/registration.js') }}"></script>
+{% endblock %}
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('assets/css/front/security.css')) }}"/>
+{% endblock %}
+{% block foundation %}
+    <div class="auth-wrapper">
+        <div class="container-fluid h-100">
+            <div class="row flex-row h-100">
+                <div class="col-xl-12 col-lg-12 col-md-12 my-auto p-0">
+                    <div class="auth-wrapper">
+                        <div class="login-container">
+                            <div class="text-center" style="max-width: 150px;margin: 0 auto;">
+                                <a href="{{ path('app_foundation_front_homepage') }}"><img src="{{ asset('assets/images/logo.png') }}" class="img-fluid"/></a>
+                            </div>
+                            <div id="registration-wrap">
+                                {% include 'user/front/registration/ajax/form.html.twig' with {'form':form} %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

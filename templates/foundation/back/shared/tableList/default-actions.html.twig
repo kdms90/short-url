@@ -1,0 +1,28 @@
+<div class="actions-list">
+    <div class="row">
+        <div class="col col-sm-12">
+            <span class="text-left title">
+                {{ 'Accès rapides'|trans({}, 'external') }}
+            </span>
+        </div>
+    </div>
+    <div class="actions">
+        {% if tableFields.othersActions|length %}
+            {% for k, other in tableFields.othersActions %}
+                {% if other.path|routeExists %}
+                    {% if other.role %}
+                        {% if is_granted(other.role)%}
+                            <a class="action {{ other.class_action }}" href="{{ path(other.path,tableFields.routeParams) }}">
+                                <i class="{{ other.icon }} {{ k }}"></i>
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <a class="action" href="{{ path(other.path,tableFields.routeParams) }}">
+                            <i class="{{ other.icon }} {{ k }}"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

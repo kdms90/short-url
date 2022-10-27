@@ -1,0 +1,1224 @@
+{% extends 'foundation/back/back.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+{% block internalClass %}dashboad{% endblock %}
+{% block back %}
+    <div class="c">
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <a href="{{ path('app_offers_back_offers') }}" class="widget">
+                    <div  class="widget-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>{{ 'Toutes mes candidatures'|trans({}, 'core') }}</h6>
+                                <p class="count">{{ offersCount|localizednumber('decimal') }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-clock"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 100%;"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <a href="{{ path('app_offers_back_applications') }}" class="widget">
+                    <div class="widget-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>Candidatures retenues</h6>
+                                <p class="count">{{ applicationsCount|localizednumber('decimal') }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-box"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 100%;"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <a href="{{ path('app_feature_back_projects') }}" class="widget">
+                    <div class="widget-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>Mes favoris</h6>
+                                <p class="count">{{ projectsCount|localizednumber('decimal') }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-disc"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 100%;"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <a href="{{ path('app_user_back_accounts') }}" class="widget">
+                    <div class="widget-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>Comptes</h6>
+                                <p class="count">{{ accountsCount|localizednumber('decimal') }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 100%;"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="pt-10">
+                                    <h3 class="card-title">Dernières candidatures<span class="more-back-link-content float-right"><a href="{{ path('app_offers_back_offers') }}">+ d'opportunités</a></span></h3>
+                                    <div id="advanced_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- start project list -->
+                                                <table class="table dataTable no-footer dtr-inline">
+                                                    <thead>
+                                                    <tr class="headings">
+                                                        <th data-field="name" style="width: 400px;">Titre de lappel</th>
+                                                        <th>Emetteur</th>
+                                                        <th data-field="name">Budget</th>
+                                                        <th data-field="descr">Fin</th>
+                                                        <th data-field="candidatures">Candidatures</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for item in lastOffers %}
+                                                        <tr>
+                                                            <td>
+                                                                <a href="{{ path('app_offers_back_offers_detail', {'id':item.id}) }}">
+                                                                    {{ item.i18n(locale).name }}
+                                                                </a>
+                                                                <br>
+                                                                <small>{{ 'created_on'|trans({}, 'external') }} {{ item.dateAdd|localizeddate }}</small>
+                                                            </td>
+                                                            <td>{{ item.transmitter }}</td>
+                                                            {% if is_granted('CAN_VIEW_OFFERS_BUDGET') %}
+                                                                <td>{{ item.budget|localizedcurrency(currency,locale) }}</td>
+                                                            {% endif %}
+                                                            <td>{{ item.endDate|localizeddate('medium','none') }}</td>
+                                                            <td>
+                                                                {% if item.applications|length == 0 %}
+                                                                    {{ 'Pas de candidatures'|trans({}, 'opportunities') }}
+                                                                {% else %}
+                                                                    <a href="#"
+                                                                       class="view-related">{{ item.applications|length|localizednumber('decimal') }}
+                                                                        {{ 'candidature(s)'|trans({}, 'opportunities') }}</a>
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                <!-- end project list -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="pt-10">
+                                    <h3 class="card-title">Opportunités à candidater <span class="more-back-link-content float-right"><a href="{{ path('app_feature_back_projects') }}">+ de projets</a></span></h3>
+                                    <div id="advanced_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- start project list -->
+                                                <table class="table dataTable no-footer dtr-inline">
+                                                    <thead>
+                                                    <tr class="headings">
+                                                        <th data-field="name" style="width: 400px;">{{ 'Nom du projet'|trans({}, 'feature') }}</th>
+                                                        <th data-field="descr">{{ 'Domaine'|trans({}, 'feature') }}</th>
+                                                        <th data-field="descr">{{ 'end_date'|trans({}, 'external') }}</th>
+                                                        <th data-field="descr">{{ 'Budget'|trans({}, 'feature') }}</th>
+                                                        <th data-field="descr">{{ 'Pays'|trans({}, 'feature') }}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for item in lastProjects %}
+                                                        <tr>
+                                                            <td>
+                                                                <a href="{{ path('app_feature_back_project_detail', {'id':item.id}) }}">
+                                                                    {{ item.i18n(locale).name }}
+                                                                </a>
+                                                                <br>
+                                                                <small>{{ 'created_on'|trans({}, 'external') }} {{ item.dateAdd|localizeddate }}</small>
+                                                            </td>
+                                                            <td>
+                                                                {% if item.domain is not null %}
+                                                                    {{ item.domain.i18n(locale).name }}
+                                                                {% else %}
+                                                                    -
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>{{ item.targetEndDate|localizeddate }}</td>
+                                                            <td>{{ item.budget|localizedcurrency(currency,locale) }}</td>
+                                                            <td>
+                                                                {% if item.country is not null %}
+                                                                    {{ item.country.i18n(locale).name }}
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                <!-- end project list -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="min-height: 422px;">
+                    <div class="card-header"><h3>Chiffres projets</h3></div>
+                    <div class="card-body">
+                        <div id="c3-donut-chart" class="c3" style="max-height: 320px; position: relative;">
+                            <svg width="368.328125" height="320" style="overflow: hidden;">
+                                <defs>
+                                    <clipPath id="c3-1570822638885-clip">
+                                        <rect width="368.328125" height="266"></rect>
+                                    </clipPath>
+                                    <clipPath id="c3-1570822638885-clip-xaxis">
+                                        <rect x="-31" y="-20" width="430.328125" height="70"></rect>
+                                    </clipPath>
+                                    <clipPath id="c3-1570822638885-clip-yaxis">
+                                        <rect x="-29" y="-4" width="20" height="290"></rect>
+                                    </clipPath>
+                                    <clipPath id="c3-1570822638885-clip-grid">
+                                        <rect width="368.328125" height="266"></rect>
+                                    </clipPath>
+                                    <clipPath id="c3-1570822638885-clip-subchart">
+                                        <rect width="368.328125" height="0"></rect>
+                                    </clipPath>
+                                </defs>
+                                <g transform="translate(0.5,4.5)">
+                                    <text class="c3-text c3-empty" text-anchor="middle" dominant-baseline="middle"
+                                          x="184.1640625" y="133" style="opacity: 0;"></text>
+                                    <g clip-path="url(file:///home/kdms/Documents/Developments/Tools/Web%20Development/Themes/Bootstrap%204/Bootstrap%204%20AdminTemplate/themekit-master/index.html#c3-1570822638885-clip)"
+                                       class="c3-regions" style="visibility: hidden;"></g>
+                                    <g clip-path="url(file:///home/kdms/Documents/Developments/Tools/Web%20Development/Themes/Bootstrap%204/Bootstrap%204%20AdminTemplate/themekit-master/index.html#c3-1570822638885-clip-grid)"
+                                       class="c3-grid" style="visibility: hidden;">
+                                        <g class="c3-xgrid-focus">
+                                            <line class="c3-xgrid-focus" x1="-10" x2="-10" y1="0" y2="266"
+                                                  style="visibility: hidden;"></line>
+                                        </g>
+                                    </g>
+                                    <g clip-path="url(file:///home/kdms/Documents/Developments/Tools/Web%20Development/Themes/Bootstrap%204/Bootstrap%204%20AdminTemplate/themekit-master/index.html#c3-1570822638885-clip)"
+                                       class="c3-chart">
+                                        <g class="c3-event-rects" style="fill-opacity: 0;">
+                                            <rect class="c3-event-rect" x="0" y="0" width="368.328125"
+                                                  height="266"></rect>
+                                        </g>
+                                        <g class="c3-chart-bars">
+                                            <g class="c3-chart-bar c3-target c3-target-setosa"
+                                               style="pointer-events: none;">
+                                                <g class=" c3-shapes c3-shapes-setosa c3-bars c3-bars-setosa"
+                                                   style="cursor: pointer;"></g>
+                                            </g>
+                                            <g class="c3-chart-bar c3-target c3-target-versicolor"
+                                               style="pointer-events: none;">
+                                                <g class=" c3-shapes c3-shapes-versicolor c3-bars c3-bars-versicolor"
+                                                   style="cursor: pointer;"></g>
+                                            </g>
+                                            <g class="c3-chart-bar c3-target c3-target-virginica"
+                                               style="pointer-events: none;">
+                                                <g class=" c3-shapes c3-shapes-virginica c3-bars c3-bars-virginica"
+                                                   style="cursor: pointer;"></g>
+                                            </g>
+                                        </g>
+                                        <g class="c3-chart-lines">
+                                            <g class="c3-chart-line c3-target c3-target-setosa"
+                                               style="opacity: 1; pointer-events: none;">
+                                                <g class=" c3-shapes c3-shapes-setosa c3-lines c3-lines-setosa"></g>
+                                                <g class=" c3-shapes c3-shapes-setosa c3-areas c3-areas-setosa"></g>
+                                                <g class=" c3-selected-circles c3-selected-circles-setosa"></g>
+                                                <g class=" c3-shapes c3-shapes-setosa c3-circles c3-circles-setosa"
+                                                   style="cursor: pointer;"></g>
+                                            </g>
+                                            <g class="c3-chart-line c3-target c3-target-versicolor"
+                                               style="opacity: 1; pointer-events: none;">
+                                                <g class=" c3-shapes c3-shapes-versicolor c3-lines c3-lines-versicolor"></g>
+                                                <g class=" c3-shapes c3-shapes-versicolor c3-areas c3-areas-versicolor"></g>
+                                                <g class=" c3-selected-circles c3-selected-circles-versicolor"></g>
+                                                <g class=" c3-shapes c3-shapes-versicolor c3-circles c3-circles-versicolor"
+                                                   style="cursor: pointer;"></g>
+                                            </g>
+                                            <g class="c3-chart-line c3-target c3-target-virginica"
+                                               style="opacity: 1; pointer-events: none;">
+                                                <g class=" c3-shapes c3-shapes-virginica c3-lines c3-lines-virginica"></g>
+                                                <g class=" c3-shapes c3-shapes-virginica c3-areas c3-areas-virginica"></g>
+                                                <g class=" c3-selected-circles c3-selected-circles-virginica"></g>
+                                                <g class=" c3-shapes c3-shapes-virginica c3-circles c3-circles-virginica"
+                                                   style="cursor: pointer;"></g>
+                                            </g>
+                                        </g>
+                                        <g class="c3-chart-arcs" transform="translate(184.1640625,128)">
+                                            <text class="c3-chart-arcs-title" style="text-anchor: middle; opacity: 1;">
+                                                Iris Petal Width
+                                            </text>
+                                            <g class="c3-chart-arc c3-target c3-target-setosa">
+                                                <g class=" c3-shapes c3-shapes-setosa c3-arcs c3-arcs-setosa">
+                                                    <path class=" c3-shape c3-shape c3-arc c3-arc-setosa" transform=""
+                                                          style="fill: rgba(237, 28, 36, 0.6); cursor: pointer;"
+                                                          d="M-50.646129990800425,-110.55102675667443A121.6,121.6,0,0,1,-1.3034005345198293e-13,-121.6L-7.820403207118977e-14,-72.96A72.96,72.96,0,0,0,-30.387677994480253,-66.33061605400465Z"></path>
+                                                </g>
+                                                <text dy=".35em"
+                                                      style="opacity: 1; text-anchor: middle; pointer-events: none;"
+                                                      class=""
+                                                      transform="translate(-20.734937830731123,-95.04451984809916)">6.8%
+                                                </text>
+                                            </g>
+                                            <g class="c3-chart-arc c3-target c3-target-versicolor">
+                                                <g class=" c3-shapes c3-shapes-versicolor c3-arcs c3-arcs-versicolor">
+                                                    <path class=" c3-shape c3-shape c3-arc c3-arc-versicolor"
+                                                          transform="" style="fill: rgb(88, 216, 163); cursor: pointer;"
+                                                          d="M-46.95087889769887,112.17029451121903A121.6,121.6,0,0,1,-50.646129990800425,-110.55102675667443L-30.387677994480253,-66.33061605400465A72.96,72.96,0,0,0,-28.170527338619323,67.30217670673142Z"></path>
+                                                </g>
+                                                <text dy=".35em"
+                                                      style="opacity: 1; text-anchor: middle; pointer-events: none;"
+                                                      class=""
+                                                      transform="translate(-97.26661346324175,1.6137860429177646)">36.9%
+                                                </text>
+                                            </g>
+                                            <g class="c3-chart-arc c3-target c3-target-virginica">
+                                                <g class=" c3-shapes c3-shapes-virginica c3-arcs c3-arcs-virginica">
+                                                    <path class=" c3-shape c3-shape c3-arc c3-arc-virginica"
+                                                          transform=""
+                                                          style="fill: rgba(4, 189, 254, 0.6); cursor: pointer;"
+                                                          d="M7.445852538815907e-15,-121.6A121.6,121.6,0,1,1,-46.95087889769887,112.17029451121903L-28.170527338619323,67.30217670673142A72.96,72.96,0,1,0,4.467511523289544e-15,-72.96Z"></path>
+                                                </g>
+                                                <text dy=".35em"
+                                                      style="opacity: 1; text-anchor: middle; pointer-events: none;"
+                                                      class=""
+                                                      transform="translate(95.37541454704433,19.15538305488682)">56.3%
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g class="c3-chart-texts">
+                                            <g class="c3-chart-text c3-target c3-target-setosa  "
+                                               style="opacity: 1; pointer-events: none;">
+                                                <g class=" c3-texts c3-texts-setosa"></g>
+                                            </g>
+                                            <g class="c3-chart-text c3-target c3-target-versicolor  "
+                                               style="opacity: 1; pointer-events: none;">
+                                                <g class=" c3-texts c3-texts-versicolor"></g>
+                                            </g>
+                                            <g class="c3-chart-text c3-target c3-target-virginica  "
+                                               style="opacity: 1; pointer-events: none;">
+                                                <g class=" c3-texts c3-texts-virginica"></g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <g clip-path="url(file:///home/kdms/Documents/Developments/Tools/Web%20Development/Themes/Bootstrap%204/Bootstrap%204%20AdminTemplate/themekit-master/index.html#c3-1570822638885-clip-grid)"
+                                       class="c3-grid c3-grid-lines">
+                                        <g class="c3-xgrid-lines"></g>
+                                        <g class="c3-ygrid-lines"></g>
+                                    </g>
+                                    <g class="c3-axis c3-axis-x"
+                                       clip-path="url(file:///home/kdms/Documents/Developments/Tools/Web%20Development/Themes/Bootstrap%204/Bootstrap%204%20AdminTemplate/themekit-master/index.html#c3-1570822638885-clip-xaxis)"
+                                       transform="translate(0,266)" style="visibility: visible; opacity: 0;">
+                                        <text class="c3-axis-x-label" transform="" style="text-anchor: end;"
+                                              x="368.328125" dx="-0.5em" dy="-0.5em"></text>
+                                        <g class="tick" transform="translate(4, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">0</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(11, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">1</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(19, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">2</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(26, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">3</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(34, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">4</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(41, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">5</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(48, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">6</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(56, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">7</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(63, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">8</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(70, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">9</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(78, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">10</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(85, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">11</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(93, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">12</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(100, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">13</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(107, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">14</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(115, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">15</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(122, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">16</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(129, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">17</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(137, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">18</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(144, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">19</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(152, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">20</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(159, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">21</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(166, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">22</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(174, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">23</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(181, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">24</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(188, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">25</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(196, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">26</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(203, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">27</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(210, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">28</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(218, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">29</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(225, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">30</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(233, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">31</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(240, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">32</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(247, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">33</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(255, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">34</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(262, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">35</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(269, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">36</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(277, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">37</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(284, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">38</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(292, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">39</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(299, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">40</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(306, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">41</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(314, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">42</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(321, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">43</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(328, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">44</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(336, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">45</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(343, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">46</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(350, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">47</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(358, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">48</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(365, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">49</tspan>
+                                            </text>
+                                        </g>
+                                        <path class="domain" d="M0,6V0H368.328125V6"></path>
+                                    </g>
+                                    <g class="c3-axis c3-axis-y"
+                                       clip-path="url(file:///home/kdms/Documents/Developments/Tools/Web%20Development/Themes/Bootstrap%204/Bootstrap%204%20AdminTemplate/themekit-master/index.html#c3-1570822638885-clip-yaxis)"
+                                       transform="translate(0,0)" style="visibility: visible; opacity: 0;">
+                                        <text class="c3-axis-y-label" transform="rotate(-90)" style="text-anchor: end;"
+                                              x="0" dx="-0.5em" dy="1.2em"></text>
+                                        <g class="tick" transform="translate(0,254)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">0</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,235)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">0.2</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,217)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">0.4</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,198)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">0.6</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,180)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">0.8</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,162)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">1</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,143)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">1.2</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,125)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">1.4</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,106)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">1.6</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,88)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">1.8</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,70)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">2</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,51)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">2.2</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,33)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">2.4</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,14)" style="opacity: 1;">
+                                            <line x2="-6"></line>
+                                            <text x="-9" y="0" style="text-anchor: end;">
+                                                <tspan x="-9" dy="3">2.6</tspan>
+                                            </text>
+                                        </g>
+                                        <path class="domain" d="M-6,1H0V266H-6"></path>
+                                    </g>
+                                    <g class="c3-axis c3-axis-y2" transform="translate(368.328125,0)"
+                                       style="visibility: hidden; opacity: 0;">
+                                        <text class="c3-axis-y2-label" transform="rotate(-90)" style="text-anchor: end;"
+                                              x="0" dx="-0.5em" dy="-0.5em"></text>
+                                        <g class="tick" transform="translate(0,266)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,240)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0.1</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,213)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0.2</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,187)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0.3</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,160)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0.4</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,134)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0.5</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,107)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0.6</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,81)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0.7</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,54)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0.8</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,28)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">0.9</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(0,1)" style="opacity: 1;">
+                                            <line x2="6"></line>
+                                            <text x="9" y="0" style="text-anchor: start;">
+                                                <tspan x="9" dy="3">1</tspan>
+                                            </text>
+                                        </g>
+                                        <path class="domain" d="M6,1H0V266H6"></path>
+                                    </g>
+                                </g>
+                                <g transform="translate(0.5,320.5)" style="visibility: hidden;">
+                                    <g clip-path="url(file:///home/kdms/Documents/Developments/Tools/Web%20Development/Themes/Bootstrap%204/Bootstrap%204%20AdminTemplate/themekit-master/index.html#c3-1570822638885-clip-subchart)"
+                                       class="c3-chart">
+                                        <g class="c3-chart-bars"></g>
+                                        <g class="c3-chart-lines"></g>
+                                    </g>
+                                    <g clip-path="url(file:///home/kdms/Documents/Developments/Tools/Web%20Development/Themes/Bootstrap%204/Bootstrap%204%20AdminTemplate/themekit-master/index.html#c3-1570822638885-clip)"
+                                       class="c3-brush" fill="none" pointer-events="all"
+                                       style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                        <rect class="overlay" pointer-events="all" cursor="crosshair" x="0" y="0"
+                                              width="368.328125" height="0"></rect>
+                                        <rect class="selection" cursor="move" fill="#777" fill-opacity="0.3"
+                                              stroke="#fff" shape-rendering="crispEdges" style="display: none;"></rect>
+                                        <rect class="handle handle--e" cursor="ew-resize" style="display: none;"></rect>
+                                        <rect class="handle handle--w" cursor="ew-resize" style="display: none;"></rect>
+                                    </g>
+                                    <g class="c3-axis-x" transform="translate(0,0)"
+                                       clip-path="url(file:///home/kdms/Documents/Developments/Tools/Web%20Development/Themes/Bootstrap%204/Bootstrap%204%20AdminTemplate/themekit-master/index.html#c3-1570822638885-clip-xaxis)"
+                                       style="opacity: 0;">
+                                        <g class="tick" transform="translate(4, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">0</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(11, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">1</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(19, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">2</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(26, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">3</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(34, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">4</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(41, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">5</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(48, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">6</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(56, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">7</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(63, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">8</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(70, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">9</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(78, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">10</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(85, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">11</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(93, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">12</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(100, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">13</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(107, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">14</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(115, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">15</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(122, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">16</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(129, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">17</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(137, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">18</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(144, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">19</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(152, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">20</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(159, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">21</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(166, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">22</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(174, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">23</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(181, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">24</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(188, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">25</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(196, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">26</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(203, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">27</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(210, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">28</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(218, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">29</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(225, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">30</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(233, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">31</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(240, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">32</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(247, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">33</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(255, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">34</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(262, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">35</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(269, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">36</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(277, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">37</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(284, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">38</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(292, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">39</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(299, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">40</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(306, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">41</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(314, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">42</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(321, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">43</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(328, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">44</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(336, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">45</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(343, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">46</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(350, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">47</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(358, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+                                                <tspan x="0" dy=".71em" dx="0">48</tspan>
+                                            </text>
+                                        </g>
+                                        <g class="tick" transform="translate(365, 0)" style="opacity: 1;">
+                                            <line x1="0" x2="0" y2="6"></line>
+                                            <text x="0" y="9" transform="" style="text-anchor: middle; display: none;">
+                                                <tspan x="0" dy=".71em" dx="0">49</tspan>
+                                            </text>
+                                        </g>
+                                        <path class="domain" d="M0,6V0H368.328125V6"></path>
+                                    </g>
+                                </g>
+                                <g transform="translate(0,300)">
+                                    <g class="c3-legend-item c3-legend-item-setosa"
+                                       style="visibility: visible; cursor: pointer;">
+                                        <text x="96.96875" y="9" style="pointer-events: none;">setosa</text>
+                                        <rect class="c3-legend-item-event" x="82.96875" y="-5" style="fill-opacity: 0;"
+                                              width="62.6875" height="18"></rect>
+                                        <line class="c3-legend-item-tile" x1="80.96875" y1="4" x2="90.96875" y2="4"
+                                              stroke-width="10"
+                                              style="stroke: rgba(237, 28, 36, 0.6); pointer-events: none;"></line>
+                                    </g>
+                                    <g class="c3-legend-item c3-legend-item-versicolor"
+                                       style="visibility: visible; cursor: pointer;">
+                                        <text x="159.65625" y="9" style="pointer-events: none;">versicolor</text>
+                                        <rect class="c3-legend-item-event" x="145.65625" y="-5" style="fill-opacity: 0;"
+                                              width="78.359375" height="18"></rect>
+                                        <line class="c3-legend-item-tile" x1="143.65625" y1="4" x2="153.65625" y2="4"
+                                              stroke-width="10"
+                                              style="stroke: rgb(88, 216, 163); pointer-events: none;"></line>
+                                    </g>
+                                    <g class="c3-legend-item c3-legend-item-virginica"
+                                       style="visibility: visible; cursor: pointer;">
+                                        <text x="238.015625" y="9" style="pointer-events: none;">virginica</text>
+                                        <rect class="c3-legend-item-event" x="224.015625" y="-5"
+                                              style="fill-opacity: 0;" width="61.34375" height="18"></rect>
+                                        <line class="c3-legend-item-tile" x1="222.015625" y1="4" x2="232.015625" y2="4"
+                                              stroke-width="10"
+                                              style="stroke: rgba(4, 189, 254, 0.6); pointer-events: none;"></line>
+                                    </g>
+                                </g>
+                                <text class="c3-title" x="184.1640625" y="0"></text>
+                            </svg>
+                            <div class="c3-tooltip-container"
+                                 style="position: absolute; pointer-events: none; display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="min-height: 422px;">
+                    <div class="card-header">
+                        <h3>Dernières connexions</h3>
+                    </div>
+                    <div class="card-body timeline">
+                        <div class="header bg-theme"
+                             style="background-image: url('img/placeholder/placeimg_400_200_nature.jpg')">
+                            <div class="color-overlay d-flex align-items-center">
+                                <div class="day-number">8</div>
+                                <div class="date-right">
+                                    <div class="day-name">Monday</div>
+                                    <div class="month">February 2018</div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="bullet bg-pink"></div>
+                                <div class="time">11am</div>
+                                <div class="desc">
+                                    <h3>Attendance</h3>
+                                    <h4>Computer Class</h4>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="bullet bg-green"></div>
+                                <div class="time">12pm</div>
+                                <div class="desc">
+                                    <h3>Design Team</h3>
+                                    <h4>Hangouts</h4>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="bullet bg-orange"></div>
+                                <div class="time">2pm</div>
+                                <div class="desc">
+                                    <h3>Finish</h3>
+                                    <h4>Go to Home</h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

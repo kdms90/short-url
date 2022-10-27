@@ -1,0 +1,31 @@
+<div class="section-block-grey">
+    <div class="container">
+        {% set id = 0 %}
+        {% if entity is not null %}
+            {% set id = entity.id %}
+            <h2 class="mb-4">Métiers de {{ entity.name }}</h2>
+        {% else %}
+            <h2 class="mb-4">Métiers du Groupe</h2>
+        {% endif %}
+        <div class="expertise-nav skill-nav">
+            <a id="serv-prev" href="{{ path('app_business_front_ajax_paginate_entity_services',{id: id}) }}?type=service" data-prev="serv-prev" data-next="serv-next" data-id="0" data-operation="-1" data-wrap="all-expertises" class="chevron-nav left {% if page == 1%}d-none{% endif %}" data-total-pages="{{ nb_serv_page }}" data-page="{{ page }}"> <i class="ik ik-chevron-left"></i></a>
+            <a id="serv-next" href="{{ path('app_business_front_ajax_paginate_entity_services',{id: id}) }}?type=service" data-prev="serv-prev" data-next="serv-next" data-id="0" data-operation="1" data-wrap="all-expertises" class="chevron-nav right {% if page == nb_serv_page%}d-none{% endif %}" data-total-pages="{{ nb_serv_page }}" data-page="{{ page }}"> <i class="ik ik-chevron-right"></i></a>
+        </div>
+        <div class="row" id="all-expertises">
+            {% include 'business/front/service/shared/services.html.twig' with {'entities':entities} %}
+        </div>
+        {% if entity is not null %}
+            <h2>Secteurs d'invention de {{ entity.name }}</h2>
+        {% else %}
+            <h2>Secteurs d'invention du Groupe</h2>
+        {% endif %}
+        <p class="color-blue">Nous sommes actifs dans de nombreaux secteurs</p>
+        <div class="categories-nav skill-nav">
+            <a id="cat-prev" href="{{ path('app_business_front_ajax_paginate_entity_services',{id: id}) }}?type=category" data-operation="-1" data-id="{{ id }}" data-prev="cat-prev" data-next="cat-next" data-wrap="all-categories" class="chevron-nav left {% if page == 1%}d-none{% endif %}" data-total-pages="{{ nb_cat_page }}" data-page="{{ page }}"> <i class="ik ik-chevron-left"></i></a>
+            <a id="cat-next" href="{{ path('app_business_front_ajax_paginate_entity_services',{id: id}) }}?type=category" data-operation="1" data-id="{{ id }}" data-prev="cat-prev" data-next="cat-next" data-wrap="all-categories" class="chevron-nav right {% if page == nb_cat_page%}d-none{% endif %}" data-total-pages="{{ nb_cat_page }}" data-page="{{ page }}"> <i class="ik ik-chevron-right"></i></a>
+        </div>
+        <div class="row" id="all-categories">
+            {% include 'business/front/service/shared/categories.html.twig' with {'categories':categories} %}
+        </div>
+    </div>
+</div>

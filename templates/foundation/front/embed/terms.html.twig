@@ -1,0 +1,9 @@
+{% if notice is not null %}
+    <li class="terms"><a href="{{ path('app_foundation_front_cms_page_content',{'id':notice.id,'slug':notice.i18n(locale).slug}) }}"> {{ notice.i18n(locale).name }}</a></li>
+{% endif %}
+{% if privacyPolicy is not null %}
+    <li class="terms"><a href="{{ path('app_foundation_front_cms_page_content',{'id':privacyPolicy.id,'slug':privacyPolicy.i18n(locale).slug}) }}"> {{ privacyPolicy.i18n(locale).name }}</a></li>
+{% endif %}
+{% if terms is not null %}
+    <li class="terms"><a href="{{ path('app_foundation_front_cms_page_content',{'id':terms.id,'slug':terms.i18n(locale).slug}) }}"> {{ terms.i18n(locale).name }}</a></li>
+{% endif %}

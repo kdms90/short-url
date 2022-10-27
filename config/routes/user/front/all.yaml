@@ -1,0 +1,3 @@
+app_user_auth:
+  resource: auth.yaml
+  prefix:   /

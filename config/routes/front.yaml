@@ -1,0 +1,11 @@
+app_foundation_front_homepage:
+  path: /
+  defaults: { _controller: App\Controller\Foundation\Front\IndexController::index,_locale: "fr" }
+  requirements:
+    _locale: fr|en
+app_front_business:
+  resource: business/front/all.yaml
+  prefix:   /
+app_front_user:
+  resource: user/front/all.yaml
+  prefix:   /user

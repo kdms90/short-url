@@ -1,0 +1,248 @@
+{% for item in entities %}
+    <tr>
+        {% for key, field in tableFields.fields %}
+            {% set dataId = 0 %}
+            {% if field.pk %}
+                {% set dataId = attribute(item, field.key) %}
+                <td class="a-center">
+                    <label>
+                        <input type="checkbox" class="native-check"
+                               value="{{ attribute(item, field.key) }}"
+                               name="table_records">
+                    </label>
+                </td>
+            {% else %}
+                {% if field.show %}
+                    <td style="
+                                {% if field.isThumbnail %}width:45px;{% endif %}
+                                {% if field.wrap is defined %}overflow-wrap: anywhere;{% endif %}
+                                {% if field.align %}text-align: {{ field.align }};{% endif %}
+                            ">
+                        {% set value %}
+                            {% if attribute(item, field.callback) is defined %}
+                                {% if field.lang %}
+                                    {{ attribute(item, field.callback, [locale])| reader(250) | raw }}
+                                {% else %}
+                                    {{ attribute(item, field.callback)|raw }}
+                                {% endif %}
+                            {% else %}
+                                {% if field.type == 'date' %}
+                                    {{ attribute(item, key)|localizeddate('medium','none') }}
+                                {% elseif field.type == 'switch' and field.switchValues is defined and field.switchValues[attribute(item, key)] is defined %}
+                                    {{ field.switchValues[attribute(item, key)] | raw }}
+                                {% elseif field.type == 'money' %}
+                                    {% if attribute(item, field.currency_callback) is defined %}
+                                        {% set curency = attribute(item, field.currency_callback) %}
+                                    {% else %}
+                                        {% set curency = field.default_currency %}
+                                    {% endif %}
+                                    {{ attribute(item, key)|localizedcurrency(curency,locale) }}
+                                {% else %}
+                                    {{ attribute(item, key)|raw }}
+                                {% endif %}
+
+                            {% endif %}
+                        {% endset %}
+                        {% if field.detail_link and field.key %}
+                            <a class="view-related table-list-link {{ field.class_action }}" data-action="{{ path(field.detail_link, {(field.key) : attribute(item, field.key) }) }}"
+                               href="{{ path(field.detail_link, {(field.key) : attribute(item, field.key) }) }}">
+                                {{ value }} <i class="ik ik-link-2"></i>
+                            </a>
+                        {% elseif field.isThumbnail %}
+                            {% if attribute(item, field.callback) is defined and attribute(item, field.callback) %}
+                                <img src="{{ asset(attribute(item, field.callback)) }}" alt="..."
+                                     class="img-fluid img-thumbnail rounded-circle">
+                            {% else %}
+                                <img src="{{ asset('img/defaults/no-image-user.png') }}"
+                                     class="img-fluid img-thumbnail rounded-circle">
+                            {% endif %}
+                        {% else %}
+                            {{ value }}
+                        {% endif %}
+                        {% if field.link is defined %}
+                            <br>
+                            <small>{{ attribute(item, field.link, [locale])|raw }}</small>
+                        {% endif %}
+                        {% if field.hasDate %}
+                            <br>
+                            <small>{{ 'created_on'|trans({}, 'external') }} {{ item.dateAdd|localizeddate('medium','none') }}</small>
+                        {% endif %}
+                    </td>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <td class="action-dropdown">
+            {% block tableActions %}
+                <div class="action-btn">
+                    <div class="btn-group pull-right">
+                        {% if tableFields.defaultAction|length %}
+                            {% if tableFields.defaultAction.path|routeExists %}
+                                {#Ici on check s'il faut afficher les détails sur une sidebar au click, si non met la classe css par défaut #}
+                                <a href="{{ tableFields.defaultAction.isBasic ? '#' :
+                                path(tableFields.defaultAction.path, {(tableFields.defaultAction.key):attribute(item, tableFields.defaultAction.key)}) }}"
+                                   class="edit btn btn-default default-action show-more-details {{ tableFields.defaultAction.isBasic ? 'show-more-right-details' : tableFields.defaultAction.class_action }}"
+                                   data-id="{{ item.id }}">
+                                    <i class="{{ tableFields.defaultAction.icon }}"></i> {{ tableFields.defaultAction.text }}
+                                </a>
+                                {% if tableFields.actions|length %}
+                                    {#On se rassure que les qu'il y a pas de lien conditionnel#}
+                                    {% set showThis = false %}
+                                    {% for act in tableFields.actions %}
+                                        {% if act.show_if is defined %}
+                                            {% if attribute(item,act.show_if) %}{% set showThis = true %}{% endif %}
+                                        {% else %}
+                                            {% set showThis = true %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if showThis %}
+                                        <button class="btn btn-default dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="fa fa-caret-down"></i>&nbsp;
+                                        </button>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if tableFields.actions|length %}
+                            <ul class="dropdown-menu">
+                                {% for action in tableFields.actions %}
+                                    {#Permet de savoir si on affiche le lien vers l'action#}
+                                    {% if action.path|routeExists or action.class_action is defined %}
+                                        {% if action.show_if is defined %}
+                                            {% if attribute(item,action.show_if) %}
+                                                <li>
+                                                    <a href="{{ action.path|routeExists ? path(action.path, {(action.key):attribute(item, action.key) }) : '#' }}"
+                                                       class="{{ action.class_action is defined ? action.class_action : '' }}">
+                                                        <i class="{{ action.icon }}"></i>
+                                                        <span class="text">{{ action.text | raw }}</span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% else %}
+                                            <li>
+                                                <a href="{{ action.path|routeExists ? path(action.path, {(action.key):attribute(item, action.key) }) : '#' }}"
+                                                   class="{{ action.class_action is defined ? action.class_action : '' }}">
+                                                    <i class="{{ action.icon }}"></i>
+                                                    <span class="text">{{ action.text | raw }}</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endblock %}
+        </td>
+    </tr>
+    {% if tableFields.defaultAction|length %}
+        {% if tableFields.defaultAction.path|routeExists %}
+            {% if tableFields.defaultAction.isBasic %}
+                <div id="right-more-details-{{ item.id }}"
+                     class="right-more-details d-flex flex-column">
+                    <div class="x_panel">
+                        <div class="d-flex x_panel_header">
+                            <div>
+                                <h2 class="more-details-title">
+                                    {{ tableFields.rightDetailsOptions.title }}
+                                </h2>
+                            </div>
+                            <div>
+                                <span class="pull-right close-more-details" data-id="{{ item.id }}">
+                                    <i class="ion-ios-close"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="bg-white x_panel_content border rounded p-3">
+                            {% for key, field in tableFields.fields %}
+                                {% if not field.pk %}
+                                    <div class="d-flex flex-column mb-2">
+                                        <div class="mb-2 pb-1 border-bottom">
+                                            <span class="more-details-title">{{ field.title }} </span>
+                                        </div>
+                                        <div class="">
+                                            {% set value %}
+                                                {% if attribute(item, field.callback) is defined %}
+                                                    {% if field.lang %}
+                                                        {{ attribute(item, field.callback, [locale])|raw }}
+                                                    {% else %}
+                                                        {{ attribute(item, field.callback)|raw }}
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% if field.type == 'date' %}
+                                                        {{ attribute(item, key)|localizeddate('medium','none') }}
+                                                    {% elseif field.type == 'switch' and field.switchValues is defined and field.switchValues[attribute(item, key)] is defined %}
+                                                        {{ field.switchValues[attribute(item, key)] | raw }}
+                                                    {% elseif field.type == 'money' %}
+                                                        {% if attribute(item, field.currency_callback) is defined %}
+                                                            {% set curency = attribute(item, field.currency_callback) %}
+                                                        {% else %}
+                                                            {% set curency = field.default_currency%}
+                                                        {% endif %}
+                                                        {{ attribute(item, key)|localizedcurrency(curency,locale) }}
+                                                    {% else %}
+                                                        {{ attribute(item, key)|raw }}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endset %}
+                                            {% if field.detail_link and field.key %}
+                                                <a class="view-related"
+                                                   href="{{ path(field.detail_link, {(field.key) : attribute(item, field.key) }) }}">
+                                                    {{ value }}
+                                                </a>
+                                            {% elseif field.isThumbnail %}
+                                                {% if value|length  and 0 %}
+                                                    <img src="{{ value }}"
+                                                         alt="..."
+                                                         class="img-fluid img-thumbnail">
+                                                {% else %}
+                                                    <img src="{{ asset('img/defaults/no-image-user.png') }}"
+                                                         class="img-fluid img-thumbnail">
+                                                {% endif %}
+                                            {% else %}
+                                                {{ value }}
+                                            {% endif %}
+                                            {% if field.hasDate %}
+                                                <br>
+                                                <small>{{ 'created_on'|trans({}, 'external') }} {{ item.dateAdd|localizeddate('medium','none') }}</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="right-more-actions d-flex justify-content-around bg-white p-2 mt-auto">
+                        {% if tableFields.actions|length %}
+                            <a href="{{ path(tableFields.defaultAction.path, {(tableFields.defaultAction.key):attribute(item, tableFields.defaultAction.key)}) }}"
+                               class="edit btn btn-default default-action rounded mx-3 {{ tableFields.defaultAction.buttonClass }}">
+                                <i class="{{ tableFields.defaultAction.icon }}"></i> {{ tableFields.defaultAction.text }}
+                            </a>
+                            {% for action in tableFields.actions %}
+                                {% if action.path|routeExists or action.class_action is defined %}
+                                    {% if action.show_if is defined %}
+                                        {% if attribute(item,action.show_if) %}
+                                            <a href="{{ action.path|routeExists ? path(action.path, {(action.key):attribute(item, action.key) }) : '#' }}"
+                                               class="edit btn btn-default default-action rounded mx-3 {{ action.class_action is defined ? action.class_action : '' }} {{ action.class is defined ? action.class : tableFields.defaultAction.buttonClass }}">
+                                                <i class="{{ action.icon }}"></i>
+                                                <span class="text">{{ action.text | raw }}</span>
+                                            </a>
+                                        {% endif %}
+                                    {% else %}
+                                        <a href="{{ action.path|routeExists ? path(action.path, {(action.key):attribute(item, action.key) }) : '#' }}"
+                                           class="edit btn btn-default default-action rounded mx-3 {{ action.class_action is defined ? action.class_action : '' }} {{ action.class is defined ? action.class : tableFields.defaultAction.buttonClass }}">
+                                            <i class="{{ action.icon }}"></i>
+                                            <span class="text">{{ action.text | raw }}</span>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endfor %}

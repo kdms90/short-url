@@ -1,0 +1,30 @@
+{% extends 'foundation/back/form/back-form-add-right-side.html.twig' %}
+{% block headerInputs %}
+    {{ form_row(form.name) }}
+{% endblock %}
+{% block tabBody %}
+    <div class="row">
+        <div class="col-xs-12">
+            {{ form_errors(form) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row form-row mb-5">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.link) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.link.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.link) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.link) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ parent() }}
+{% endblock %}
+{% block sideCard %}
+    {% include 'foundation/back/shared/form/thumnail.html.twig' with {'item':item,'form':form} %}
+{% endblock %}

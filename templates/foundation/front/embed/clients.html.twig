@@ -1,0 +1,23 @@
+<div class="customer-section">
+    <div class="container">
+        <div class="text-center innerContainer">
+            <hr>
+            <span class="featured-lines">{{ 'they-support-us'|trans({},'home') }}</span>
+        </div>
+        <section class="customer-logos slider">
+            {% for item in entities %}
+                <div class="slide">
+                    <a href="#" target="_blank">
+                        {% if item.thumbnail is not null and item.thumbnail.imageExists %}
+                            <img alt="{{ item.name }}" src="{{ asset(item.thumbnail.webPath) }}" class="im"
+                                 height="50"/>
+                        {% else %}
+                            <img alt="{{ item.name }}" src="{{ asset('img/defaults/media.png') }}" class="img-fluid"
+                                 height="50"/>
+                        {% endif %}
+                    </a>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+</div>

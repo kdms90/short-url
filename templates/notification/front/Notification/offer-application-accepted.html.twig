@@ -1,0 +1,27 @@
+{# On étend notre layout #}
+{% extends "DBNotificationBundle::Front/layout-left.html.twig" %}
+{% block title %}| Appel à candidature{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('app_notification_front_notifications') }}">Notifications</a></li>
+    <li class="separator"><i class="glyphicon glyphicon-share-alt"></i></li>
+    <li class="active">Appel à candidature acceptée</li>
+{% endblock %}
+{% block FOContentNotification %}
+    <div class="row header-title">
+        <div class="col-md-12">
+            <h3 class="item-title margin-top-15">Vos notifications</h3>
+            <span>
+                Appel à candidature
+            </span>
+        </div>
+    </div>
+    <div class="row content-notification">
+        <div class="col-md-12">
+            <p><strong>{{ applicationOffer.offers.own.fullname }}</strong> a retenue <strong>{{ query.tools.elapseTime(notification.dateAdd) }}</strong>, votre candidature pour l'appel à candidature <strong>{{ applicationOffer.offers.i18n(locale).name }}</strong> lancée le <strong>{{ applicationOffer.offers.dateAdd|localizeddate('medium','none')}}</strong>.</p>
+            <p><a href="{{ path('app_offers_offers_view', { 'id': applicationOffer.offers.id, 'slug': applicationOffer.offers.i18n(locale).slug }) }}">Voir les détails de l'appel </a> </p>
+        </div>
+    </div>
+{% endblock %}

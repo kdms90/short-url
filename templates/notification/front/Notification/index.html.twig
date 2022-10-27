@@ -1,0 +1,45 @@
+{# On étend notre layout #}
+{% extends "DBNotificationBundle::Front/layout-left.html.twig" %}
+{% block title %}| Notifications{% endblock %}
+{% block breadcrumb %}
+    <li class="active">Vos notifications</li>
+{% endblock %}
+{% block FOContentNotification %}
+    <div class="row header-title">
+        <div class="col-md-12">
+            <h3 class="item-title margin-top-15">Vos notifications</h3>
+            <div class="row">
+                <span class="col-xs-7 col-xs-12 block margin-top-5">
+                    <span class="unreadNotificationNumber">{{ unreadNotificationNumber }}</span> notification(s) non lue(s) sur {{ notificationNumber }}
+                </span>
+                {% if unreadNotificationNumber > 0 %}
+                    <span class="col-xs-5 col-xs-12"><a href="#" class="readAllNotifications btn btn-default btn-sm">Marquer tout comme lu</a> </span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row pagination-top" style="margin-top: 15px;">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            {% include 'foundation/front/shared:pagination.html.twig' with {'path': 'app_notification_front_notifications'} %}
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-12">
+            <ul id="notifications">
+                {% for notification in lastNotifications %}
+                    <li>
+                        <a href="{{ notification.link }}" class="{{ notification.class }}">
+                        <span class="title">
+                            {{ notification.label|raw }}
+                        </span>
+                            <span class="times">{{ notification.date }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="row bottom-pagination">
+        {% include 'foundation/front/shared:pagination.html.twig' with {'path': 'app_notification_front_notifications'} %}
+    </div>
+{% endblock %}

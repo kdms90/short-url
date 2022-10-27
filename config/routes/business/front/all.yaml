@@ -1,0 +1,3 @@
+app_business_url:
+  resource: url.yaml
+  prefix:   /

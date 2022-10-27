@@ -1,0 +1,224 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="card" id="regions_div" style="width: 100%; height: 500px;"></div>
+        <div class="card d-flex justify-content-center align-items-center" id="expense_div" style="width: 100%; height: 300px;">loading...</div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="pt-10">
+                            <h3 class="card-title">
+                                Dernières opportunités
+                                <span class="more-back-link-content float-right">
+                                    <a href="{{ path('app_opportunity_back_opportunities') }}">+ d'opportunités</a>
+                                </span>
+                            </h3>
+                            <div id="advanced_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <!-- start project list -->
+                                        <table class="table dataTable no-footer dtr-inline">
+                                            <thead>
+                                            <tr class="headings">
+                                                <th data-field="name" style="width: 200px;">Titre de
+                                                    l'{{ 'opportunity' | trans({}, 'opportunity') }}</th>
+                                                <th>Organisme Acheteur</th>
+                                                {% if is_granted('CAN_VIEW_OPPORTUNITIES_BUDGET') %}
+                                                    <th data-field="name">Budget</th>{% endif %}
+                                                <th data-field="descr">Fin</th>
+                                                <th data-field="candidatures">Etat</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for item in opportunities.recents %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="#">
+                                                            {{ item.i18n(locale).name }}
+                                                        </a>
+                                                        <br>
+                                                        <small>{{ 'created_on'|trans({}, 'external') }} {{ item.dateAdd|localizeddate }}</small>
+                                                    </td>
+                                                    <td>{{ item.buyingAgency ? item.buyingAgency.actor.company.name : 'N/A' }}</td>
+                                                    {% if is_granted('CAN_VIEW_OPPORTUNITIES_BUDGET') %}
+                                                        <td>{{ item.currency ? item.budget|localizedcurrency(item.currency.code,locale) : item.budget|localizedcurrency(currency,locale) }}</td>
+                                                    {% endif %}
+                                                    <td>{{ item.endDate|localizeddate('medium','none') }}</td>
+                                                    <td>
+                                                        {{ item.opportunityStatus }}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <!-- end project list -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mt-3">
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active text-uppercase" id="opportinities-tab" data-toggle="tab"
+                           href="#opportinities" role="tab" aria-controls="opportinities" aria-selected="true">
+                            {{ 'opportunities'|trans({},'opportunity') }}
+                        </a>
+                    </li>
+                    <li class="nav-item text-uppercase">
+                        <a class="nav-link" id="projects-tab" data-toggle="tab" href="#projects" role="tab"
+                           aria-controls="projects" aria-selected="false">
+                            {{ 'menu.projects'|trans({},'core') }}
+                        </a>
+                    </li>
+                    <li class="nav-item text-uppercase">
+                        <a class="nav-link" id="consultants-tab" data-toggle="tab" href="#consultants"
+                           role="tab" aria-controls="consultants" aria-selected="false">
+                            {{ 'text.consultants'|trans({},'core') }}
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content mb-2 " id="myTabContent2">
+                    <div class="m-0 px-3 py-2 card clearfix panel-info tab-pane fade show active"
+                         id="opportinities">
+                        <div class="table-responsive d-flex flex-column stat-text">
+                            <div class="d-flex w-100">
+                                <div class="w-50 more-back-link-content"><a href="{{ path('app_opportunity_back_opportunities') }}">Vu d'ensemble</a></div>
+                                <div class="w-50">Année : <span class="selectedYear">2020</span></div>
+                            </div>
+                            <div class="my-2 p-2 d-flex w-100 bg-light">
+                                Total : {{ (opportunities.count > 9) ? '' : '0' }}{{ opportunities.count|localizednumber('decimal') }} <br/>
+                                Budget Total : {{ (opportunities.budget > 9) ? '' : '0' }}{{ opportunities.budget|localizedcurrency(currency, locale) }} <br/>
+                                En attente d'evaluation : {{ (opportunities.onWaiting > 9) ? '' : '0' }}{{ opportunities.onWaiting|localizednumber('decimal') }} <br/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-0 px-3 py-2 card clearfix panel-info tab-pane fade" id="projects">
+                        <div class="table-responsive d-flex flex-column stat-text">
+                            <div class="d-flex w-100">
+                                <div class="w-50 more-back-link-content"><a href="{{ path('app_project_back_projects') }}">Vu d'ensemble</a></div>
+                                <div class="w-50">Année : <span class="selectedYear">2020</span></div>
+                            </div>
+                            <div class="my-2 p-2 d-flex w-100 bg-light">
+                                Total : {{ (projects.count > 9) ? '' : '0' }}{{ projects.count|localizednumber('decimal') }} <br/>
+                                Budget Total : {{ (projects.budget > 9) ? '' : '0' }}{{ projects.budget|localizedcurrency(currency, locale) }} <br/>
+                                Réalisés : {{ (projects.ended > 9) ? '' : '0' }}{{ projects.ended|localizednumber('decimal') }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-0 px-3 py-2 card clearfix panel-info tab-pane fade" id="consultants">
+                        <div class="table-responsive d-flex flex-column stat-text">
+                            <div class="d-flex w-100">
+                                <div class="w-50 more-back-link-content"><a  href="{{ path('app_user_back_consultants') }}">Vu d'ensemble</a></div>
+                                <div class="w-50">Année : <span class="selectedYear">2020</span></div>
+                            </div>
+                            <div class="my-2 p-2 d-flex w-100 bg-light">
+                                Total : {{ (consultants.count > 9) ? '' : '0' }}{{ consultants.count|localizednumber('decimal') }} <br/>
+                                En attente de validation : {{ (consultants.pending > 9) ? '' : '0' }}{{ consultants.pending|localizednumber('decimal') }} <br/>
+                                Sexe (Homme/Femme) : {{ (consultants.men > 9) ? '' : '0' }}{{ consultants.men|localizednumber('decimal') }} / {{ (consultants.women > 9) ? '' : '0' }}{{ consultants.women|localizednumber('decimal') }}<br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="yearLegend__21Pyw mt-3 d-flex">
+            <li data-value="2015" data-views="project"><span class="ion-ios-arrow-back"></span></li>
+            <li class="project-year" data-value="2018" data-views="project">2018</li>
+            <li class="project-year" data-value="2019" data-views="project">2019</li>
+            <li class="active current-date project-year" data-value="2020" data-views="project">2020</li>
+            <li data-value="2021" data-views="project" class="ml-auto"><span class="ion-ios-arrow-forward"></span></li>
+        </ul>
+        <div class="row clearfix mt-3">
+            <div class="col-6 pr-2">
+                <a href="{{ path('app_opportunity_back_opportunities') }}" class="widget"
+                   id="oppotunity-stat">
+                    <div class="pb-0 px-3 pt-2 ">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>{{ 'opportunities'|trans({}, 'opportunity') }}</h6>
+                                <p class="count">{{ (opportunities.count > 9) ? '' : '0' }}{{ opportunities.count|localizednumber('decimal') }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-briefcase color-furshia-light"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-fuchsia-light" role="progressbar" aria-valuenow="100"
+                             aria-valuemin="0"
+                             aria-valuemax="100" style="width: 100%;"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 pl-2">
+                <a href="{{ path('app_project_back_projects') }}" class="widget" id="project-stat">
+                    <div class="pb-0 px-3 pt-2 ">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>Projets</h6>
+                                <p class="count">{{ (projects.count > 9) ? '' : '0' }}{{ projects.count|localizednumber('decimal') }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-database color-green"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="100"
+                             aria-valuemin="0"
+                             aria-valuemax="100" style="width: 100%;"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 pr-2">
+                <a href="{{ path('app_user_back_collaborators') }}" class="widget" id="client-stat">
+                    <div class="pb-0 px-3 pt-2 ">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>Clients</h6>
+                                <p class="count">{{ (customers.count > 9) ? '' : '0' }}{{ customers.count|localizednumber('decimal') }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-users color-blue"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="100"
+                             aria-valuemin="0"
+                             aria-valuemax="100" style="width: 100%;"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 pl-2">
+                <a href="{{ path('app_user_back_consultants') }}" class="widget" id="account-stat">
+                    <div class="pb-0 px-3 pt-2 ">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="state">
+                                <h6>Consultants</h6>
+                                <p class="count">{{ (consultants.count > 9) ? '' : '0' }}{{ consultants.count|localizednumber('decimal') }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ik ik-globe color-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="100"
+                             aria-valuemin="0"
+                             aria-valuemax="100" style="width: 100%;"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="card d-flex justify-content-center align-items-center" id="pie-proposal-status" style="width: 100%;height: 330px;">loading...</div>
+        <div class="card d-flex justify-content-center align-items-center" id="invoice_chart_div" style="width: 100%; height: 400px;">loading...</div>
+    </div>
+</div>

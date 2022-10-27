@@ -1,0 +1,26 @@
+<section data-aos="fade" data-padding>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="sectiontitle-element">
+                    <h2>{{ 'menu.our_partners' | trans([], 'core') | raw }}</h2>
+                </div>
+                <div class="logo-element">
+                    <ul>
+                        {% for item in entities %}
+                            <li>
+                                <a href="{{ item.link }}" target="_blank">
+                                    {% if item.thumbnail is not null and item.thumbnail.fileExists %}
+                                        <img data-unveil src="#" data-src="{{ asset(item.thumbnail.webPath) }}" data-src-retina="/{{  item.thumbnail.webPath }}" alt="">
+                                    {% else %}
+                                        <img data-unveil src="#" data-src="{{ asset('img/demo/logo-placeholder-1@2x.png') }}" alt="">
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

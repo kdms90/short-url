@@ -1,0 +1,18 @@
+<div class="dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="menuDropdown" role="button" data-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false"><i class="ik ik-plus"></i></a>
+    <div class="dropdown-menu dropdown-menu-right menu-grid" aria-labelledby="menuDropdown">
+        {% if is_granted('CAN_VIEW_COLLABORATOR') %}
+            <a class="dropdown-item" href="{{ path('app_user_back_collaborators') }}" title="Collaborateurs"><i
+                        class="ik ik-shield"></i></a>
+        {% endif %}
+            <a class="dropdown-item" href="{{ path('app_back_dashboard') }}" title="Analyses comptable"><i
+                        class="ik ik-square"></i></a>
+        {% if is_granted('CAN_VIEW_COUNTRY') %}
+            <a class="dropdown-item" href="{{ path('app_location_back_countries') }}" title="Pays"><i
+                        class="ik ik-map-pin"></i></a>
+        {% endif %}
+        <a class="dropdown-item" href="{{ path('app_back_settings') }}" title="Paramètres"><i
+                    class="ik ik-settings"></i></a>
+    </div>
+</div>

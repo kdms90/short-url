@@ -1,0 +1,96 @@
+{% extends 'foundation/back/form/back-form-add-right-side-i18n.html.twig' %}
+{% block tabBody %}
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.category) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.category.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.category) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.category) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.type) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.type.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.type) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.type) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ parent() }}
+{% endblock %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Statut</div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                <div class="">
+                    <p class="simple-compant-name">
+                        Date de création : {{ item.dateAdd|localizeddate('medium','none') }}
+                    </p>
+                    <p class="simple-compant-name">
+                        Référence : {{ item.reference }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h2 class="components-panel__body-title">
+            <button type="button" aria-expanded="false" class="components-button">
+                <span aria-hidden="true">Couleur & Icone</span>
+            </button>
+        </h2>
+        <div class="card-body-c">
+            {{ form_row(form.displayed) }}
+            {{ form_row(form.position) }}
+            <div class="">
+                <div class="row form-row">
+                    <div class="col-md-12">
+                        {{ form_label(form.bgColor) }}
+                    </div>
+                    <div class="col-md-12">
+                        {% if form.bgColor.vars.errors|length %}
+                            <div class="has-error">{{ form_errors(form.bgColor) }}</div>
+                        {% endif %}
+                        <div class="input-group" id="color-picker">
+                            {{ form_widget(form.bgColor) }}
+                            <span class="input-group-addon"
+                                  style="background-color: {{ item.bgColor }}; min-width: 50px;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="row form-row">
+                    <div class="col-md-12">
+                        {{ form_label(form.iconClass) }}
+                    </div>
+                    <div class="col-md-12">
+                        {% if form.iconClass.vars.errors|length %}
+                            <div class="has-error">{{ form_errors(form.iconClass) }}</div>
+                        {% endif %}
+                        <div class="input-group" id="color-picker">
+                            {{ form_widget(form.iconClass) }}
+                            <span class="{{ item.iconClass }}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'foundation/back/shared/form/thumnail.html.twig' with {'item':item,'form':form} %}
+{% endblock %}

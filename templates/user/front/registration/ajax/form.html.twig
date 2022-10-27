@@ -1,0 +1,59 @@
+{{ form_start(form, {attr: {novalidate: 'novalidate', class:'authentication-form'}}) }}
+<div class="text-left login-status">
+    <a href="{{ path('app_user_front_login') }}" class="">Connexion</a>
+    <a href="{{ path('app_user_front_access_request') }}"
+       class="active">Inscription</a>
+</div>
+{{ form_errors(form) }}
+<div class="">
+    {% if form.actor.firstname.vars.errors|length %}
+        <div class="has-error">{{ form_errors(form.actor.firstname) }}</div>
+    {% endif %}
+    <div class="form-group">
+        {{ form_widget(form.actor.firstname) }}
+        <i class="ik ik-user"></i>
+    </div>
+    {% if form.actor.lastname.vars.errors|length %}
+        <div class="has-error">{{ form_errors(form.actor.lastname) }}</div>
+    {% endif %}
+    <div class="form-group">
+        {{ form_widget(form.actor.lastname) }}
+        <i class="ik ik-user"></i>
+    </div>
+    {% if form.email.vars.errors|length %}
+        <div class="has-error">{{ form_errors(form.email) }}</div>
+    {% endif %}
+    <div class="form-group">
+        {{ form_widget(form.email) }}
+        <i class="ik ik-mail"></i>
+    </div>
+</div>
+{% if form.plainPassword.mainField.vars.errors|length %}
+    <div class="has-error">{{ form_errors(form.plainPassword.mainField) }}</div>
+{% endif %}
+<div class="form-group">
+    {{ form_widget(form.plainPassword.mainField) }}
+    <i class="ik ik-lock"></i>
+</div>
+{% if form.plainPassword.repeatField.vars.errors|length %}
+    <div class="has-error">{{ form_errors(form.plainPassword.repeatField) }}</div>
+{% endif %}
+<div class="form-group">
+    {{ form_widget(form.plainPassword.repeatField) }}
+    <i class="ik ik-eye-off"></i>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p class="">
+            <span class="">En cliquant sur créer mon compte vous acceptez nos
+                <a href="#" class="color-blue">termes et conditions</a>
+            </span>
+        </p>
+    </div>
+</div>
+<div class="hidden">
+    {% if username is defined %}
+        {{ form_row(form.username) }}
+    {% endif %}
+</div>
+{{ form_end(form) }}

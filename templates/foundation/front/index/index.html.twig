@@ -1,0 +1,26 @@
+{% extends 'foundation/front/front.html.twig' %}
+{% block title %}Home{% endblock %}
+{% block styles %}
+    {{ parent() }}
+{% endblock %}
+{% block front %}
+    <section class="container welcome">
+        <div class="row d-flex">
+            <div class="col-12 col-md-7">
+                <div class="short-desc">
+                    <h1> Short URL </h1>
+                    <p class="small-desc">Le raccourcisseur d'URLs facile à utiliser et libre d'accès <br class="show-for-small-only">Créer des liens courts pour vos URLs</p>
+
+                    <p class="mt-4">
+                        <a class="btn btn-outline-primary go-btn" href="{{ path('app_business_front_url_add') }}">Créer mon lien court</a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-md-5">
+                <div class="">
+                    <img src="{{ asset('assets/images/market-launch-pana.svg') }}" class="img-fluid" alt=""/>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends 'foundation/back/form/back-form-add-right-side-i18n.html.twig' %}
+{% block mainHeaderInputs %}
+    {{ form_row(form.fullname) }}
+{% endblock %}
+{% block tabBody %}
+    <div class="row">
+        <div class="col-xs-12">
+            {{ form_errors(form) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="row form-row mb-5">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.gender) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.gender.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.gender) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.gender) }}
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.twiterLink) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.twiterLink.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.twiterLink) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.twiterLink) }}
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.facebookLink) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.facebookLink.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.facebookLink) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.facebookLink) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.linkedinLink) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.linkedinLink.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.linkedinLink) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.linkedinLink) }}
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.registerDate) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.registerDate.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.registerDate) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.registerDate) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ parent() }}
+{% endblock %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">
+                <span aria-hidden="true">Titre & Type de membre</span></div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                <div class="">
+                    <div class="translations">
+                        <div class="row no-gutters">
+                            <div class="col-md-8">
+                                {% for translation in form.i18ns %}
+                                    <div id="translation-{{ translation.vars.value.locale }}-name"
+                                         class="edit-i18n d-none edit-i18n-{{ translation.vars.value.locale }}">
+                                        {% for element in translation %}
+                                            {#{{ dump(element) }}#}
+                                            {% if element.vars.name == 'name' %}
+                                                {{ form_row(element) }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="input-group below24 bias-input-group switch-i18n">
+                                        <div class="input-group-btn bs-dropdown-to-select-group">
+                                            <button type="button"
+                                                    class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select"
+                                                    data-toggle="dropdown" tabindex="-1">
+                                                        <span data-bind="bs-drp-sel-label" class="bs-drp-sel-label"><i
+                                                                    class="ion-android-globe"></i> [{{ locale|upper }}
+                                                            ]</span>
+                                                <input type="hidden" data-bind="bs-drp-sel-value"
+                                                       class="current-i18nuage"
+                                                       value="translation-{{ locale }}-name">
+                                                <span class="ik ik-chevron-down"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <!-- Loop -->
+                                                {% for translation in form.i18ns %}
+                                                    <li data-i18n="{{ translation.vars.value.locale }}" class="dropdown-item"
+                                                        data-content="translation-{{ translation.vars.value.locale }}-name">
+                                                        {% set language = 'locale.'~translation.vars.value.locale %}
+                                                        <a href="#">
+                                                                    <span class="lang-code">[<span class="lang-code-value">{{ translation.vars.value.locale|upper }}</span>
+                                                                        ] - </span>
+                                                            <span class="lang-label">{{ language|trans({},'core') }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                                <!-- END Loop -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    {{ form_row(form.type) }}
+                    {{ form_row(form.country) }}
+                    {{ form_row(form.position) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'foundation/back/shared/form/thumnail.html.twig' with {'item':item,'form':form} %}
+{% endblock %}

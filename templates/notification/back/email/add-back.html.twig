@@ -1,0 +1,223 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block back %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form, {attr: {novalidate: 'novalidate', class:'main-page-form'}}) }}
+            {{ form_errors(form) }}
+            <div class="row" style="min-height: 120px;">
+                <div class="col-md-8">
+                    <div class="translations">
+                        <div class="row">
+                            <div class="col-md-10">
+                                {% for translation in form.i18ns %}
+                                    <div id="translation-{{ translation.vars.value.locale }}-name"
+                                         class="edit-i18n hide edit-i18n-{{ translation.vars.value.locale }}">
+                                        {% for element in translation %}
+                                            {#{{ dump(element) }}#}
+                                            {% if element.vars.name == 'name' %}
+                                                {{ form_row(element) }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="inpuFname">{{ 'input_i18n'|trans({}, 'external') }}</label>
+                                    <div class="input-group below24 bias-input-group switch-i18n">
+                                        <div class="input-group-btn bs-dropdown-to-select-group">
+                                            <button type="button"
+                                                    class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select"
+                                                    data-toggle="dropdown" tabindex="-1">
+                                                <span data-bind="bs-drp-sel-label" class="bs-drp-sel-label"><i
+                                                            class="ion-android-globe"></i> [{{ locale|upper }}
+                                                    ]</span>
+                                                <input type="hidden" data-bind="bs-drp-sel-value"
+                                                       class="current-i18nuage"
+                                                       value="translation-{{ locale }}-name">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <!-- Loop -->
+                                                {% for translation in form.i18ns %}
+                                                    <li data-i18n="{{ translation.vars.value.locale }}" class="dropdown-item"
+                                                        data-content="translation-{{ translation.vars.value.locale }}-name">
+                                                        {% set language = 'locale.'~translation.vars.value.locale %}
+                                                        <a href="#">
+                                                            <span class="lang-code">[<span class="lang-code-value">{{ translation.vars.value.locale|upper }}</span>
+                                                                ] - </span>
+                                                            <span class="lang-label">{{ language|trans({},'core') }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                                <!-- END Loop -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="translations">
+                        <div class="row">
+                            <div class="col-md-10">
+                                {% for translation in form.i18ns %}
+                                    <div id="translation-{{ translation.vars.value.locale }}-object"
+                                         class="edit-i18n hide edit-i18n-{{ translation.vars.value.locale }}">
+                                        {% for element in translation %}
+                                            {#{{ dump(element) }}#}
+                                            {% if element.vars.name == 'object' %}
+                                                {{ form_row(element) }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="inpuFname">{{ 'input_i18n'|trans({}, 'external') }}</label>
+                                    <div class="input-group below24 bias-input-group switch-i18n">
+                                        <div class="input-group-btn bs-dropdown-to-select-group">
+                                            <button type="button"
+                                                    class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select"
+                                                    data-toggle="dropdown" tabindex="-1">
+                                                <span data-bind="bs-drp-sel-label" class="bs-drp-sel-label"><i
+                                                            class="ion-android-globe"></i> [{{ locale|upper }}
+                                                    ]</span>
+                                                <input type="hidden" data-bind="bs-drp-sel-value"
+                                                       class="current-i18nuage"
+                                                       value="translation-{{ locale }}-object">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <!-- Loop -->
+                                                {% for translation in form.i18ns %}
+                                                    <li data-i18n="{{ translation.vars.value.locale }}" class="dropdown-item"
+                                                        data-content="translation-{{ translation.vars.value.locale }}-object">
+                                                        {% set language = 'locale.'~translation.vars.value.locale %}
+                                                        <a href="#">
+                                                            <span class="lang-code">[<span class="lang-code-value">{{ translation.vars.value.locale|upper }}</span>
+                                                                ] - </span>
+                                                            <span class="lang-label">{{ language|trans({},'core') }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                                <!-- END Loop -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="top-help-block">
+                        <div class="update-nag">
+                            <div class="update-split update-info"><i class="ion-alert"></i></div>
+                            <div class="update-text">
+                                <p class="app-notification-title margin-bottom-5">
+                                    <strong>
+                                        Documentation
+                                    </strong>
+                                </p>
+                                <div>
+                                    {{ item.i18n(locale).documentation|raw }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#settings" data-toggle="tab">Configurations</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <!-- /.tab-pane -->
+                            <div class="active tab-pane" id="settings">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="row form-row">
+                                            <div class="col-md-5 col-xs-12 form-label">
+                                                {{ form_label(form.code) }}
+                                            </div>
+                                            <div class="col-md-7 col-xs-12 form-input">
+                                                {% if form.code.vars.errors|length %}
+                                                    <div class="has-error">{{ form_errors(form.code) }}</div>
+                                                {% endif %}
+                                                {{ form_widget(form.code) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <div class="">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    {% for translation in form.i18ns %}
+                                                        <div id="translation-{{ translation.vars.value.locale }}-desc"
+                                                             class="edit-i18n hide edit-i18n-{{ translation.vars.value.locale }}">
+                                                            {% for element in translation %}
+                                                                {#{{ dump(element) }}#}
+                                                                {% if element.vars.name == 'description' %}
+                                                                    {{ form_row(element) }}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="inpuFname">{{ 'input_i18n'|trans({}, 'external') }}</label>
+                                                        <div class="input-group below24 bias-input-group  switch-i18n">
+                                                            <div class="input-group-btn bs-dropdown-to-select-group">
+                                                                <button type="button"
+                                                                        class="btn btn-default dropdown-toggle as-is bs-dropdown-to-select"
+                                                                        data-toggle="dropdown" tabindex="-1">
+                                                                    <span data-bind="bs-drp-sel-label"
+                                                                          class="bs-drp-sel-label"><i
+                                                                                class="ion-android-globe"></i> [{{ locale|upper }}
+                                                                        ]</span>
+                                                                    <input type="hidden" data-bind="bs-drp-sel-value"
+                                                                           class="current-i18nuage"
+                                                                           value="translation-{{ locale }}-desc">
+                                                                    <span class="caret"></span>
+                                                                </button>
+                                                                <ul class="dropdown-menu" role="menu">
+                                                                    <!-- Loop -->
+                                                                    {% for translation in form.i18ns %}
+                                                                        <li data-i18n="{{ translation.vars.value.locale }}" class="dropdown-item"
+                                                                            data-content="translation-{{ translation.vars.value.locale }}-desc">
+                                                                            {% set language = 'locale.'~translation.vars.value.locale %}
+                                                                            <a href="#">
+                                                                                <span class="lang-code">[<span class="lang-code-value">{{ translation.vars.value.locale|upper }}</span>
+                                                                                    ] - </span>
+                                                                                <span class="lang-label">{{ language|trans({},'core') }}</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                    <!-- END Loop -->
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                </div>
+            </div>
+            {{ form(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

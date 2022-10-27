@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> {% block title %}  {% endblock %} | {{ 'core.app'|trans({}, 'app') }} </title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicons/favicon.png') }}"/>
+    <meta name="robots" content="index,follow"/>
+    <meta name="viewport" content="width=device-width, minimum-scale=0.25, maximum-scale=1.6, initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="author" content="Short URL"/>
+    <meta name="og:locale" content="{{ locale }}_{{ locale|upper }}"/>
+    <meta property="og:site_name" content="{{ 'core.app'|trans({}, 'app') }}">
+    {% block metaHeader %}
+        {{ render(controller("App\\Controller\\Foundation\\Front\\EmbedController::defaultMeta")) }}
+    {% endblock %}
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('assets/vendors/icon-kit/dist/css/iconkit.min.css')) }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('assets/vendors/ionicons/dist/css/ionicons.min.css')) }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap/v4/css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/foundation.css') }}"/>
+    {% block styles %}{% endblock %}
+    {% block topjavascripts %}{% endblock %}
+    {% block heardFiles %}{% endblock %}
+    {% include 'foundation/parts/routes-js.html.twig' %}
+    <script>
+        var $locale = "{{ locale }}";
+    </script>
+</head>
+
+<body id="app" class="{% block body_class %}{% endblock %}" data-turbolinks="false">
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+{% block foundation %}{% endblock %}
+<script src="{{ absolute_url(asset('assets/vendors/jquery/jquery-3.5.1.min.js')) }}"></script>
+<script type="text/javascript" src="{{ absolute_url(asset('assets/vendors/jquery/jquery.form.js')) }}"></script>
+<script type="text/javascript" src="{{ absolute_url(asset('assets/js/foundation.js')) }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

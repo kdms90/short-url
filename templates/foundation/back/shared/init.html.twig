@@ -1,0 +1,20 @@
+{% if chartsInfo|length != 9 or classesCount < 9 or companyWorkSpace is null or fiscalYearCount|length == 0 or hasDefaultRoles == false%}
+    <div class="mx-3">
+        <div class="alert-message alert-message-danger" id="notice-app-initialization">
+            <h4>Mise en route</h4>
+            <p>Des paramètres sont requis afin que SGI fonctionne parfaitement. Nous n'avons pas pu le faire pour vous. <br/>Merci d'utiliser les liens ci-dessous dans l'ordre d'apparition.</p>
+            {% if chartsInfo|length != 9 or classesCount < 9 %}
+                <p>1. Initilisation du plan comptable. <a href="#" class="color-blue">Configurer le plan maintenant</a></p>
+            {% endif %}
+            {% if fiscalYearCount == 0%}
+                <p>2. Définition de l'année fiscale en cours. <a href="#" class="color-blue">Créer une année fiscale</a></p>
+            {% endif %}
+            {% if companyWorkSpace is null %}
+                <p>3. Initilisation des paramètres comptables. <a href="#" class="color-blue">Définir les paramètres comptables maintenant</a></p>
+            {% endif %}
+            {% if hasDefaultRoles == false %}
+                <p>4. Initilisation des rôles d'accès au système. <a href="#" class="color-blue">Installer les rôles par défaut</a></p>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

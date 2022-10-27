@@ -1,0 +1,107 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block back %}
+    <div class="card">
+        <h4 class="card-header">Détail de la demande de contact</h4>
+        <div class="card-body p-4">
+            <div class="row mb-3">
+                <div class="col-3">
+                    <h6>Sujet</h6>
+                </div>
+                <div class="col-8">
+                    <span class="text-value">{{ item.subject }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-3">
+                    <h6>Nom</h6>
+                </div>
+                <div class="col-8">
+                    <span class="text-value">{{ item.fullname }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-3">
+                    <h6>Prénom</h6>
+                </div>
+                <div class="col-8">
+                    <span class="text-value">{{ item.surname }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-3">
+                    <h6>Téléphone</h6>
+                </div>
+                <div class="col-8">
+                    <span class="text-value">{{ item.phoneNumber }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-3">
+                    <h6>Email</h6>
+                </div>
+                <div class="col-8">
+                    <span class="text-value">{{ item.email }}</span>
+                </div>
+            </div>
+            {% if item.contactType == 1 or item.contactType == 3 %}
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <h6>Société</h6>
+                    </div>
+                    <div class="col-8">
+                        <span class="text-value">{{ item.contactCompany }}</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <h6>Fonction</h6>
+                    </div>
+                    <div class="col-8">
+                        <span class="text-value">{{ item.role }}</span>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row mb-3">
+                <div class="col-3">
+                    <h6>Message</h6>
+                </div>
+                <div class="col-8">
+                    <span class="text-value">{{ item.message }}</span>
+                </div>
+            </div>
+            {% if item.attachment is not null %}
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <h6>CV, Plaquette, offre de service ou catalogue</h6>
+                    </div>
+                    <div class="col-8">
+                    <span class="">
+                        <a href="{{ path('app_foundation_back_contact_downaload_file',{'id':item.attachment.id}) }}"
+                           class=""><i
+                                    class="ik ik-download"></i> {{ 'back_office.download_file'|trans({}, 'core') }}</a>
+                    </span>
+                    </div>
+                </div>
+            {% endif %}
+            {% if item.otherAttachment is not null %}
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <h6>Autre pièces jointe</h6>
+                    </div>
+                    <div class="col-8">
+                    <span class="">
+                        <a href="{{ path('app_foundation_back_contact_downaload_file',{'id':item.otherAttachment.id}) }}"
+                           class=""><i
+                                    class="ik ik-download"></i> {{ 'back_office.download_file'|trans({}, 'core') }}</a>
+                    </span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

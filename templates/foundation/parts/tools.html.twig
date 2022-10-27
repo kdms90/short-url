@@ -1,0 +1,203 @@
+<div id="geoLocPopUp" class="userPrompt animated fadeInDown hide">
+    <div class="contentPrompt">
+        <p class="caption"><i class="ion-android-alert"></i> <span class="text"></span></p>
+        <p class="desc"></p>
+    </div>
+    <div class="pull-right">
+        {#<span id="block" class="geoLocBtn decline">Later</span>#}
+        <span id="allow" class="geoLocBtn decline">OK</span>
+    </div>
+</div>
+<span id="loader" class="hide"><img src="{{ asset('css/img/app-loader.gif') }}"/></span>
+
+{% set messages = app.session.flashbag.get('notify') %}
+{% if messages|length > 0 %}
+    {% set titles = app.session.flashbag.get('notifyTitle') %}
+    <div id="notifyBox" class="hide" data-show-alert="{% if messages|length > 0 %}1{% else %}0{% endif %}">
+        <span class="caption">
+            {% for title in titles %}
+                {{ title }}
+            {% endfor %}
+        </span>
+        <span class="desc">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </span>
+    </div>
+{% endif %}
+
+<div class="hide">
+    <div id="consultant-shimmer-loader">
+        <div class="shimmer-card shimmer-br shimmer consultant">
+            <div class="wrapper-shimmer">
+                <div class="shimmer-w20 display-inline">
+                    <div class="shimmer-profilePic shimmer-animate din"></div>
+                </div>
+                <div class="shimmer-w78 display-inline right-part">
+                    <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w80"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="full-consultant-shimmer-loader">
+        <div class="row" style="margin: 0 -5px">
+            <div class="col-md-6 col-sm-6 col-xs-12" style="padding-left: 5px; padding-right: 5px;">
+                <div class="shimmer-card shimmer-br shimmer consultant">
+                    <div class="wrapper-shimmer">
+                        <div class="shimmer-w20 display-inline">
+                            <div class="shimmer-profilePic shimmer-animate din"></div>
+                        </div>
+                        <div class="shimmer-w78 display-inline right-part">
+                            <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w80"></div>
+                            <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                            <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12" style="padding-left: 5px; padding-right: 5px;">
+                <div class="shimmer-card shimmer-br shimmer consultant">
+                    <div class="wrapper-shimmer">
+                        <div class="shimmer-w20 display-inline">
+                            <div class="shimmer-profilePic shimmer-animate din"></div>
+                        </div>
+                        <div class="shimmer-w78 display-inline right-part">
+                            <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w80"></div>
+                            <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                            <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="providers-shimmer-loader">
+        <div class="shimmer-card shimmer-br shimmer providers">
+            <div class="wrapper-shimmer">
+                <div class="shimmer-w20 display-inline">
+                    <div class="shimmer-profilePic shimmer-animate din"></div>
+                </div>
+                <div class="shimmer-w78 display-inline right-part">
+                    <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w80"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="full-providers-shimmer-loader">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="shimmer-card shimmer-br shimmer providers">
+                    <div class="wrapper-shimmer">
+                        <div class="shimmer-w20 display-inline">
+                            <div class="shimmer-profilePic shimmer-animate din"></div>
+                        </div>
+                        <div class="shimmer-w78 display-inline right-part">
+                            <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w80"></div>
+                            <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                            <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="shimmer-card shimmer-br shimmer providers">
+                    <div class="wrapper-shimmer">
+                        <div class="shimmer-w20 display-inline">
+                            <div class="shimmer-profilePic shimmer-animate din"></div>
+                        </div>
+                        <div class="shimmer-w78 display-inline right-part">
+                            <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w80"></div>
+                            <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                            <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="news-shimmer-loader">
+        <div class="shimmer-card shimmer-br shimmer">
+            <div class="wrapper-shimmer">
+                <div class="shimmer-w30 display-inline">
+                    <div class="shimmer-newPic shimmer-animate din"></div>
+                </div>
+                <div class="shimmer-w68 display-inline">
+                    <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w68"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="profile-consultant-shimmer-loader">
+        <div class="shimmer-card shimmer-br shimmer">
+            <div class="wrapper-shimmer">
+                <div class="shimmer-w30 display-inline">
+                    <div class="shimmer-newPic shimmer-animate din"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                </div>
+                <div class="shimmer-w68 display-inline">
+                    <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w68"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="offers-shimmer-loader">
+        <div class="shimmer-card shimmer-br shimmer offers-shimmer">
+            <div class="wrapper-shimmer">
+                <div class="shimmer-w68 display-inline shimmer-border-right">
+                    <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w68"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                </div>
+                <div class="shimmer-w30 display-inline right-part">
+                    <div class="display-block">
+                        <div class="shimmer-w68 pull-left"><div class="shimmer-newPic shimmer-animate din"></div></div>
+                        <div class="shimmer-w30 pull-left"><div class="shimmer-comment shimmer-br shimmer-animate"></div></div>
+                    </div>
+                    <div class="display-block">
+                        <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w68"></div>
+                        <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="full-offers-shimmer-loader">
+        <div class="shimmer-card shimmer-br shimmer offers-shimmer">
+            <div class="wrapper-shimmer">
+                <div class="shimmer-w50 display-inline shimmer-border-right">
+                    <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w68"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                </div>
+                <div class="shimmer-w22 display-inline right-part shimmer-border-right">
+                    <div class="display-block">
+                        <div class="shimmer-w68 pull-left"><div class="shimmer-newPic shimmer-animate din"></div></div>
+                        <div class="shimmer-w30 pull-left"><div class="shimmer-comment shimmer-br shimmer-animate"></div></div>
+                    </div>
+                    <div class="display-block">
+                        <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w68"></div>
+                        <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                        <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                        <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    </div>
+                </div>
+                <div class="shimmer-w22 display-inline right-part">
+                    <div class="shimmer-comment shimmer-br shimmer-animate shimmer-w68"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                    <div class="shimmer-comment shimmer-br shimmer-animate"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

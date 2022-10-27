@@ -1,0 +1,26 @@
+core:
+    app: "Short URL"
+    rights_reserved: "Tous droits réservés."
+    sing-off: 'Déconnexion'
+    sing-in: "Se connecter"
+notify:
+    successful_add: "Opération d'enregistrement effectuée avec succès."
+    successful_update: "Opération de mise à jour effectuée avec succès."
+    successful_delete: "Opération de suppression effectuée avec succès."
+    successful_clean: "L'opération de suppression définitive a été effectuée avec succès. Vous ne pourrez plus récupérer les données effacées."
+    unavailable_entity: "%s% temporairement indisponible ou a été supprimé."
+user:
+    phone_username: 'Numéro de téléphone'
+    fullname: "Nom complet"
+    fullname_required: "Nom complet *"
+    fullname_required_or_company: "Nom complet (ou raison social) *"
+    name_and_surnames: "Nom(s) et prénom(s)"
+    lastname: "Nom"
+    surname: "Prénom"
+    operator: "Opérateur"
+    type: "Je suis"
+    callbox: "Un Call box"
+    person: "Une personne"
+    subject: "Sujet"
+    email: "Adresse E-mail"
+    message: "Décrivez vos besoins ici"

@@ -1,0 +1,14 @@
+<form action="{{ routePath }}" method="post" class="{{ formClass }}">
+    <div class="modal-header form-w mx-auto {% block headerClass %}{% endblock %}">
+        {% block headerTitle %}{{ pageTitle }}{% endblock %}
+    </div>
+    <div class="row form-card no-gutters">
+        <div class="col-12">
+            {% block messageBlock %}{% endblock %}
+        </div>
+    </div>
+    <div class="modal-footer">
+        {% block actionBlock %}{% endblock %}
+        <button type="button" class="btn btn-outline-secondary close-app-modal" data-dismiss="modal">{{'button.close' | trans({}, 'core')}}</button>
+    </div>
+</form>

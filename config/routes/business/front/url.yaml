@@ -1,0 +1,8 @@
+#Route pour la connexion
+app_business_front_url_add:
+  path: /generate/url
+  controller: App\Controller\Business\Front\IndexController::index
+#Route pour la connexion
+app_business_front_url_find:
+  path: /short/{token}
+  controller: App\Controller\Business\Front\IndexController::find

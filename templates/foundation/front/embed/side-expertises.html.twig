@@ -1,0 +1,16 @@
+<p class="color-blue">Autres métiers</p>
+<div class="row">
+    {% for item in entities %}
+        <div class="col-md-12 col-12 mb-4">
+            <a href="{{ path('app_business_front_category_service_single',{'id':item.id,'slug':item.i18n(locale).slug}) }}"
+               title="{{ item.i18n(locale).name|raw }}" class="clt_categoryitem-grid">
+                        <span class="bg">
+                            <i class="ion-ios-key"></i>
+                        </span>
+                <div class="desc">
+                    {{ item.i18n(locale).name|raw }}
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>

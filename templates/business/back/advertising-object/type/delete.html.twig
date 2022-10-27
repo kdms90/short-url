@@ -1,0 +1,5 @@
+{% extends 'foundation/back/back-delete.html.twig' %}
+{% block deleteConfirmText %}
+    <p>{{ 'Vous êtes sur le point de supprimer la catégorie de post %name%'|trans({'%name%':item.i18n(locale).name},'location') }}</p>
+    <p>{{ 'Etes vous sur de vouloir supprimer cette catégorie?'|trans({},'location') }}</p>
+{% endblock %}

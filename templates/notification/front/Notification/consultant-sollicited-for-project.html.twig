@@ -1,0 +1,108 @@
+{# On étend notre layout #}
+{% extends "DBNotificationBundle::Front/layout-left.html.twig" %}
+{% block title %}| Pariticipation au projet{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('app_notification_front_notifications') }}">Notifications</a></li>
+    <li class="separator"><i class="glyphicon glyphicon-share-alt"></i></li>
+    <li class="active">Pariticipation au projet</li>
+{% endblock %}
+
+{% block FOContentNotification %}
+    <div class="row header-title">
+        <div class="col-md-12">
+            <h3 class="item-title margin-top-15">Vos notifications</h3>
+            <span>
+                Pariticipation au projet
+            </span>
+        </div>
+    </div>
+    <div class="row content-notification">
+        <div class="col-md-12">
+            <p>
+                Félicitation <strong>{{ projectConsultant.consultant.fullname }}</strong> vous avez été sollicité pour intervenir <strong>{{ query.tools.elapseTime(notification.dateAdd) }}</strong> sur le projet <strong>{{ projectConsultant.project.name }}</strong> initié le <strong>{{ projectConsultant.project.dateAdd|localizeddate('medium','none')}}</strong>
+                par <strong>{{ projectConsultant.project.manager.fullname }}</strong>. Vous y travaillerez pour une durée privisionnelle de <strong>{{ projectConsultant.durationOfIntervention }} mois</strong>.  Il est en attente de votre approbation. Merci de cliquer sur le lien suivant afin de donner votre go pour ce projet.
+                <a href="{{ absolute_url(path('app_project_confirm_invitation',{'id_project': projectConsultant.project.id,'slug':query.tools.slugify(projectConsultant.project.name)})) }}" class="simpleLink">
+                    {{ 'project.invitation.confirm'|trans({},'email') }}.
+                </a>
+            </p>
+        </div>
+        <div class="clearfix"></div>
+        {% set project = projectConsultant.project %}
+        <div class="col-md-12">
+            <h4>Détails sur le projet</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>
+                        {{ 'add_project.project'|trans({}, 'core') }} :
+                        <span class="price">{{ project.name }}</span>
+                    </h5>
+                    <h5>
+                        Responsable :
+                        <span class="price">{{ project.nameOfProjectManager }}</span>
+                    </h5>
+                    <h5>
+                        Durée prévisionnelle :
+                        <span class="price">
+                                            {{ project.estimatedDuration }}
+                            {% if project.estimatedDuration > 1 %}
+                                {{ 'text.months'|trans({}, 'core') }}
+                            {% else %}
+                                {{ 'text.month'|trans({}, 'core') }}
+                            {% endif %}
+                        </span>
+                    </h5>
+                    <h5>Durée définie :
+                        <span class="price">
+                            {{ project.lifeTime }}
+                            {% if project.lifeTime > 1 %}
+                                {{ 'text.months'|trans({}, 'core') }}
+                            {% else %}
+                                {{ 'text.month'|trans({}, 'core') }}
+                            {% endif %}
+                        </span>
+                    </h5>
+                    <h5>Date création:  <span class="price">{{ project.dateAdd|localizeddate('medium','none')}}</span> </h5>
+                    <h5>{{ 'status'|trans({}, 'external') }}:
+                        <span class="price">
+                            {% include 'BTProjectBundle:Front/Manager/Template:project-status.part.html.twig' with {'project': project} %}
+                        </span>
+                    </h5>
+                </div>
+                <div class="col-md-6">
+                    <h5>Financement :
+                        <span class="price">{{ project.financing }}</span>
+                    </h5>
+                    <h5>Contact du responsable :
+                        <span class="price">{{ project.emailAddressOfProjectManager }}/{{ project.phoneNumberOfProjectManager }}</span>
+                    </h5>
+                    <h5>Lieu de travail :
+                        <span class="price">{{ project.workCountry }} - {{ project.workTown }} </span>
+                    </h5>
+                    <h5>Budget :
+                        <span class="price">{{ project.budget|localizedcurrency(currency,locale) }}</span>
+                    </h5>
+                    <h5>Montant de l'offre
+                        <span class="price">{{ project.currentFinancialOffer|localizedcurrency(currency,locale) }}</span>
+                    </h5>
+                    <h5 class="project-files">
+                        Télécharger :
+                        {%  if project.tDRFile is not null and project.tDRFile.fileExists %}
+                            <span class="label bg-green">
+                                                <a href="{{ path('app_project_downlaod_tdr_file',{'id_project':project.id,'slug':query.tools.slugify(project.name)}) }}" class="color-white"><i class="ik ik-download"></i> TDRs</a>
+                                            </span>
+                        {% endif %}
+                        {%  if project.motivationFile is not null and project.motivationFile.fileExists %}
+                            <span class="label bg-green">
+                                <a href="{{ path('app_project_downlaod_motivation_file',{'id_project':project.id,'slug':query.tools.slugify(project.name)}) }}" class="color-white"><i class="ik ik-download"></i> Fichier de
+                                    motivation</a>
+                            </span>
+                        {% endif %}
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

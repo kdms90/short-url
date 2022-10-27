@@ -1,0 +1,60 @@
+{% extends 'foundation/back/form/back-form-add-right-side-i18n.html.twig' %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Référence et état</div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                <div class="">
+                    {{ form_row(form.code) }}
+                </div>
+                <div class="">
+                    {% for translation in form.i18ns %}
+                        <div id="translation-{{ translation.vars.value.locale }}-link"
+                             class="edit-i18n {% if translation.vars.value.locale != locale %}d-none{% endif %} edit-i18n-{{ translation.vars.value.locale }}">
+                            {% for element in translation %}
+                                {#{{ dump(element) }}#}
+                                {% if element.vars.name == 'link' %}
+                                    {{ form_row(element) }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="">
+                    {{ form_row(form.displayKeywords) }}
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="components-panel__body-title">
+                <div class="components-button">Position</div>
+            </div>
+            <div class="card-body-c">
+                {{ form_row(form.position) }}
+                {{ form_row(form.orderPosition) }}
+            </div>
+        </div>
+        <div class="card">
+            <div class="components-panel__body-title">
+                <div aria-expanded="false" class="components-button">
+                    <span aria-hidden="true">Pictogramme et fichier</span>
+                </div>
+            </div>
+            <div class="card-body-c">
+                <div class="">
+                    {{ form_row(form.icon_class) }}
+                </div>
+                <div class="">
+                    {{ form_row(form.file) }}
+                    <p>
+                        {% if item.file is not null and item.file.fileExists %}
+                            <a href="{{ path('app_foundation_back_cms_page_download_file',{'id':item.file.id}) }}"><i class="ik ik-download"></i> {{'back_office.download_file' | trans([],'core')}}</a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

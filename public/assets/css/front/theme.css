@@ -1,0 +1,111 @@
+.welcome {
+    background-color: white;
+    background-image: url(https://docrdsfx76ssb.cloudfront.net/static/1666738605/pages/wp-content/uploads/2022/10/homepage-hero-a-bit-closer-desktop-v2.png);
+    margin-top: 150px;
+}
+.app-logo{
+    max-width: 50px;
+}
+.go-btn{
+    padding: 5px 30px;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 300;
+    display: inline-block;
+    border-radius: 15px;
+}
+.short-desc{
+    padding-top: 80px;
+}
+.small-desc{
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.short-link{
+    margin-top: 3rem;
+    padding: 5em 0;
+    background: #edf1f5;
+}
+.short-link form{
+    max-width: 100%;
+    width: 100%;
+    margin-top: 50px;
+}
+.short-link input#url_original{
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+    border: 0 none;
+    font-size: 1.7rem !important;
+    font-weight: 400;
+    border-radius: 6rem;
+    background-color: #ffff;
+    height: 5rem;
+}
+.short-link button[type=submit]{
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    width: auto;
+    padding: 18px 10px;
+    border-radius: 25px;
+    min-width: 150px;
+    font-size: 15px;
+}
+.short-link ::placeholder{
+    font-size: 18px;
+}
+.short-link h2 {
+    font-size: 1rem;
+    color: #fff;
+    text-align: center;
+    padding-right: 4rem;
+    padding-left: 3rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 2rem;
+    background-color: #344f6a;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: -5rem;
+}
+.short-link .form-error-message {
+    font-size: 0.8rem;
+    margin-left: 15px;
+}
+.panel-body {
+    padding: 1rem 2rem;
+    background-color: #fff;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+.btn-copy {
+    font-size: 1.1rem;
+    float: right;
+    color: #f33155;
+    border: 0.1rem solid #f33155;
+    background: none;
+    border-radius: 25px;
+}
+.btn-copy i{
+    margin-left: 15px;
+}
+.btn-add-account{
+    margin-top: 15px;
+    border-radius: 14px;
+    padding: 8px 15px;
+}
+.press-copy{
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    left: -27px;
+}

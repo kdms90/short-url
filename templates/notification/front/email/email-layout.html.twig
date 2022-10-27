@@ -1,0 +1,23 @@
+{% extends 'notification/email.html.twig' %}
+{% block emailHeader %}
+    {#<tr>#}
+        {#<td valign="top" style="padding-bottom:15px; background-color:#ffffff; font-size: 13px;">#}
+            {#{{ title|raw }}#}
+        {#</td>#}
+    {#</tr>#}
+{% endblock %}
+{% block emailContent %}
+    <tr>
+        <td valign="top" style="padding-bottom:20px; background-color:#ffffff; font-size: 13px;">
+            {{ content|raw|raw }}
+        </td>
+    </tr>
+{% endblock %}
+{% block emailFooter %}
+    <tr>
+        <td style="padding-top:20px;background-color:#ffffff;">
+{#            {{ 'footer.thank'|trans({},'email') }}<br>#}
+{#            {{ 'core.app'|trans({},'app') }}#}
+        </td>
+    </tr>
+{% endblock %}

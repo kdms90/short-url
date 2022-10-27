@@ -1,0 +1,20 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block back %}
+    <div class="row">
+        <div class="col-md-12">
+            <form class="row main-page-form" method="post">
+                <div class="col-md-12">
+                    <p>Vous êtes sur le point de supprimer la page de
+                        contenu {{ item.i18n(locale).name }}</p>
+                    <p>Etes vous sur de vouloir supprimer cette page?</p>
+                </div>
+                <div class="col-md-12">
+                    <input name="id" value="{{ item.id }}" type="hidden"/>
+                    <button type="submit" class="submit-main-form-btn btn btn-danger btn-sm btn-social margin-top-25"><i
+                                class="ion-trash-a"></i>{{ 'confirm_delete'|trans({}, 'external') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

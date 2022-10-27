@@ -1,0 +1,5 @@
+{% extends 'foundation/back/back-delete.html.twig' %}
+{% block deleteConfirmText %}
+    <p>{{ 'Vous êtes sur le point de supprimer la expertise %name%'|trans({'%name%':item.i18n(locale).name},'location') }}</p>
+    <p>{{ 'Etes vous sur de vouloir supprimer cette expertise?'|trans({},'location') }}</p>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block internalClass %}dashboad{% endblock %}
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('css/back/context-exception.css')) }}"/>
+{% endblock %}
+{% block back %}
+    <!-- Modal -->
+    <div class="modal fade" id="wrong-context-modal" tabindex="-1" role="dialog" aria-labelledby="wrong-context-modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 350px">
+            <div class="modal-content">
+                {% include 'foundation/back/catch-exception/shared/context-form.html.twig' %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="cardd"></div>
+        </div>
+        <div class="col">
+            <div class="cardd"></div>
+        </div>
+        <div class="col">
+            <div class="cardd"></div>
+        </div>
+        <div class="col">
+            <div class="cardd"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="cardd"></div>
+        </div>
+        <div class="col">
+            <div class="cardd"></div>
+        </div>
+        <div class="col">
+            <div class="cardd"></div>
+        </div>
+        <div class="col">
+            <div class="cardd"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('js/back/context-exception.js')) }}"></script>
+{% endblock %}

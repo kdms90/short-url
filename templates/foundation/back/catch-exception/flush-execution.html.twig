@@ -1,0 +1,11 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block back %}
+    <div class="card">
+        <div class="label label-danger">
+            {{ exception }}
+        </div>
+        <a href="{{ path }}">
+            {{ path }}
+        </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends 'foundation/back/back-delete.html.twig' %}
+{% block deleteConfirmText %}
+    <p>Vous êtes sur le point de supprimer la séquence {{ item.i18n(locale).name }}</p>
+    <p>Etes vous sur de vouloir supprimer cette séquence?</p>
+{% endblock %}

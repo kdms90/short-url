@@ -1,0 +1,51 @@
+{% extends 'foundation/back/form/back-form-add-right-side-i18n.html.twig' %}
+{% block tabBody %}
+    {{ parent() }}
+{% endblock %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Statut</div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                <div class="">
+                    <p class="simple-compant-name">
+                        Date de création : {{ item.dateAdd|localizeddate('medium','none') }}
+                    </p>
+                    <p class="simple-compant-name">
+                        Date de dernière mise à jour : {{ item.dateUpd|localizeddate('medium','none') }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h2 class="components-panel__body-title">
+            <button type="button" aria-expanded="false" class="components-button">
+                <span aria-hidden="true">Emplacement</span>
+            </button>
+        </h2>
+        <div class="card-body-c">
+            {{ form_row(form.type) }}
+            {{ form_row(form.place) }}
+            <div class="">
+                <div class="row form-row">
+                    <div class="col-md-12">
+                        {{ form_label(form.icon) }}
+                    </div>
+                    <div class="col-md-12">
+                        {% if form.icon.vars.errors|length %}
+                            <div class="has-error">{{ form_errors(form.icon) }}</div>
+                        {% endif %}
+                        <div class="input-group" id="color-picker">
+                            {{ form_widget(form.icon) }}
+                            <span class="{{ item.icon }}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'foundation/back/shared/form/thumnail.html.twig' with {'item':item,'form':form} %}
+{% endblock %}

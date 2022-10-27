@@ -1,0 +1,204 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block back %}
+    <div class="wrap-table-list">
+        <div>
+            <h2 class="current-page-title">
+                {{ pageTitle }}
+                {% if itemsNb is defined and itemsNb %}<span>{{ itemsNb }}</span>{% endif %}
+            </h2>
+        </div>
+        {% block defaultTableMoreFilters %}
+            <div id='left-more-filters' class="left-more-filters">
+                <div class="x_panel">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="more-filters-title">Filtre sur les données</h2>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="pull-right close-more-filters"><i class="ion-ios-close"></i></span>
+                        </div>
+                    </div>
+                    {% if tableFields.searchPath|routeExists %}
+                        <form action="{{ path(tableFields.searchPath,tableFields.routeParams) }}" method="get"
+                              class="col-xs-12 form-group top_search margin-top-30">
+                            <div class="input-group margin-bottom-0">
+                                <input value="{% if q is defined and q is not null %}{{ q }}{% endif %}" name="query"
+                                       type="text" class="form-control"
+                                       placeholder="{{ 'find_in_list'|trans({}, 'external') }}">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit"><i
+                                                class="ion-ios-search"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                    {% endif %}
+                    <div class="clearfix"></div>
+                    {% if tableFields.advancedFilterPath|routeExists %}
+                        <form class="form-filter row" action="{{ path(tableFields.advancedFilterPath,tableFields.routeParams) }}"
+                              method="get">
+                            {% block moreFiltersInputs %}{% endblock %}
+                            <div class="col-md-12">
+                                <h4 class="">{{ 'Date d\'immatriculation'|trans({}, 'external') }}</h4>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>
+                                <span class="date-group">
+                                    <span class="btn btn-default">{{ 'from'|trans({}, 'external') }}</span>
+                                    <input type="text" name="fromDate" id="fromDateMore"
+                                           class="datepicker btn btn-default"
+                                           {% if fromDate is defined %}value="{{ fromDate }}"{% endif %}/>
+                                </span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>
+                                    <span class="date-group">
+                                        <span class="btn btn-default">{{ 'to'|trans({}, 'external') }}</span>
+                                        <input type="text" name="toDate" id="toDateMore"
+                                               class="datepicker btn btn-default"
+                                               {% if toDate is defined %}value="{{ toDate }}"{% endif %}/>
+                                    </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 margin-top-30">
+                                <button type="submit" class="btn-sm btn btn-primary apply-filters">
+                                    {{ 'apply_filter'|trans({}, 'external') }}
+                                </button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock %}
+        <div class="">
+            <div class="row">
+                <div class="col-12 col-md-9">
+                    {% block defaultTableFilters %}
+                        {% if tableFields.advancedFilterPath|routeExists %}
+                            <div class="table-filters">
+                                <div class="row">
+                                    <div class="col col-sm-12 mb-2">
+                                    <span class="text-primary"><i
+                                                class="fa fa-filter"></i> {{ 'filter_results'|trans({}, 'external') }}
+                                    </span>
+                                        <span class="margin-left-15">
+                                        {% if tableFields.resetFilterPath and tableFields.resetFilterPath|routeExists %}
+                                            <a class="view-related"
+                                               href="{{ path(tableFields.resetFilterPath,tableFields.routeParams) }}">
+                                                    <i class="ion-ios-refresh"></i> {{ 'cancel_filters'|trans({}, 'external') }}
+                                                </a>
+                                        {% endif %}
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-sm-12">
+                                        <form class="form-filter"
+                                              action="{{ path(tableFields.advancedFilterPath,tableFields.routeParams) }}"
+                                              method="get" novalidate="novalidate">
+                                            {% block beforeDateFilters %}{% endblock %}
+                                            <label>
+                                            <span class="date-group">
+                                                <span class="btn btn-default">{{ 'from'|trans({}, 'external') }}</span>
+                                                <input type="text" name="fromDate" id="fromDate"
+                                                       class="datepicker btn btn-default"
+                                                       {% if fromDate is defined %}value="{{ fromDate }}"{% endif %}/>
+                                            </span>
+                                            </label>
+                                            <label>
+                                            <span class="date-group">
+                                                <span class="btn btn-default">{{ 'to'|trans({}, 'external') }}</span>
+                                                <input type="text" name="toDate" id="toDate"
+                                                       class="datepicker btn btn-default"
+                                                       {% if toDate is defined %}value="{{ toDate }}"{% endif %}/>
+                                            </span>
+                                            </label>
+                                            {% block afterDateFilters %}{% endblock %}
+                                            <button type="submit" class="btn-sm btn btn-secondary"><i
+                                                        class="ion-ios-color-filter-outline"></i> {{ 'apply_filter'|trans({}, 'external') }}
+                                            </button>
+                                            {% if tableFields.advancedFilterPath|routeExists %}
+                                                <label>
+                                                <span class="date-group">
+                                                    <a class="more-filters show-more-filters" href="#">
+                                                        Plus de filtres
+                                                    </a>
+                                                </span>
+                                                </label>
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+                <div class="col-12 col-md-3">
+                    {% block defaultTableActions %}
+                        {% include 'foundation/back/shared/tableList/default-actions.html.twig' %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div id="advanced_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {% block tableList %}
+                                <!-- start table list -->
+                                <table class="table dataTable no-footer dtr-inline">
+                                    <thead>
+                                    <tr class="headings">
+                                        {% for field in tableFields.fields %}
+                                            {% if field.pk %}
+                                                <th style="width: 40px;">
+                                                    <input type="checkbox" id="check-all" class="native-check">
+                                                </th>
+                                            {% else %}
+                                                {% if field.show %}
+                                                    <th style="
+                                                        {% if field.width %}width: {{ field.width }}px;{% endif %}
+                                                        {% if field.align %}text-align: {{ field.align }};{% endif %}">
+                                                        {{ field.title }}
+                                                    </th>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <th style="width: 80px"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="main-entities-table-body">
+                                    {% include 'foundation/back/back-list-table-single.html.twig' with {'entities':entities} %}
+                                    {% if entities|length == 0 %}
+                                        <tr>
+                                            <td colspan="10">
+                                                <div class="list-empty">
+                                                    <i class="fa fa-exclamation-triangle list-empty-icon"></i>
+                                                    <p class="size16 color-orange mb-0 list-empty-msg">
+                                                        Pas d'élément trouvé !
+                                                    </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                    {% block afterBodyTable %}{% endblock %}
+                                </table>
+                                <!-- end table list -->
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ absolute_url(asset('js/back/items-filters.js')) }}"></script>
+{% endblock %}

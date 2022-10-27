@@ -1,0 +1,26 @@
+{% extends 'foundation/front/front.html.twig' %}
+{% block title %}Inscription{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ asset('assets/js/front/registration.js') }}"></script>
+{% endblock %}
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('assets/css/front/security.css')) }}"/>
+{% endblock %}
+{% block front %}
+    <div class="auth-wrapper">
+        <div class="short-link">
+            <h2><span class="blue">Raccourcir une URL pour partager des contenus plus facilement</span></h2>
+            <div class="row flex-row h-100">
+                <div class="col-xl-12 col-lg-12 col-md-12 my-auto p-0">
+                    <div  class="container">
+                        <div id="registration-wrap">
+                            {% include 'business/front/index/ajax/form.html.twig' with {'form':form} %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

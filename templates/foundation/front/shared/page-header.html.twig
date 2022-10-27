@@ -1,0 +1,20 @@
+<!--Page Header Start-->
+<section class="page-header" style="background-image: url({{coverImageURL ? coverImageURL : asset('images/backgrounds/page-header-bg.jpg') }});">
+    <div class="page-header-border"></div>
+    <div class="page-header-border page-header-border-two"></div>
+    <div class="page-header-border page-header-border-three"></div>
+    <div class="page-header-border page-header-border-four"></div>
+    <div class="page-header-border page-header-border-five"></div>
+    <div class="page-header-border page-header-border-six"></div>
+    <div class="container">
+        <div class="page-header__inner">
+            <h2>{{pageName |raw }}</h2>
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="{{path('app_foundation_front_homepage')}}">{{ 'menu.home'|trans({}, 'core') }}</a></li>
+                <li><span>/</span></li>
+                <li>{{pageName |raw }}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--Page Header End-->

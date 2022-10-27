@@ -1,0 +1,28 @@
+{# On étend notre layout #}
+{% extends "DBNotificationBundle::Front/layout-left.html.twig" %}
+{% block title %}| Pariticipation au projet{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('app_notification_front_notifications') }}">Notifications</a></li>
+    <li class="separator"><i class="glyphicon glyphicon-share-alt"></i></li>
+    <li class="active">Pariticipation au projet</li>
+{% endblock %}
+
+{% block FOContentNotification %}
+    <div class="row header-title">
+        <div class="col-md-12">
+            <h3 class="item-title margin-top-15">Vos notifications</h3>
+            <span>
+                Pariticipation au projet
+            </span>
+        </div>
+    </div>
+    <div class="row content-notification">
+        <div class="col-md-12">
+            <p>Vous n'êtes plus membre consultant sur le projet <strong>{{ projectConsultant.project.name }}</strong> initié le <strong>{{ projectConsultant.project.dateAdd|localizeddate('medium','none')}}</strong></p>
+            <p>Le manager <strong>{{ projectConsultant.project.manager.fullname }}</strong> de ce projet a pris cette décision <strong>{{ query.tools.elapseTime(notification.dateAdd) }}</strong>.</p>
+        </div>
+    </div>
+{% endblock %}

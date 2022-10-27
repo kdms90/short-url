@@ -1,0 +1,32 @@
+{# On étend notre layout #}
+{% extends "DBCoreBundle::Front/front-layout.html.twig" %}
+{% block styles %}
+    {{ parent() }}
+    <link href="{{ absolute_url(asset('assets/css/front/opportunities.css')) }}?d={{ 'now'|date('YmdHis') }}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block body_class %}main-img-bg{% endblock %}
+{% block front %}
+    <div class="main-content">
+        <div class="container">
+            <div class="container-wrap">
+                <div class="row">
+                    <div class="col-md-9 col-sm-12">
+                        <div class="center-content" {% block defaultCenterCss %}style="background-color: #ffffff"{% endblock %}>
+                            {% block FOContentNotification %}
+                            {% endblock %}
+                        </div>
+                        {% block outCenterBlock %}{% endblock %}
+                    </div>
+                    <div class="col-md-3 rm-left-right-padding col-sm-12 {% block helpClass %}{% endblock %}">
+                        <div class="right-content">
+                            {#<h4><i class="ion-help-circled"></i> {% block helpTitle %} Aide {% endblock %}</h4>#}
+                            {% block help %}
+                            {% endblock %}
+                            {{ render(controller('DBCoreBundle:Front/Embed:defaultSideBar', { 'first': 'tenders', 'second': 'exponents','third':'training' } )) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

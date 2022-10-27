@@ -1,0 +1,19 @@
+<div class="site-footer__social">
+    {% if linkedin and linkedin.value|length %}
+        <a href="{{ linkedin.value }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    {% endif %}
+    {% if twitter and twitter.value|length %}
+        <a href="{{ twitter.value }}" target="_blank"><i class="fab fa-twitter"></i></a>
+    {% endif %}
+    {% if facebook and facebook.value|length %}
+        <a href="{{ facebook.value }}" target="_blank" class="clr-fb"><i class="fab fa-facebook-f"></i></a>
+    {% endif %}
+    {% if youtube and youtube.value|length %}
+        <a href="{{ youtube.value }}" target="_blank"><i class="fab fa-youtube "></i></a>
+    {% endif %}
+</div>
+<ul class="list-contacts">
+    <li><i class="ik ik-message-square"></i> <span class="text-contact">{{ email.value|raw }}</span></li>
+    <li><i class="ik ik-phone"></i> <span class="text-contact">{{ numtel.value|raw }}</span></li>
+    <li><i class="ik ik-map-pin"></i> <span class="text-contact">{{ address.value|raw }}</span></li>
+</ul>

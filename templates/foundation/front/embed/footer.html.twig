@@ -1,0 +1,140 @@
+<footer class="site-footer">
+    <div class="site-footer__main">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-3 col-12" data-wow-delay="200ms">
+                    <div class="footer-widget__column footer-widget__links clearfix footer-address">
+                        <p class="text-center mt-1">
+                            <img alt="TBG" src="{{ asset('images/footer-logo.png') }}"/>
+                        </p>
+                        <p class="d-block footer-title">{{ "Passez à l'action" | trans([], 'core') }}</p>
+                        <div class="row no-gutters">
+                            <div class="col-md-7 col-12">
+                                <ul class="footer-widget__links-list footer-ul-bottom">
+                                    <li class="text-white">Bureau Cameroun :</li>
+                                    <li><a href="/fr/business/projects/"><span class="font-weight-bold">Email</span> : infos@thebest-group.com</a></li>
+                                    <li><a href="/fr/business/projects/"><span class="font-weight-bold">Phone</span> : +237 674 86 99 44</a></li>
+                                    <li><a href="/fr/business/projects/"><span class="font-weight-bold">Siège social</span>  : Bloc L Makepe Douala, Cameroun</a></li>
+                                    {% for terms in termsOne %}
+                                        <li>
+                                            {% if terms.i18n(locale).link|length > 0 %}
+                                                <a href="{{ terms.i18n(locale).link }}">{{ terms.i18n(locale).name }} </a>
+                                            {% else %}
+                                                <a href="{{ path('app_foundation_front_cms_page_content',{'id':terms.id,'slug':terms.i18n(locale).slug}) }}">{{ terms.i18n(locale).name }}</a>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-md-5 col-12">
+                                <ul class="footer-widget__links-list footer-ul-bottom">
+                                    <li class="text-white">Bureau Amérique :</li>
+                                    <li><a href="/fr/business/projects/">6390 Rue des Noyelles</a></li>
+                                    <li><a href="/fr/business/projects/"><span class="font-weight-bold">Code postal</span> : 48744, Montreal-Quebec, Canada</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-12">
+                    <div class="row no-gutters">
+                        <div class="col-md-12 col-12" data-wow-delay="200ms">
+                            {{ render(controller("App\\Controller\\Foundation\\Front\\EmbedController::newsletter")) }}
+                        </div>
+                    </div>
+                    <div class="row no-gutters">
+                        <div class="col-md-3 col-12">
+                            <div class="footer-widget__column footer-widget__explore">
+                                <p class="d-block footer-title">{{ 'Découvrir TBG' | trans([], 'core') }}</p>
+                                <ul class="footer-widget__explore-list footer-ul-bottom">
+                                    {% for terms in termsTwo %}
+                                        <li>
+                                            {% if terms.i18n(locale).link|length > 0 %}
+                                                <a href="{{ terms.i18n(locale).link }}">{{ terms.i18n(locale).name }} </a>
+                                            {% else %}
+                                                <a href="{{ path('app_foundation_front_cms_page_content',{'id':terms.id,'slug':terms.i18n(locale).slug}) }}">{{ terms.i18n(locale).name }}</a>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                    <li><a href="{{ path('app_business_front_services') }}">Qui sommes-nous?</a></li>
+                                    <li><a href="{{ path('app_business_front_projects') }}">Nos engagements</a></li>
+                                    <li><a href="{{ path('app_blog_front_posts') }}">Notre demarche innovante</a></li>
+                                    <li><a href="{{ path('app_blog_front_posts') }}">Notre Approche</a></li>
+                                    <li><a href="{{ path('app_blog_front_posts') }}"><span class="font-weight-bold">Le Groupe MK</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <div class="footer-widget__column footer-widget__explore">
+                                <p class="d-block footer-title">{{ 'Accès direct' | trans([], 'core') }}</p>
+                                <ul class="footer-widget__explore-list footer-ul-bottom">
+                                    {% for terms in termsTwo %}
+                                        <li>
+                                            {% if terms.i18n(locale).link|length > 0 %}
+                                                <a href="{{ terms.i18n(locale).link }}">{{ terms.i18n(locale).name }} </a>
+                                            {% else %}
+                                                <a href="{{ path('app_foundation_front_cms_page_content',{'id':terms.id,'slug':terms.i18n(locale).slug}) }}">{{ terms.i18n(locale).name }}</a>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                    <li><a href="{{ path('app_business_front_services') }}">Nous Contacter</a></li>
+                                    <li><a href="{{ path('app_business_front_projects') }}">Devis en ligne</a></li>
+                                    <li><a href="{{ path('app_blog_front_posts') }}">Consultation</a></li>
+                                    <li><a href="{{ path('app_blog_front_posts') }}">Foire aux questions</a></li>
+                                    <li><a href="{{ path('app_blog_front_posts') }}">Avis Clients</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <div class="footer-widget__column footer-widget__explore">
+                                <p class="d-block footer-title">{{ 'The Best Group' | trans([], 'core') }}</p>
+                                <ul class="footer-widget__explore-list footer-ul-bottom">
+                                    {% for terms in termsTwo %}
+                                        <li>
+                                            {% if terms.i18n(locale).link|length > 0 %}
+                                                <a href="{{ terms.i18n(locale).link }}">{{ terms.i18n(locale).name }} </a>
+                                            {% else %}
+                                                <a href="{{ path('app_foundation_front_cms_page_content',{'id':terms.id,'slug':terms.i18n(locale).slug}) }}">{{ terms.i18n(locale).name }}</a>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                    <li><a href="{{ path('app_business_front_services') }}">Actualités</a></li>
+                                    <li><a href="{{ path('app_business_front_projects') }}">Recrutement</a></li>
+                                    <li><a href="{{ path('app_blog_front_posts') }}">Opportunités Consultants</a></li>
+                                    <li><a href="{{ path('app_blog_front_posts') }}">CGV</a></li>
+                                    <li><a href="{{ path('app_blog_front_posts') }}">Slides de présentation</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <div class="footer-widget__column footer-widget__explore">
+                                <p class="d-block footer-title">{{ 'Suivez TBG... Nous sommes aussi ici' | trans([], 'core') }}</p>
+                                {{ render(controller("App\\Controller\\Foundation\\Front\\EmbedController::contactBlockInfo")) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="site-footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="site-footer-bottom__inner">
+                        <div class="site-footer-bottom__left">
+                            <div class="pr-3">
+                                {{ copyright | raw }}
+                            </div>
+                        </div>
+                        <ul class="site-footer-bottom__menu p-0">
+                            <!--  Terms Section  -->
+                            {{ render(controller("App\\Controller\\Foundation\\Front\\EmbedController::terms")) }}
+                            <!--  END Terms Section  -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

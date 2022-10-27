@@ -1,0 +1,20 @@
+core:
+  app: "Short URL"
+  rights_reserved: "All rights reserved."
+  sing-off: 'Sign out'
+  sing-in: 'Sign in'
+user:
+  phone_username: 'Phone number'
+  fullname: "Full name"
+  fullname_required: "Full name *"
+  fullname_required_or_company: "Full name (or company name)*"
+  name_and_surnames: "First(s) and last(s) name(s)"
+  lastname: "Lastname"
+  surname: "First name"
+  operator: "Operator"
+  type: "I am"
+  callbox: "A Call box"
+  person: "A person"
+  subject: "Subject"
+  email: "E-mail address"
+  message: "Inquiry"

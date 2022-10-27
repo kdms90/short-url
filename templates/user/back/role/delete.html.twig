@@ -1,0 +1,5 @@
+{% extends 'foundation/back/back-delete.html.twig' %}
+{% block deleteConfirmText %}
+    <p>{{ 'confirm_deletion_of_role'|trans({'%role_name%':item.i18n(locale).name},'external') }}</p>
+    <p>{{ 'confirm_deleting_role'|trans({}, 'external') }}</p>
+{% endblock %}

@@ -1,0 +1,70 @@
+<section class="project-one">
+    <div class="project-one-container">
+        <div class="section-title text-center">
+            <span class="section-title__tagline">notre savoir faire</span>
+            <h2 class="section-title__title">Projects réalisés</h2>
+        </div>
+        <div class="row">
+            {% for item in entities %}
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <!--News One Single-->
+                    {% include 'business/front/project/shared/single.html.twig' with {'item':item} %}
+                </div>
+            {% endfor %}
+{#            <div class="col-xl-3 col-lg-6 col-md-6">#}
+{#                <!--Project One Single-->#}
+{#                <div class="project-one__single">#}
+{#                    <div class="project-one__img-box">#}
+{#                        <div class="project-one__img">#}
+{#                            <img src="{{ asset('images/project/project-one-img-2.jpg')}}" alt="">#}
+{#                            <div class="project-one__hover">#}
+{#                                <a href="{{ asset('images/project/project-one-img-2.jpg') }}" class="img-popup"><i#}
+{#                                            class="fa fa-search-plus"></i></a>#}
+{#                                <div class="project-one__hover-content">#}
+{#                                    <p class="project-one__hover-title">architect</p>#}
+{#                                    <h2 class="project-one__hover-name"><a href="portfolio-details.html">THE SKYFALL</a></h2>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-xl-3 col-lg-6 col-md-6">#}
+{#                <!--Project One Single-->#}
+{#                <div class="project-one__single">#}
+{#                    <div class="project-one__img-box">#}
+{#                        <div class="project-one__img">#}
+{#                            <img src="{{ asset('images/project/project-one-img-3.jpg')}}" alt="">#}
+{#                            <div class="project-one__hover">#}
+{#                                <a href="{{ asset('images/project/project-one-img-3.jpg') }}" class="img-popup"><i#}
+{#                                            class="fa fa-search-plus"></i></a>#}
+{#                                <div class="project-one__hover-content">#}
+{#                                    <p class="project-one__hover-title">architect</p>#}
+{#                                    <h2 class="project-one__hover-name"><a href="portfolio-details.html">HÔTEL JANVIER</a></h2>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-xl-3 col-lg-6 col-md-6">#}
+{#                <!--Project One Single-->#}
+{#                <div class="project-one__single">#}
+{#                    <div class="project-one__img-box">#}
+{#                        <div class="project-one__img">#}
+{#                            <img src="{{ asset('images/project/project-one-img-4.jpg')}}" alt="">#}
+{#                            <div class="project-one__hover">#}
+{#                                <a href="{{ asset('images/project/project-one-img-4.jpg') }}" class="img-popup"><i#}
+{#                                            class="fa fa-search-plus"></i></a>#}
+{#                                <div class="project-one__hover-content">#}
+{#                                    <p class="project-one__hover-title">architect</p>#}
+{#                                    <h2 class="project-one__hover-name"><a href="portfolio-details.html">CITY ZEN </a></h2>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+    </div>
+</section>

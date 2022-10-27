@@ -1,0 +1,138 @@
+<div class="notice margin-bottom-15">
+    <div class="update-nag warning">
+        <div class="update-text">
+            <p class="app-notification-title">
+                <strong>
+                    Ne rien cocher, donne accès à tout!
+                </strong>
+            </p>
+            <div>
+                Veuillez restreindre les zones d'intervention de ce droit d'accès.
+                Plus vous ciblez la zone, plus la restriction est importante. Si
+                vous autorisez un accès pour les opérations effectuées sur un
+                continent sans y définir les pays, alors cela sera appliqué à
+                l'ensemble des pays de ce continent. Il en est de même avec les pays
+                et villes associées.
+            </div>
+        </div>
+    </div>
+</div>
+<div class="">
+    <div class="col-md-2 restrictionContainer continents">
+        <div class="">
+            <p class="title">Continents</p>
+            <div id="continents-rules">
+                {% for continent in continents %}
+                    <div class="checkbox native">
+                        <label>
+                            <input {% if continent.id in item.authoriationContinentIds %}checked="checked"{% endif %}
+                                   name="continents[]" type="checkbox"
+                                   class="native-check continentRestriction"
+                                   value="{{ continent.id }}"/>
+                            <span class="continent-name">{{ continent.i18n(app.request.locale).name }}</span></label>
+                    </div>
+                    {% if loop.index%2 == 0 %}
+                        <div class="clearfix"></div>
+                    {% endif %}
+                {% endfor %}
+                <p class="slick-text">7 continents</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 restrictionContainer">
+        <div class="">
+            {% set authoriationCountriesIds = item.authoriationCountriesIds %}
+            <p class="title">Pays (<span id="selectedCountriesNb">
+                                                    {{ authoriationCountriesIds|length }}
+                    {% if authoriationCountriesIds > 1 %}
+                        selectionnés
+                    {% else %}
+                        selectionné
+                    {% endif %}
+                                                </span>)</p>
+            <div id="countries-rules" class="">
+                <div class="slickRoles">
+                    {% for countries in countriesGroup %}
+                        <div class="row">
+                            {% for country in countries %}
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input {% if country.id in authoriationCountriesIds %}checked="checked"{% endif %}
+                                                   name="countries[]"
+                                                   type="checkbox"
+                                                   class="native-check countryRestriction"
+                                                   value="{{ country.id }}">
+                                            <span data-toggle="tooltip"
+                                                  data-placement="top"
+                                                  data-original-title="{{ country.i18n(app.request.locale).name }}"
+                                                  class="country-name">{{ country.i18n(app.request.locale).name|reader(20) }}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                {% if loop.index%2 == 0 %}
+                                    <div class="clearfix"></div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <p class="slick-text">
+                    {% if countCountries > 1 %}
+                        {{ countCountries }} pays
+                    {% else %}
+                        {{ countCountries }} pays
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 restrictionContainer">
+        <div class="">
+            {% set authoriationCitiesIds = item.authoriationCitiesIds %}
+            <p class="title">Villes
+                (<span id="selectedCitiesNb">
+                                                    {{ authoriationCitiesIds|length }}
+                    {% if authoriationCitiesIds > 1 %}
+                        selectionnées
+                    {% else %}
+                        selectionnée
+                    {% endif %}
+                                                </span>)</p>
+            <div id="cities-rules" class="">
+                <div class="slickRoles">
+                    {% for cities in citiesGroup %}
+                        <div class="row">
+                            {% for city in cities %}
+                                <div class="col-md-3 cityItem">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input {% if city.id in authoriationCitiesIds %}checked="checked"{% endif %}
+                                                   name="cities[]" type="checkbox"
+                                                   class="native-check cityRestriction"
+                                                   value="{{ city.id }}">
+                                            <span data-toggle="tooltip"
+                                                  data-placement="top"
+                                                  data-original-title="{{ city.name }}"
+                                                  class="city-name">{{ city.name|reader(15) }}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                {% if loop.index%4 == 0 %}
+                                    <div class="clearfix"></div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <p class="slick-text">
+                    {% if countCities > 1 %}
+                        {{ countCities }} villes
+                    {% else %}
+                        {{ countCities }} ville
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

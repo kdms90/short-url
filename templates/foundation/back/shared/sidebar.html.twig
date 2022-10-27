@@ -1,0 +1,30 @@
+<div class="app-sidebar colored" id="app-header">
+    <div class="sidebar-header" >
+        <!-- menu profile quick info -->
+        <div class="profile py-2">
+            <a href="{{ path('app_back_dashboard') }}">
+                {% if 1 == 2 %}
+{#                {% if app.user.thumbnail is not null and  app.user.thumbnail.imageExists %}#}
+                    <img src="{{ asset(app.user.thumbnail.webPath) }}" alt="..." class="img-circle profile_img">
+                {% else %}
+                    <img src="{{ asset('images/logo.png') }}" alt="..." class="">
+                {% endif %}
+            </a>
+        </div>
+        <button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
+        <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+        <div class="clearfix"></div>
+    </div>
+    <div class="sidebar-content">
+        <div class="nav-container">
+            <nav id="main-menu-navigation" class="navigation-main">
+                <div class="nav-item">
+                    <a href="{{ path('app_back_dashboard') }}"><i class="ik ik-pie-chart"></i><span class="text-uppercase">{{ 'menu.dashbord'|trans({},'core') }}</span></a>
+                </div>
+                {% include 'business/back/shared/sidebar-menu.html.twig' %}
+                {% include 'blog/back/shared/sidebar-menu.html.twig' %}
+                {% include 'user/back/shared/sidebar-menu.html.twig' %}
+            </nav>
+        </div>
+    </div>
+</div>

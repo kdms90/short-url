@@ -1,0 +1,130 @@
+<header class="main-header clearfix">
+    <div class="main-header__three-line-icon">
+        <a href="#" class="side-menu__toggler">
+            <img src="{{ asset('images/resources/main-header-three-line-icon.png') }}" alt="">
+        </a>
+    </div>
+    <div class="main-menu-wrapper">
+        <div class="main-menu-wrapper__top">
+            <div class="container">
+                <div class="main-menu-wrapper__top-inner">
+                    <div class="main-menu-wrapper__left">
+                        <div class="main-menu-wrapper__left-content">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle btn-find" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Vous êtes intéressé par ? <span class="arrow-icon"><i class="arrow-down"></i></span>
+                                </button>
+                                <ul class="dropdown-menu top-dropdown-menu expertises-menu" aria-labelledby="dropdownMenuButton1">
+                                    {% for item in expertises %}
+                                        <li>
+                                            <a class="dropdown-item" href="#{{ path('app_business_front_expertise_single',{'id':item.id,'slug':item.i18n(locale).slug}) }}">
+                                                {{ item.i18n(locale).name }}
+                                                <span class="chevron-menu"> <i class="ik ik-chevron-right"></i></span>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <p class="call-us">
+                                <span class="call-us-text">
+                                    Appelez au :
+                                </span>{{ numtel }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="main-menu-wrapper__center">
+                        <div class="main-menu-wrapper__center-content">
+                            <div class="main-header__logo">
+                                <a href="{{ path('app_foundation_front_homepage') }}">
+                                    <img src="{{ asset('images/logo.png') }}" class="img-fluid" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-menu-wrapper__right">
+                        <span class="li">
+                            <i class="ik ik-search search-icon"></i>
+                        </span>
+                        <span class="li">
+                            <a href="{{ path('app_business_front_consultation') }}" class="btn btn-top text-uppercase">Consultation</a>
+                        </span>
+                        <span class="li">
+                            <a href="{{ path('app_business_front_quotation') }}" class="btn btn-top text-uppercase">Devis en ligne</a>
+                        </span>
+                        <span class="li">
+                            {{ render(controller("App\\Controller\\Foundation\\Front\\EmbedController::languages")) }}
+                        </span>
+{#                        <span class="li">#}
+{#                            <span class="text d-flex">#}
+{#                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+{#                                    <a class="myspace-btn" href="{{ path('app_back_dashboard') }}">#}
+{#                                        <span class="starsmall-white"></span> <span class="my">Mon</span> Bureau#}
+{#                                    </a>#}
+{#                                    <a class="exhibit" href="{{ path('app_user_front_logout') }}">#}
+{#                                        {{ 'core.sing-off'|trans({}, 'app') }}#}
+{#                                    </a>#}
+{#                                {% else %}#}
+{#                                    <a class="text-yellow" href="{{ path('app_user_front_login') }}">#}
+{#                                        {{ 'core.sing-in'|trans({}, 'app') }}#}
+{#                                    </a>#}
+{#                                {% endif %}#}
+{#                            </span>#}
+{#                        </span>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-menu-wrapper__bottom">
+            <div class="container">
+                <nav class="main-menu">
+                    <div class="main-menu__inner">
+                        <div class="row no-gutters">
+                            <div class="col-12">
+                                <div class="main-header__logo d-inline-block d-md-none modile">
+                                    <a href="{{ path('app_foundation_front_homepage') }}">
+                                        <img src="{{ asset('images/logo.png') }}" class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <a href="#" class="mobile-nav__toggler"><i class="fa fa-bars"></i></a>
+                                <ul class="main-menu__list">
+                                    <li class="menu-item">
+                                        <a href="{{ path('app_foundation_front_about') }}">
+                                            <span class="d-inline-block">{{ 'La firme' | trans([], 'core') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="{{ path('app_business_front_expertises') }}">
+                                            <span class="d-inline-block">{{ 'Expertises' | trans([], 'core') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="{{ path('app_business_front_advertising_objects') }}">{{ 'Objects publicitaires' | trans([], 'menu') }}</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="{{ path('app_business_front_projects') }}">{{ 'Projets' | trans([], 'menu') }}</a>
+                                    </li>
+                                    <li class="menu-item"><a
+                                                href="{{ path('app_business_front_customers') }}">{{ 'Clients' | trans([], 'menu') }}</a>
+                                    </li>
+                                    <li class="menu-item"><a
+                                                href="{{ path('app_blog_front_galleries') }}">{{ 'Gallery' | trans([], 'menu') }}</a>
+                                    </li>
+                                    <li class="menu-item"><a
+                                                href="{{ path('app_blog_front_posts') }}">{{ 'news' | trans([], 'menu') }}</a>
+                                    </li>
+                                    <li class="menu-item"><a
+                                                href="{{ path('app_foundation_front_contact') }}">{{ 'contact' | trans([], 'menu') }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="stricky-header stricked-menu main-menu">
+    <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+</div><!-- /.stricky-header -->

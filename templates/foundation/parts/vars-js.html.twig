@@ -1,0 +1,86 @@
+{#
+    Main template errors.
+#}
+<script type="text/javascript">
+    var $isLoggedUser = false;
+    var scrollBarParams = {
+        cursorcolor: "#B3B3B3",
+        boxzoom: true,
+        cursoropacitymin: 0.3,
+        background: "#f5f5f5",
+        cursorborder: "0px",
+        cursorborderradius: "0px",
+        autohidemode: false,
+        //cursorfixedheight: 70,
+        cursorminheight: 30//,
+        //railpadding: { top: 20, right: 0, left: 0, bottom: 0 }
+    };
+    var $locale = "{{ locale }}";
+    var $moreTxt = "{{ 'text.more'|trans({}, 'core') }}";
+    var $lessTxt = "{{ 'text.less'|trans({}, 'core') }}";
+    {#{% if is_granted("ROLE_USER", null) %}#}
+    {#$isLoggedUser = true;#}
+    {#{% endif %}#}
+    var defaultNoImageURI = "{{ asset('assets/images/defaults/no-image-user.png') }}";
+    var loaderImagePath = "{{ asset('assets/images/app-loader.gif') }}";
+    var absoluteURIEditorStyle = "{{ absolute_url(asset('assets/css/back/editor.css')) }}";
+    var absoluteFrontURIEditorStyle = "{{ absolute_url(asset('assets/css/front/editor.css')) }}";
+
+    var $isLoggedUser = false;
+    var scrollBarParams = {
+        cursorcolor: "#B3B3B3",
+        boxzoom: true,
+        cursoropacitymin: 0.3,
+        background: "#f5f5f5",
+        cursorborder: "0px",
+        cursorborderradius: "0px",
+        autohidemode: false,
+        //cursorfixedheight: 70,
+        cursorminheight: 30//,
+        //railpadding: { top: 20, right: 0, left: 0, bottom: 0 }
+    };
+    {% if is_granted("ROLE_USER") %}
+    $isLoggedUser = true;
+    {% endif %}
+    var loginURI = "{{ absolute_url(path('fos_user_security_login')) }}";
+    var baseUriAddConsultant = "{{ absolute_url(path('db_project_add_consultant')) }}";
+    var baseUriDeleteConsultant = "{{ absolute_url(path('db_project_delete_consultant')) }}";
+    var baseUriAddTraining = "/";
+    var baseUriDeleteTraining = "/";
+    var baseUriCommand = "/";
+    var loadPath = "{{ absolute_url(asset('css/img/app-loader.gif')) }}";
+    var subscribeTxt = "{{ 'button.subscribe'|trans({}, 'core') }}";
+    var back = "{{ 'button.back'|trans({}, 'core') }}";
+    var continueTxt = "{{ 'text.continue'|trans({}, 'core') }}";
+    var confirmDeleteTxt = "{{ 'text.confirm_delete'|trans({}, 'core') }}";
+    var commandTxt = "{{ 'text.command'|trans({}, 'core') }}";
+    var consultantAddToCartTxt = "{{ 'notify.successful_add'|trans({}, 'core') }}";
+    var trainingAddToCartTxt = "{{ 'text.new_training_to_cart'|trans({}, 'core') }}";
+    var detailEnd = "{{ 'detail.end'|trans({}, 'core') }}";
+    var detailBegin = "{{ 'detail.begin'|trans({}, 'core') }}";
+    var stateCartTxt = "{{ 'text.stateCart'|trans({}, 'core') }}";
+    var consultantsTxt = "{{ 'text.consultants'|trans({}, 'core') }}";
+    var consultantTxt = "{{ 'text.consultant'|trans({}, 'core') }}";
+    var defaultTrainingImgPath = "{{ absolute_url(asset('assets/images/defaults/no-image-user.png')) }}";
+    var blueLoaderImg = "{{ absolute_url(asset('assets/css/img/preloader64.gif')) }}";
+    //Search URI
+    var advancedSearchUri = "{{ absolute_url(path('db_core_advanced_search')) }}";
+    var advancedSearchUriLocation = "{{ absolute_url(path('db_core_advanced_search_load_location')) }}";
+    var searchUriCitiesSuggestion = "{{ absolute_url(path('db_user_get_searched_towns_country_and_town_name_ajaxe')) }}";
+
+    //Consultant URI
+    var loadAvailablesSkills = "{{ absolute_url(path('db_user_find_skills_by_main_domain')) }}";
+
+    //Offers URI
+    var sendOfferApplicationURI = "{{ absolute_url(path('db_offers_offers_ajax_send_application')) }}";
+    var sendOfferOpinionURI = "{{ absolute_url(path('db_offers_offers_ajax_send_opinion')) }}";
+    var findSkillsBySector = "{{ absolute_url(path('db_user_find_skills_by_main_domain')) }}";
+    var findSpecialitiesByDomainURI = "{{ absolute_url(path('db_user_find_specialities_by_domains')) }}";
+    var findJobsBySpecialitiesURI = "{{ absolute_url(path('db_user_find_jobs_by_specialities')) }}";
+    var removeLoadFileRegistrationURI = "{{ absolute_url(path('db_user_front_registration_remove_file_ajax')) }}";
+    var findSkillsBySectors = "{{ absolute_url(path('db_user_find_skills_by_sectors')) }}";
+    var findSkillsByMainOptionsDomainURI = "{{ absolute_url(path('db_user_find_skills_by_main_domain_return_response')) }}";
+
+    //Import URI
+    var globalConsultantImportURI = "#";
+</script>

@@ -1,0 +1,31 @@
+<div class="main-products">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-4">
+                    <h2 class="products-title"><span class="circle-mark"></span> Nos produits et services <span class="font-light">s'adressent à tout les secteurs d'activités</span></h2>
+                    <div class="row">
+                        {% for item in entities %}
+                            <div class="col-6 col-md-2">
+                                <div class="product-card">
+                                    <div class="img-wrap">
+                                        {% if item.thumbnail is not null and item.thumbnail.imageExists %}
+                                            <img src="{{ asset(item.thumbnail.webPath) }}"
+                                                 alt="{{ item.i18n(locale).name }}"/>
+                                        {% else %}
+                                            <img src="{{ asset('images/backgrounds/main-slider-1-1.jpg') }}"
+                                                 alt="{{ item.i18n(locale).name }}"/>
+                                        {% endif %}
+                                    </div>
+                                    <p class="prod">
+                                        {{ item.i18n(locale).name }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

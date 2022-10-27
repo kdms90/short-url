@@ -1,0 +1,32 @@
+<div class="row roles-selector">
+{#    {% if isAdministrator %}#}
+    {% if true %}
+        <div class="col-md-6">
+            <div class="row margin-bottom-15">
+                <div class="col-md-12 col-xs-12">
+                    {{ form_label(form.locationRoles) }}
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    {% if form.locationRoles.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.locationRoles) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.locationRoles) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="clearfix"></div>
+    <div class="col-md-6">
+        <div class="row margin-bottom-15">
+            <div class="col-md-12 col-xs-12">
+                {{ form_label(form.actorRoles) }}
+            </div>
+            <div class="col-md-12 col-xs-12">
+                {% if form.actorRoles.vars.errors|length %}
+                    <div class="has-error">{{ form_errors(form.actorRoles) }}</div>
+                {% endif %}
+                {{ form_widget(form.actorRoles) }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<a class="nav-link dropdown-toggle" href="#" id="notiDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+   aria-expanded="false"><i class="ik ik-bell"></i><span class="badge bg-danger">{{ total }}</span></a>
+<div class="dropdown-menu dropdown-menu-right notification-dropdown" aria-labelledby="notiDropdown">
+    <h4 class="header">Mes notifications</h4>
+    <div class="notifications-wrap">
+        {% for notification in notifications %}
+            {% if messages[notification.resourceType] is defined%}
+                <a href="{{ notification.resourceLink }}" class="media">
+                    <span class="d-flex">
+                        <i class="{{ notification.iconClass }}"></i>
+                    </span>
+                    <span class="media-body">
+                        <span class="heading-font-family media-heading">{{ messages[notification.resourceType].label|raw }}</span>
+                        <span class="media-content">{{ messages[notification.resourceType].content|raw }}</span>
+                    </span>
+                </a>
+            {% endif %}
+        {% endfor %}
+        {% if total == 0 %}
+            <p class="empty-notification">
+                 Aucune notification !
+            </p>
+        {% endif %}
+    </div>
+    {% if total > 0 %}
+        <div class="footer">
+            <a href="{{ path('app_notification_back_notifications') }}">Voir toute l'activité</a>
+        </div>
+    {% endif %}
+</div>

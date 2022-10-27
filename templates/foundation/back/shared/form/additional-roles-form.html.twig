@@ -1,0 +1,15 @@
+{% if additionalRules is defined and additionalRules|length %}
+    <h4 class="form-section-title">Droits supplémentaires</h4>
+    <table class="o_list_view table table-condensed table-striped o_list_view_ungrouped">
+        <tbody>
+        {% for field, value in additionalRules %}
+            <tr class="o_data_row">
+                <h5>{{ form_label(form[field]) }}</h5>
+                {% for va in form[field] %}
+                    {{ form_widget(va) }}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

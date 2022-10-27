@@ -1,0 +1,26 @@
+<div class="card">
+    {% if form.beforeThumbnail.vars.errors|length %}
+        <div class="has-error">{{ form_errors(form.beforeThumbnail) }}</div>
+    {% endif %}
+    {% set dropClass = '' %}
+    {% set dropStyle = '' %}
+    {% if item is not null and item.beforeThumbnail is not null and item.beforeThumbnail.imageExists %}
+        {% set dropClass = 'hasImage' %}
+        {% set dropStyle = 'background-image: url('~asset(item.beforeThumbnail.webPath)~');' %}
+    {% endif %}
+    <div class="card-body-c preview">
+        <div class="dropzone imageHolder {{ dropClass }}" style="{{ dropStyle }}">
+            <div class="u--xxs-dn v-tac text-center">
+                <i class="dropzone__icon download ik ik-download"></i>
+                <p class="dropzone__message mb-0">
+                    <strong>Définissez une image</strong>
+                    <span class="d-block">Elle sera mise en avant</span>
+                </p>
+            </div>
+        </div>
+        <p class="d-none">{{ form_label(form.beforeThumbnail) }}</p>
+        <div class="d-none file-input">
+            {{ form_widget(form.beforeThumbnail) }}
+        </div>
+    </div>
+</div>

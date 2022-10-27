@@ -1,0 +1,127 @@
+{% extends 'foundation/back/form/back-form-add-right-side-i18n.html.twig' %}
+{% block additionnalTabHeader %}
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#illustrations-images">Images d'illustration</a>
+    </li>
+{% endblock %}
+{% block tabBody %}
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.targetStartDate) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.targetStartDate.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.targetStartDate) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.targetStartDate) }}
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.targetEndDate) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.targetEndDate.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.targetEndDate) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.targetEndDate) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            {% if form.url is defined %}
+                <div class="row form-row">
+                    <div class="col-md-5 form-label">
+                        {{ form_label(form.url) }}
+                    </div>
+                    <div class="col-md-7 form-input">
+                        {% if form.url.vars.errors|length %}
+                            <div class="has-error">{{ form_errors(form.url) }}</div>
+                        {% endif %}
+                        {{ form_widget(form.url) }}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.budget) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.budget.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.budget) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.budget) }}
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-md-5 form-label">
+                    {{ form_label(form.expense) }}
+                </div>
+                <div class="col-md-7 form-input">
+                    {% if form.expense.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.expense) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.expense) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ parent() }}
+{% endblock %}
+{% block additionnalTabContent %}
+    <div id="illustrations-images" class="tab-pane">
+        <div class="row">
+            <div class="col-6">
+                <h4 class="header-title-s">Image avant réalisation</h4>
+                {% include 'business/back/project/shared/form-before-thumnail.html.twig' with {'item':item,'form':form} %}
+            </div>
+            <div class="col-6">
+                <h4 class="header-title-s">Image après réalisation</h4>
+                {% include 'business/back/project/shared/form-after-thumnail.html.twig' with {'item':item,'form':form} %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">
+                Référence et état
+            </div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                <div class="d-none">
+                    {{ form_label(form.reference) }}
+                </div>
+                <div class="">
+                    {{ form_widget(form.reference) }}
+                    {% if form.reference.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.reference) }}</div>
+                    {% endif %}
+                </div>
+                <div class="">
+                    {{ form_row(form.publishAfterSaving) }}
+                    {{ form_row(form.showInHome) }}
+                </div>
+                <div class="">
+                    {{ form_row(form.status) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">
+                <span aria-hidden="true">Type de projet et Pays de réalisation</span>
+            </div>
+        </div>
+        <div class="card-body-c">
+            {{ form_row(form.type) }}
+            {{ form_row(form.country) }}
+        </div>
+    </div>
+    {% include 'foundation/back/shared/form/thumnail.html.twig' with {'item':item,'form':form} %}
+{% endblock %}

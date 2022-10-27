@@ -1,0 +1,29 @@
+<li class="dropdown">
+    <a href="#" class="blob" id="blobId" data-toggle="dropdown">
+        <span class="menu-icon">
+            <i class="ion-android-notifications-none"></i>
+        </span>
+        <span class="menu-title">Notifications</span>
+        <span id="notificationNumber" class="notificationNumber">{{ notificationNumber }}</span>
+    </a>
+    <ul class="dropdown-menu notification-items" id="notifications-menu">
+        {% for notification in lastNotifications %}
+            <li>
+                <a href="{{ notification.link }}" class="noReaded">
+                    <span class="title">
+                        {{ notification.label|raw }}
+                    </span>
+                    <span class="times">{{ notification.date }}</span>
+                </a>
+            </li>
+        {% endfor %}
+        <li class="readMore">
+            {% if lastNotifications|length > 0 %}
+            <a class="" href="{{ path('app_notification_front_notifications') }}">Voir toutes les notifications</a>
+            <a class="readAllNotifications" href="#">Marquer tout comme lu</a>
+            {% else %}
+                <a href="{{ path('app_notification_front_notifications') }}">Vous n'avez aucune notifications</a>
+            {% endif %}
+        </li>
+    </ul>
+</li>

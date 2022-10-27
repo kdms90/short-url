@@ -1,0 +1,15 @@
+{% extends 'foundation/back/back-list-table.html.twig' %}
+{% block beforeDateFilters %}
+    <label>
+        <select name="on" id="quotationType" class="selectpicker">
+            <option value="all">-- Tous les types --</option>
+            {% for key, label in types %}
+                <option {% if group is defined and group == key %}selected="selected"{% endif %}
+                        value="{{ key }}">
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </label>
+{% endblock %}
+{% block afterDateFilters %}{% endblock %}

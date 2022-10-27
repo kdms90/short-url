@@ -1,0 +1,50 @@
+<!--Before After End-->
+<!--Two Section Start-->
+<section class="two-section">
+    <div class="container">
+        <div class="brand-one">
+            <div class="section-title text-center">
+                <h2 class="section-title__title">Les produits du Groupe</h2>
+            </div>
+            <div class="thm-swiper__slider swiper-container" data-swiper-options='{"spaceBetween": 100, "slidesPerView": 5, "autoplay": { "delay": 5000 }, "breakpoints": {
+                "0": {
+                    "spaceBetween": 30,
+                    "slidesPerView": 2
+                },
+                "375": {
+                    "spaceBetween": 30,
+                    "slidesPerView": 2
+                },
+                "575": {
+                    "spaceBetween": 30,
+                    "slidesPerView": 3
+                },
+                "767": {
+                    "spaceBetween": 50,
+                    "slidesPerView": 4
+                },
+                "991": {
+                    "spaceBetween": 50,
+                    "slidesPerView": 5
+                },
+                "1199": {
+                    "spaceBetween": 100,
+                    "slidesPerView": 5
+                }
+            }}'>
+                <div class="swiper-wrapper">
+                    {% for item in entities %}
+                        <div class="swiper-slide">
+                            {% if item.thumbnail is not null and item.thumbnail.imageExists %}
+                                <img data-full-size-image-url="{{ asset(item.thumbnail.webPath) }}"
+                                     src="{{ asset(item.thumbnail.webPath) }}" alt="{{ item.name }}" typeof="foaf:Image">
+                            {% else %}
+                                <img src="{{ asset('images/resources/brand-1-1.png')}}" alt="">
+                            {% endif %}
+                        </div><!-- /.swiper-slide -->
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

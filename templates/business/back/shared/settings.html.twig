@@ -1,0 +1,24 @@
+{% if is_granted('CAN_VIEW_BUSINESS_SERVICE') %}
+    <div class="col-md-4 d-flex align-items-stretch">
+        <div class="card">
+            <div class="card-header">
+                <h2>{{ 'Sujet demande de devis'|trans({}, 'offers') }}
+                    <small>Module Business</small>
+                </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="card-body">
+                <article class="media event">
+                    <a class="pull-left date" href="{{ path('app_business_back_quotation_subject_add') }}">
+                        <p class="month">Ajouter</p>
+                        <p class="day"><i class="ik ik-plus"></i></p>
+                    </a>
+                    <div class="media-body">
+                        <p>{{ 'Accédez à la liste de tous les sujets de demande de devis'|trans({}, 'offers') }} </p>
+                        <a class="config-link" href="{{ path('app_business_back_quotation_subjects') }}">{{ 'Voir tous les sujets'|trans({}, 'offers') }}</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+{% endif %}

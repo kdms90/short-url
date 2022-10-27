@@ -1,0 +1,42 @@
+{% extends 'foundation.html.twig' %}
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/front/theme.css') }}"/>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+{% endblock %}
+{% block javascripts %}
+    <!-- template js -->
+{% endblock %}
+{% block foundation %}
+    <!-- /.preloader -->
+    <div class="page-wrapper">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-0">
+                <a class="navbar-brand" href="{{ path('app_foundation_front_homepage') }}"><img src="{{ asset('assets/images/logo.png') }}" class="img-fluid app-logo" alt=""/></a>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('app_foundation_front_homepage') }}">Short Url App</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_foundation_front_homepage') }}">All Link</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </form>
+                </div>
+            </nav>
+        </div>
+        {% block front %}{% endblock %}
+        <!--Site Footer One End-->
+    </div><!-- /.page-wrapper -->
+{% endblock %}

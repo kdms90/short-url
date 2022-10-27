@@ -1,0 +1,27 @@
+{# On étend notre layout #}
+{% extends "DBNotificationBundle::Front/layout-left.html.twig" %}
+{% block title %}| Pariticipation au projet{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('app_notification_front_notifications') }}">Notifications</a></li>
+    <li class="separator"><i class="glyphicon glyphicon-share-alt"></i></li>
+    <li class="active">Consultation du profil</li>
+{% endblock %}
+{% block FOContentNotification %}
+    <div class="row header-title">
+        <div class="col-md-12">
+            <h3 class="item-title margin-top-15">Vos notifications</h3>
+            <span>
+                Consultation du profil
+            </span>
+        </div>
+    </div>
+    <div class="row content-notification">
+        <div class="col-md-12">
+            <p>Votre profil a été consulté  <strong>{{ query.tools.elapseTime(notification.dateAdd) }}</strong> par <strong>{% if isAnonymous %} un visiteur anonyme{% else %}{{ visitor.fullname }}{% endif %}</strong></p>
+            <p>Continuer à mettre à jour votre profil.</p>
+        </div>
+    </div>
+{% endblock %}

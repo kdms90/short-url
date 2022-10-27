@@ -1,0 +1,149 @@
+{% set messages = app.session.flashbag.get('notify') %}
+{% if messages|length > 0 %}
+    {% set titles = app.session.flashbag.get('notifyTitle') %}
+    {% set types = app.session.flashbag.get('type') %}
+    {% set type = 'update-success' %}
+    {% for t in types %}
+        {% set type = t %}
+    {% endfor %}
+    <div class="app-notification animated slideInRight" id="app-notification">
+        <div class="global-alert" id="app-alert">
+            <div class="update-nag {{ type }}">
+                <div class="update-text">
+                    <p class="app-notification-title">
+                        <span>
+                            {% for title in titles %}
+                                {{ title|raw }}
+                            {% endfor %}
+                        </span> <i class="ion-ios-trash dismissable-icon"></i>
+                    </p>
+                    <div>
+                        {% for message in messages %}
+                            {{ message|raw }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<div class="app-notification animated slideInRight d-none" id="app-notification-js">
+    <div class="global-alert" id="app-alert">
+        <div class="update-nag">
+            <div class="update-text">
+                <p class="app-notification-title">
+                        <span class="msg-title">
+
+                        </span> <i class="ion-ios-trash dismissable-icon"></i>
+                </p>
+                <div class="msg-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="o_control_panel back-control-header">
+    <div class="menu-panel">
+        <div class="row">
+            <div class="col-md-12">
+                {% if pageTitle is defined and pageTitle or 1 %}
+                    <h4 class="dashboard-title">
+                        <a href="{{ path('app_back_dashboard') }}">{{ 'menu.dashbord'|trans({},'core') }}</a> /
+                        <span class="current-title">{{ pageTitle|reader(80)|raw }}</span>
+                    </h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="menu-pagination">
+        <div class="row">
+            <div class="col-md-8 col-12">
+                <div class="pull-left">
+                    <div class="o_cp_buttons pull-left">
+                        <div class="o_list_buttons">
+                            {% if hasSaveBtn is defined and hasSaveBtn %}
+                                <button type="button" class="btn btn-primary btn-sm"
+                                        id="mainAppSaveButton">
+                                    Sauvegarder <i class="ik ik-save text-white"></i>
+                                </button>
+                            {% endif %}
+                            {% if hasSaveAndStayBtn is defined and hasSaveAndStayBtn %}
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                        id="mainAppSaveAndStayButton">
+                                    Sauvegarder et modifier <i class="ik ik-edit text-white"></i>
+                                </button>
+                            {% endif %}
+                            {% if addPath is defined and addPath %}
+                                <a href="{{ addPath }}" class="btn btn-primary btn-sm {{ addPathClass }}">
+                                    {% if addTitle is defined and addTitle %}
+                                        {{ addTitle|raw }}
+                                    {% else %}
+                                        Nouvel élément
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+                            {% if otherLinks is defined and otherLinks %}
+                                {% for link in otherLinks %}
+                                    {{ link|raw }}
+                                {% endfor %}
+                            {% endif %}
+                            {% if resetPath is defined and resetPath %}
+                                <a href="{{ resetPath }}" class="btn btn-dark btn-sm">
+                                    {% if resetPathTitle is defined and resetPathTitle|length %}
+                                        {{ resetPathTitle }}
+                                    {% else %}
+                                        Annuler
+                                    {% endif %}
+                                    <i class="fa fa-undo"></i>
+                                </a>
+                            {% endif %}
+                            {% if link is defined and link %}
+                                <h4>{{ link|raw }}</h4>
+                            {% endif %}
+                            {% if bulkDeleteItemPath is defined and bulkDeleteItemPath | routeExists %}
+                                <div id="bulk-action-wrap" class="input-group-btn d-inline">
+                                    <form method="post" action="{{ bulkDeleteItemPath }}" class="hidden"
+                                          id="bulk-action-form">
+                                        <input type="hidden" id="bulk-items-to-delete" name="items"
+                                               value=""/>
+                                    </form>
+                                    <button id="top-bulk-action" type="button"
+                                            class="btn btn-outline-secondary dropdown-toggle"
+                                            data-toggle="dropdown" aria-expanded="false">
+                                        Actions groupées <span class="ik-chevron-down ik"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li class="divider"></li>
+                                        <li class="dropdown-item">
+                                            <a href="#" id="bulk-delete-link"><i
+                                                        class="ion-ios-trash"></i> Supprimer la
+                                                sélection</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="display-inline d-flex flex-row-reverse">
+                    {% if paginationPath is defined and itemId is not defined %}
+                        {% include 'foundation/back/shared/pagination.html.twig' with {'path': paginationPath} %}
+                    {% endif %}
+                    {% if otherPaginationPath is defined and itemId is defined %}
+                        {% include 'foundation/back/shared/other-pagination.html.twig' with {'path': otherPaginationPath,'itemId':itemId} %}
+                    {% endif %}
+                    {% if rightLinks is defined and rightLinks %}
+                        {% for link in rightLinks %}
+                            {{ link|raw }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

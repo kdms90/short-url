@@ -1,0 +1,56 @@
+{% extends 'foundation/back/form/back-form-add-right-side-i18n.html.twig' %}
+{% block mainHeaderInputs %}
+    {% for translation in form.i18ns %}
+        <div id="translation-{{ translation.vars.value.locale }}-object"
+             class="edit-i18n {% if translation.vars.value.locale != locale %}d-none{% endif %} edit-i18n-{{ translation.vars.value.locale }}">
+            {% for element in translation %}
+                {% if element.vars.name == 'object' %}
+                    {{ form_row(element) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Informations</div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                <p class="simple-compant-name">
+                    Date de création : {{ item.dateAdd|localizeddate('medium','none') }}
+                </p>
+                <p class="simple-compant-name">
+                    Dernière mise à jour : {{ item.dateUpd|localizeddate('medium','none') }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Code et idenfiant</div>
+        </div>
+        <div class="card-body-c">
+            {% for translation in form.i18ns %}
+                <div id="translation-{{ translation.vars.value.locale }}-name"
+                     class="edit-i18n {% if translation.vars.value.locale != locale %}d-none{% endif %} edit-i18n-{{ translation.vars.value.locale }}">
+                    {% for element in translation %}
+                        {% if element.vars.name == 'name' %}
+                            {{ form_row(element) }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            {{ form_row(form.code) }}
+        </div>
+    </div>
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Documentation</div>
+        </div>
+        <div class="card-body-c">
+            {{ item.i18n(locale).documentation|raw }}
+        </div>
+    </div>
+{% endblock %}

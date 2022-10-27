@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="components-panel__body-title">
+        <button type="button" aria-expanded="false" class="components-button">
+            <span aria-hidden="true">{% if title is defined %}{{ title }}{% else %}Image mis en avant{% endif %}</span>
+        </button>
+    </div>
+    {% if form.thumbnail.vars.errors|length %}
+        <div class="has-error">{{ form_errors(form.thumbnail) }}</div>
+    {% endif %}
+    {% set dropClass = '' %}
+    {% set dropStyle = '' %}
+    {% if item is not null and item.thumbnail is not null and item.thumbnail.imageExists %}
+        {% set dropClass = 'hasImage' %}
+        {% set dropStyle = 'background-image: url('~asset(item.thumbnail.webPath)~');' %}
+    {% endif %}
+    <div class="card-body-c preview">
+        <div class="dropzone imageHolder {{ dropClass }}" style="{{ dropStyle }}">
+            <div class="u--xxs-dn v-tac text-center">
+                <i class="dropzone__icon download ik ik-download"></i>
+                <p class="dropzone__message mb-0">
+                    <strong>Définissez une image</strong>
+                    <span class="d-block">Elle sera mise en avant</span>
+                </p>
+            </div>
+        </div>
+        <p class="d-none">{{ form_label(form.thumbnail) }}</p>
+        <div class="d-none file-input">
+            {{ form_widget(form.thumbnail) }}
+        </div>
+    </div>
+</div>

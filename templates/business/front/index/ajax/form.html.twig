@@ -1,0 +1,12 @@
+{{ form_start(form, {attr: {novalidate: 'novalidate', class:'authentication-form'}}) }}
+{{ form_errors(form) }}
+<div class="">
+    <div class="form-group">
+        {{ form_widget(form.original) }}
+        {{ form_widget(form.submit) }}
+    </div>
+    {% if form.original.vars.errors|length %}
+        <div class="has-error">{{ form_errors(form.original) }}</div>
+    {% endif %}
+</div>
+{{ form_end(form) }}

@@ -1,0 +1,50 @@
+{% if tableFields.advancedFilterPath|routeExists %}
+    <div class="table-filters">
+        <div class="row">
+            <div class="col col-sm-12 mb-2">
+            <span class="color-green"><i
+                        class="fa fa-filter"></i> {{ 'filter_results'|trans({}, 'external') }}
+            </span>
+                <span class="margin-left-15">
+                <a class="view-related"
+                   href="#"><i
+                            class="ion-ios-refresh"></i> {{ 'cancel_filters'|trans({}, 'external') }}
+                </a>
+            </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-12">
+                <form class="form-filter" action="{{ path(tableFields.advancedFilterPath) }}"
+                      method="get" novalidate="novalidate">
+                    {% block beforeDateFilters %}{% endblock %}
+                    <label>
+                    <span class="date-group">
+                        <span class="btn btn-default">{{ 'from'|trans({}, 'external') }}</span>
+                        <input type="text" name="fromDate" id="fromDate" class="datepicker btn btn-default"
+                               {% if fromDate is defined %}value="{{ fromDate }}"{% endif %}/>
+                    </span>
+                    </label>
+                    <label>
+                    <span class="date-group">
+                        <span class="btn btn-default">{{ 'to'|trans({}, 'external') }}</span>
+                        <input type="text" name="toDate" id="toDate" class="datepicker btn btn-default"
+                               {% if toDate is defined %}value="{{ toDate }}"{% endif %}/>
+                    </span>
+                    </label>
+                    {% block afterDateFilters %}{% endblock %}
+                    <button type="submit" class="btn-sm btn btn-secondary"><i
+                                class="ion-ios-color-filter-outline"></i> {{ 'apply_filter'|trans({}, 'external') }}
+                    </button>
+                    <label>
+                    <span class="date-group">
+                        <a class="more-filters show-more-filters" href="#">
+                            Plus de filtres
+                        </a>
+                    </span>
+                    </label>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}

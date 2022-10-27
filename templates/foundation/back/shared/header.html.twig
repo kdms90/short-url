@@ -1,0 +1,59 @@
+<header class="header-top" header-theme="light" id="header-top">
+    <div class="d-flex flex-column">
+        <div class="d-flex mx-3 justify-content-between">
+            <div class="top-menu d-flex align-items-center">
+                <button type="button" class="btn-icon mobile-nav-toggle d-lg-none"><span></span></button>
+                <div class="header-search open" id="header-search">
+                    <div class="input-group position-relative">
+                        <span class="input-group-addon search-close h-100 d-flex align-items-center"><i class="ik ik-x"></i></span>
+                        <img class="Typeahead-spinner" src="{{ asset('img/defaults/spinner.gif') }}">
+                        <input type="text" class="form-control" id="app_main_search" placeholder="Que voulez-vous faire {{ app.user.firstname }} ?" style="position: relative; vertical-align: top; background-color: transparent; width: 280px; padding: 0 0 2px 0;"/>
+                        <span class="input-group-addon search-btn app-search-icon h-100 d-flex align-items-center"><i class="ik ik-search"></i></span>
+                    </div>
+                </div>
+                <button type="button" id="navbar-fullscreen" class="nav-link"><i class="ik ik-maximize"></i></button>
+            </div>
+            <div class="top-menu d-flex align-items-center" id="header-top-right">
+                <div class="top-menu d-flex align-items-center">
+                    <a href="{{path('app_foundation_front_homepage')}}" class="nav-link view-public-site" id="view-public-site"><i class="ik ik-droplet"></i>{{ 'text.visit_website' | trans([],'core') }}</a>
+                </div>
+                <div class="dropdown top-menu d-flex align-items-center">
+                    <a class="nav-link dropdown-toggle toggle-language" href="#" id="localDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ik ik-globe"></i>
+                        {% if app.request.locale == 'fr' %}
+                            {{ 'locale.fr'|trans({},'core') }}
+                        {% elseif app.request.locale == 'en' %}
+                            {{ 'locale.en'|trans({},'core') }}
+                        {% endif %}
+                        <i class="ik ik-chevron-down color-black"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="localDropdown">
+                        <a class="dropdown-item" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}">
+                            {{ 'locale.fr'|trans({},'core') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">
+                            {{ 'locale.en'|trans({},'core') }}
+                        </a>
+                    </div>
+                </div>
+                {% include 'foundation/back/shared/hearder/rapid-actions.html.twig' %}
+                <div class="dropdown" id="app-notifications">
+                    {{ render(controller("App\\Controller\\Notification\\Back\\EmbedController::widget")) }}
+                </div>
+{#                <button type="button" class="nav-link ml-10 right-sidebar-toggle"><i class="ik ik-message-square"></i><span class="badge bg-success">0</span></button>#}
+                <button type="button" class="nav-link ml-10" id="apps_modal_btn" data-toggle="modal" data-target="#appsModal"><i class="ik ik-grid"></i></button>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="avatar" src="{{ asset('img/defaults/no-image-user.png') }}" alt="">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{{ path('app_user_back_profile') }}"><i class="ik ik-user dropdown-icon"></i> Mon Profil</a>
+                        <a class="dropdown-item" href="{{ path('app_user_back_profile_settings') }}"><i class="ik ik-settings dropdown-icon"></i> Settings</a>
+                        <a class="dropdown-item" href="{{path('app_user_front_logout')}}"><i class="ik ik-power dropdown-icon"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'foundation/back/shared/top-nav.html.twig' %}
+    </div>
+</header>

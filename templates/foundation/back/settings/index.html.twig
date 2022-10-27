@@ -1,0 +1,239 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block back %}
+    <div class="pl-3 mt-2">
+        <h2 class="current-page-title">
+            {{ pageTitle }}
+            {% if itemsNb is defined and itemsNb %}<span>{{ itemsNb }}</span>{% endif %}
+        </h2>
+        <p>Définissez le comportement de l'application suivant les différents cas de mise en oeuvre</p>
+    </div>
+    <div id="setting-page" class="px-3">
+        <div class="row">
+            {% if is_granted('CAN_VIEW_SEQUENCE') %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Sequence des Références et Matricules
+                                <small>Module Application</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <article class="media event">
+                                <a class="pull-left date" href="{{ path('app_foundation_back_sequences') }}">
+                                    <p class="month">Tous</p>
+                                    <p class="day"><i class="ik ik-list"></i></p>
+                                </a>
+                                <div class="media-body">
+                                    <p>Configurer comment les références de vos factures, les matricules des consultants sont gérés.</p>
+                                    <a class="config-link" href="{{ path('app_foundation_back_sequences') }}">Toutes les séquences</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_COUNTRY') %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pays &amp; Villes
+                                <small>Module Lieux</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <article class="media event">
+                                <a class="pull-left date" href="{{ path('app_location_back_city_add') }}">
+                                    <p class="month">Créer ville</p>
+                                    <p class="day"><i class="ik ik-plus"></i></p>
+                                </a>
+                                <div class="media-body">
+                                    <p>Voir l'ensemble des pays et villes disponible. Ajouter de nouvelles villes</p>
+                                    <div class="row">
+                                        <p class="col-md-6 col-sm-12 col-xs-12">
+                                            <a class="config-link" href="{{ path('app_location_back_countries') }}">Voir
+                                                tous
+                                                les pays</a>
+                                        </p>
+                                        <p class="col-md-6 col-sm-12 col-xs-12">
+                                            <a class="config-link" href="{{ path('app_location_back_cities') }}">Voir
+                                                toutes
+                                                les villes</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_LOCATION_ROLE') %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Droits d'accès au module lieux
+                                <small>Module Lieux</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <article class="media event">
+                                <a class="pull-left date" href="{{ path('app_location_back_role_add') }}">
+                                    <p class="month">Ajouter</p>
+                                    <p class="day"><i class="ik ik-plus"></i></p>
+                                </a>
+                                <div class="media-body">
+                                    <p>Gérer les droits d'accès à la gestion des organisation, pays, villes, ...</p>
+                                    <a class="config-link" href="{{ path('app_location_back_roles') }}">Tous les
+                                        droits d'accès</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_BLOG_ROLE') %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Droits d'accès au module blog
+                                <small>Module Blog</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <article class="media event">
+                                <a class="pull-left date" href="{{ path('app_blog_back_role_add') }}">
+                                    <p class="month">Ajouter</p>
+                                    <p class="day"><i class="ik ik-plus"></i></p>
+                                </a>
+                                <div class="media-body">
+                                    <p>Gérer les droits d'accès à la gestion des articiles, slides, catégories, ...</p>
+                                    <a class="config-link" href="{{ path('app_blog_back_roles') }}">Tous les
+                                        droits d'accès</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_BUSINESS_ROLE') %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Droits d'accès au module business
+                                <small>Module Business</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <article class="media event">
+                                <a class="pull-left date" href="{{ path('app_business_back_role_add') }}">
+                                    <p class="month">Ajouter</p>
+                                    <p class="day"><i class="ik ik-plus"></i></p>
+                                </a>
+                                <div class="media-body">
+                                    <p>Gérer les droits d'accès à la gestion des services, projets, l'équipe, ...</p>
+                                    <a class="config-link" href="{{ path('app_business_back_roles') }}">Tous les
+                                        droits d'accès</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_CMS_PAGE') or is_granted('CAN_VIEW_PARAMETER') %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Contenus Application
+                                <small>Module Application</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <article class="media event">
+                                <a class="pull-left date" href="{{ path('app_foundation_back_cms_pages') }}">
+                                    <p class="month">Tous</p>
+                                    <p class="day"><i class="ik ik-list"></i></p>
+                                </a>
+                                <div class="media-body">
+                                    <p>Editer les pages de contenus telles que les la définition des termes et conditions, les paramètres comme la pagination et autres...</p>
+                                    <div class="row">
+                                        {% if is_granted('CAN_VIEW_CMS_PAGE') %}
+                                            <p class="col-md-7">
+                                                <a class="config-link pull-left" href="{{ path('app_foundation_back_cms_pages') }}">Toutes les pages de contenus</a>
+                                            </p>
+                                        {% endif %}
+                                        {% if is_granted('CAN_VIEW_PARAMETER') %}
+                                            <p class="col-md-5">
+                                                <a class="config-link pull-right"
+                                                   href="{{ path('app_foundation_back_parameters') }}">Paramètres système</a>
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pièce jointes
+                                <small>Module général</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <article class="media event">
+                                <a class="pull-left date" href="{{ path('app_foundation_back_attachments') }}">
+                                    <p class="month">Créer</p>
+                                    <p class="day"><i class="ik ik-plus"></i></p>
+                                </a>
+                                <div class="media-body">
+                                    <p>Editer les pièces jointes utilisées dans le site comme le logo, la plaquette et autres</p>
+                                    <div class="row">
+                                        <p class="col-md-7">
+                                            <a class="config-link pull-left" href="{{ path('app_foundation_back_attachments') }}">Toutes les pièces</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_EMAIL_TEMPLATE') %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>E-mail
+                                <small>Module Notifications</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <article class="media event">
+                                <a class="pull-left date" href="{{ path('app_notification_back_emails') }}">
+                                    <p class="month">Tous</p>
+                                    <p class="day"><i class="ik ik-list"></i></p>
+                                </a>
+                                <div class="media-body">
+                                    <p>Personnaliser le contenu des e-mails envoyés aux acteurs de la plateforme. </p>
+                                    <a class="config-link" href="{{ path('app_notification_back_emails') }}">Voir
+                                        toutes
+                                        les
+                                        notifications</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% include 'business/back/shared/settings.html.twig' %}
+            {% include 'user/back/shared/settings.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

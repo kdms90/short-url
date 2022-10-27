@@ -1,0 +1,25 @@
+<div class="panel-body">
+    <div class="row">
+        <div class="col-sm-6 col-md-7 col-xs-12 longurl">
+            <p class="original-link">{{ url.original }}</p>
+        </div>
+        <div class="col-sm-6 col-md-5 col-xs-12">
+            <button data-toggle="tooltip" data-original-title="" class="btn btn-copy" id="short-copy-clipboard" data-clipboard-text="{{rewritedUrl}}">{{rewritedUrl}}<i class="ik ik-copy"></i></button>
+            <small class="press-copy d-none">Copiez dans le presse papier!</small>
+        </div>
+    </div>
+    <div class="row m-t-10">
+        <div class="col-sm-12 col-md-7 col-xs-12 desc">
+            <h4 class="mt-4">Obtenez plus qu’un lien court ! Inscription gratuite en 2 minutes !</h4>
+            <p>Réduisez vos liens avec votre nom de marque, liez vos liens courts à des QR codes, réduisez simultanément un grand nombre de liens et suivez votre audience ! (pays, devices, visiteurs, sources ...).</p>
+        </div>
+        <div class="col-sm-12 col-md-5 col-xs-12 m-t-10 text-center center-block">
+            <p class="text-right mt-4">
+                <a href="{{ path("app_user_front_access_request") }}" class="pull-right btn btn-outline-primary btn-add-account btn-lg">Créer un compte gratuit</a>
+            </p>
+            <p class="text-right">
+                <a href="{{ path("app_business_front_url_add") }}" class="pull-right btn btn-outline-secondary btn-add-account btn-lg mt-1">Raccourcir un autre lien</a>
+            </p>
+        </div>
+    </div>
+</div>

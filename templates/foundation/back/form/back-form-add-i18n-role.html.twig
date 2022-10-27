@@ -1,0 +1,120 @@
+{% extends 'foundation/back/form/back-form-add-right-side.html.twig' %}
+{% block initApp %}{% endblock %}
+{% block additionnalTabHeader %}
+    <li class="nav-item">
+        <a class="nav-link" href="#access-rules"
+           data-toggle="tab">{{ 'Description'|trans({}, 'external') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#members"
+           data-toggle="tab">{{ 'members'|trans({}, 'external') }}</a>
+    </li>
+{% endblock %}
+{% block defaultTabTitle %}{{ 'access_rights'|trans({}, 'external') }}{% endblock %}
+{% block headerInputs %}
+    {{ form_row(form.name) }}
+{% endblock %}
+{% block tabBody %}
+    {% include 'foundation/back/shared/form/roles-form.html.twig' with {'rules':rules} %}
+    {% include 'foundation/back/shared/form/additional-roles-form.html.twig' with {'additionalRules':additionalRules} %}
+{% endblock %}
+{% block additionnalTabContent %}
+    <div class="tab-pane" id="access-rules">
+        <div class="row">
+            <div class="col-12">
+                {{ form_row(form.description) }}
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="members">
+        <table class="table table-striped inner-table"
+               id="added-memebers-for-role-table">
+            <thead>
+            <tr>
+                <th class="o_column_sortable"
+                    title="">{{ 'user.fullname'|trans({}, 'form') }}</th>
+                <th class="o_column_sortable"
+                    title="">{{ 'address.phoneNumber'|trans({}, 'form') }}</th>
+                <th class="o_column_sortable"
+                    title="">{{ 'address.address'|trans({}, 'form') }}</th>
+                <th class="o_column_sortable"
+                    title="">{{ 'added_to_role_date'|trans({}, 'external') }}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if item.id %}
+                {% for entity in roleMembers %}
+                    <tr id="added-consulant-{{ entity.id }}"
+                        class="item"
+                        data-submission="{{ item.id }}"
+                        data-consultant="{{ entity.id }}">
+                        <td>{{ entity.member.fullname }}</td>
+                        <td>{{ entity.member.address.phoneNumber }}</td>
+                        <td>{{ entity.member.address.fullAddress }}</td>
+                        <td>{{ entity.dateAdd|localizeddate }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8">
+                        <span class="save-warning">{{ 'save_before_add_restrcition'|trans({}, 'external') }}</span>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Informations</div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                {% if item.author is not null %}
+                    <p class="simple-compant-name">
+                        Rôle crée par : {{ item.author.fullname }}
+                    </p>
+                {% endif %}
+                <p class="simple-compant-name">
+                    Date de création : {{ item.dateAdd|localizeddate('medium','none') }}
+                </p>
+                <p class="simple-compant-name">
+                    Dernière mise à jour : {{ item.dateUpd|localizeddate('medium','none') }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Documentation</div>
+        </div>
+        <div class="card-body-c">
+            <p class="alert-dark alert size12">
+                <code>Accès en lecture</code> : Possibilité de voir un contenu donné
+            </p>
+            <p class="alert-dark alert size12">
+                <code>Droit de création</code> : Possibilité d'ajouter un nouvel élément dans le système
+            </p>
+            <p class="alert-dark alert size12">
+                <code>Accès en modification</code> : Possibilité de mise à jour sur un élément crée
+            </p>
+            <p class="alert-dark alert size12">
+                <code>Droit de suppression</code> : Possibilité de supprimer un contenu donné du système
+            </p>
+        </div>
+    </div>
+{% endblock %}

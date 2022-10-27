@@ -1,0 +1,133 @@
+{# On étend notre layout #}
+{% extends "DBNotificationBundle::Front/layout-left.html.twig" %}
+{% block title %}| Appel à candidature{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('app_notification_front_notifications') }}">Notifications</a></li>
+    <li class="separator"><i class="glyphicon glyphicon-share-alt"></i></li>
+    <li class="active">Appel à candidature</li>
+{% endblock %}
+{% block FOContentNotification %}
+    <div class="row header-title">
+        <div class="col-md-12">
+            <h3 class="item-title margin-top-15">Vos notifications</h3>
+            <span>
+                Appel à candidature
+            </span>
+        </div>
+    </div>
+    <div id="notifications" class="row content-notification">
+        <div class="col-md-12">
+            <p>
+                <strong>{{ offersOpinion.candidate.fullname }}</strong> a soumis
+                <strong>{{ query.tools.elapseTime(notification.dateAdd) }}</strong>, son avis concernant l'appel à candidature
+                <strong>{{ offersOpinion.offers.i18n(locale).name }}</strong> lancée le
+                <strong>{{ offersOpinion.offers.dateAdd|localizeddate('medium','none')}}</strong>.
+            </p>
+            <h4>Ci-dessous vous trouverez ses impressions</h4>
+            <div class="form-group row bloc-question">
+                <p class="col-md-12 question">
+                    Comment trouvez-vous la fiabilité de l'annonce (Fiabilité)? :
+                    <span class="type">
+                        {% if offersOpinion.reliability  == 1 %}
+                            <span>Passsable</span>
+                        {% elseif offersOpinion.reliability  == 2 %}
+                            <span>Assez bien</span>
+                        {% elseif offersOpinion.reliability  == 3 %}
+                            <span>Bien</span>
+                        {% elseif offersOpinion.reliability  == 4 %}
+                            <span>Très bien</span>
+                        {% elseif offersOpinion.reliability  == 5 %}
+                            <span>Excelent</span>
+                        {% else %}
+                            <span>Non définit</span>
+                        {% endif %}
+                    </span>
+                </p>
+            </div>
+            <div class="form-group row bloc-question">
+                <p class="col-md-12 question">
+                    Comment trouvez-vous le niveau de rémunération (Rémunération)? :
+                    <span class="type">
+                                    {% if offersOpinion.payment  == 1 %}
+                                        <span>Passsable</span>
+                                    {% elseif offersOpinion.payment  == 2 %}
+                                        <span>Assez bien</span>
+                                    {% elseif offersOpinion.payment  == 3 %}
+                                        <span>Bien</span>
+                                    {% elseif offersOpinion.payment  == 4 %}
+                                        <span>Très bien</span>
+                                    {% elseif offersOpinion.payment  == 5 %}
+                                        <span>Excelent</span>
+                                    {% else %}
+                                        <span>Non définit</span>
+                                    {% endif %}
+                                </span>
+                </p>
+            </div>
+            <div class="form-group row bloc-question">
+                <p class="col-md-12 question">
+                    Quelle est la réactivité aux e-mail de l'annonceur (Réactivité)? :
+                    <span class="type">
+                                    {% if offersOpinion.reactivity  == 1 %}
+                                        <span>Passsable</span>
+                                    {% elseif offersOpinion.reactivity  == 2 %}
+                                        <span>Assez bien</span>
+                                    {% elseif offersOpinion.reactivity  == 3 %}
+                                        <span>Bien</span>
+                                    {% elseif offersOpinion.reactivity  == 4 %}
+                                        <span>Très bien</span>
+                                    {% elseif offersOpinion.reactivity  == 5 %}
+                                        <span>Excelent</span>
+                                    {% else %}
+                                        <span>Non définit</span>
+                                    {% endif %}
+                                </span>
+                </p>
+            </div>
+            <div class="form-group row bloc-question">
+                <p class="col-md-12 question">
+                    Quelle est la qualité des clients de cet annonce (Clientèle)? :
+                    <span class="type">
+                                    {% if offersOpinion.quality  == 1 %}
+                                        <span>Passsable</span>
+                                    {% elseif offersOpinion.quality  == 2 %}
+                                        <span>Assez bien</span>
+                                    {% elseif offersOpinion.quality  == 3 %}
+                                        <span>Bien</span>
+                                    {% elseif offersOpinion.quality  == 4 %}
+                                        <span>Très bien</span>
+                                    {% elseif offersOpinion.quality  == 5 %}
+                                        <span>Excelent</span>
+                                    {% else %}
+                                        <span>Non définit</span>
+                                    {% endif %}
+                                </span>
+                </p>
+            </div>
+            <div class="form-group row bloc-question">
+                <p class="col-md-12 question">
+                    Pour avoir déjà échangez avec cet annonceur, comment trouvez-vous ses qualités
+                    relationnelles (Sens relationnel)? :
+                    <span class="type">
+                                    {% if offersOpinion.relationship  == 1 %}
+                                        <span>Passsable</span>
+                                    {% elseif offersOpinion.relationship  == 2 %}
+                                        <span>Assez bien</span>
+                                    {% elseif offersOpinion.relationship  == 3 %}
+                                        <span>Bien</span>
+                                    {% elseif offersOpinion.relationship  == 4 %}
+                                        <span>Très bien</span>
+                                    {% elseif offersOpinion.relationship  == 5 %}
+                                        <span>Excelent</span>
+                                    {% else %}
+                                        <span>Non définit</span>
+                                    {% endif %}
+                                </span>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

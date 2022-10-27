@@ -1,0 +1,44 @@
+<a id="our-team"></a>
+<section data-padding="top" >
+    <div class="container">
+        <div data-aos="fade" class="row">
+            <div class="col-12">
+                <div class="sectiontitle-element--center">
+                    <span class="toptitle--primary">Notre équipe est constituée des meilleurs</span>
+                    <h2>{{'rules.feature_team'| trans([], 'form')}}</h2>
+                    <p>Notre equipe d'expert</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-padding="smtop">
+            {% for item in entities %}
+                <!--  Single Team  -->
+                <div data-aos="fade-up" data-margin="xsbottom" class="col-12 col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                    <div class="square-element--overlay">
+                        <div class="info">
+                            <div class="image">
+                                {% if item.thumbnail is not null and item.thumbnail.fileExists %}
+                                    <img data-unveil src="#" data-src="{{ asset(item.thumbnail.webPath) }}" data-src-retina="{{  asset(item.thumbnail.webPath) }}" alt="">
+                                {% else %}
+                                    <img data-unveil src="#" data-src="{{ asset('img/demo/team-1.jpg') }}" data-src-retina="{{ asset('img/demo/team-1@2x.jpg') }}" alt="">
+                                {% endif %}
+                                <div class="social">
+                                    <ul>
+                                        <li><a href="{{ item.linkedinLink ? item.linkedinLink : '#' }}" target="_blank" rel="noreferrer"><i class="fab fa-linkedin-in"></i></a></li>
+                                        <li><a href="{{ item.twiterLink ? item.twiterLink : '#' }}" target="_blank" rel="noreferrer"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="{{ item.facebookLink ? 'mailto:'~item.facebookLink : '#' }}" target="_blank"><i class="far fa-envelope"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <h6>{{item.fullname}}</h6>
+                                <p>{{item.i18n(locale).name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  END Single Team  -->
+            {% endfor %}
+        </div>
+    </div>
+</section>

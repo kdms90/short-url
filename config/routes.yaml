@@ -1,0 +1,18 @@
+app_welcome:
+    path: /
+    defaults: { _controller: App\Controller\Foundation\Front\IndexController::index }
+#    Remove comment to allow multiples language
+#    requirements:
+#        _locale: fr|en
+foundation_front:
+    resource: routes/front.yaml
+#    Remove comment to allow multiples language
+#    prefix:   /{_locale}
+#    requirements:
+#        _locale: fr|en
+foundation_back:
+    resource: routes/back.yaml
+#    Remove comment to allow multiples language
+#    prefix:   /{_locale}/app
+#    requirements:
+#        _locale: fr|en

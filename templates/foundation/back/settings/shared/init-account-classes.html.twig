@@ -1,0 +1,30 @@
+
+<h2>Plan comptable : Classes comptable</h2>
+<div class="row mt16 apps_container">
+    <div class="col-12 col-lg-6 app_box">
+        <div class="app_left_pane">1.</div>
+        <div class="app_right_pane">
+            <span class="o_form_label">Installation des classes comptables de base</span>
+            <div class="text-muted">
+                Installer les classes comptable de base sur lesquels vos opérations seront enregistrées
+            </div>
+            <div class="content-group">
+                <div class="row mt16">
+                    <div class="o_field_widget col-lg">
+                        <div class="o_input_dropdown">
+                            {% if classesCount <= 0 %}
+                                <button data-action="{{ path('app_back_foundation_init_app_accounting_class_ajax') }}"
+                                        class="run-app-initialisation o_form_label btn btn-sm btn-outline-secondary w-100">
+                                    Installer
+                                </button>
+                            {% else %}
+                                <p class="color-green"> <i class="ik ik-check-circle"></i> Installé</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <label class="o_form_label col-lg-5 o_light_label"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<section class="news-one">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2 class="products-title"><span class="circle-mark"></span> L'actualité <span class="font-light">de votre firme</span></h2>
+        </div>
+        <div class="row">
+            {% for item in entities %}
+                <div class="col-xl-3 col-lg-3 col-12 wow fadeInUp" data-wow-delay="100ms">
+                    <!--News One Single-->
+                    {% include 'blog/front/post/shared/single.html.twig' with {'item':item} %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

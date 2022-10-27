@@ -1,0 +1,38 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('css/back/accounting.css')) }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('css/back/settings.css')) }}"/>
+{% endblock %}
+{% block title %}{{ pageTitle }}{% endblock %}
+{% block initApp %}{% endblock %}
+{% block back %}
+    <div class="pl-3 settings-h">
+        <h2 class="current-page-title mt-2">
+            {{ pageTitle|raw }}
+        </h2>
+        <p>Mettez en marche SGI!</p>
+    </div>
+    <div class="app_settings_block pb-2" id="app_accounting_settings_block">
+        <div class="mb-4">
+            <div id="init-account-classes">
+                {% include 'foundation/back/settings/shared/init-account-classes.html.twig' with {'classesCount':classesCount} %}
+            </div>
+        </div>
+        <div class="mb-4">
+            <div id="init-account-chart">
+                {% include 'foundation/back/settings/shared/init-account-chart.html.twig' with {'charts':charts} %}
+            </div>
+        </div>
+        <div class="mb-4">
+            <div id="init-default-roles">
+                {% include 'foundation/back/settings/shared/init-default-roles.html.twig' with {'hasDefaultRoles':hasDefaultRoles} %}
+            </div>
+        </div>
+        <div class="mb-4">
+            <div id="init-settings">
+                {% include 'foundation/back/settings/shared/init-settings.html.twig' with {'companyWorkSpace':'companyWorkSpace'} %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

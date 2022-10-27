@@ -1,0 +1,43 @@
+<section class="team-one about-page-team">
+    <div class="container">
+        <div class="section-title text-center">
+            <span class="section-title__tagline">{{'our-team' | trans([], 'menu')}}</span>
+            <h2 class="section-title__title">{{'our-team-1' | trans([], 'menu')}}</h2>
+        </div>
+        {% if entities|length == 0 %}
+            <div class="section-title text-center">
+                <span class="section-title__tagline"><i class="fas fa-exclamation-triangle"></i> {{'text.element_sorry' | trans([], 'core')}}</span>
+                <h2 class="section-title__title">{{'text.element_empty' | trans([], 'core')}}</h2>
+            </div>
+        {% endif %}
+        <div class="row">
+            {% for item in entities %}
+                {% if loop.index <= 3 %}
+                    <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="{{loop.index}}00ms">
+                        <!--Team One Single-->
+                        <div class="team-one__single">
+                            <div class="team-one__img-box">
+                                <div class="team-one__img">
+                                    {% if item.thumbnail is not null and item.thumbnail.imageExists %}
+                                        <img src="{{ asset(item.thumbnail.webPath) }}" alt="{{ item.fullname }}">
+                                    {% else %}
+                                        <img src="{{asset('images/team/team-one-img-1.jpg')}}" alt="{{ item.fullname }}">
+                                    {% endif %}
+                                    <div class="team-one__social">
+                                        <a target="_blank" href="{{item.twiterLink}}"><i class="fab fa-twitter"></i></a>
+                                        <a target="_blank" href="{{item.facebookLink}}" class="clr-fb"><i class="fab fa-facebook"></i></a>
+                                        <a target="_blank" href="{{item.linkedinLink}}" class="clr-ins"><i class="fab fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-one__content">
+                                <h3 class="team-one__name">{{ item.fullname }}</h3>
+                                <p class="team-one__title">{{ item.i18n(locale).name  }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

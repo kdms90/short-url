@@ -1,0 +1,14 @@
+#Route pour la connexion
+app_user_front_login:
+  path: /login
+  controller: App\Controller\User\Front\SecurityController::login
+#Route pour la création d'un mot de passe un login qui peut être différent de l'inscription
+app_user_front_access_request:
+  path: /access/request
+  defaults: { _controller: App\Controller\User\Front\RegistrationController::register}
+app_user_front_confirm_account:
+  path: /confirm/{token}
+  controller: App\Controller\User\Front\RegistrationController::confirm
+#Route pour la déconnexion
+app_user_front_logout:
+  path: /logout

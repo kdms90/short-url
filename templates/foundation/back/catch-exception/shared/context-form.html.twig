@@ -1,0 +1,23 @@
+<form method="post" novalidate="novalidate" id="fix-wrong-context" action="{{ path('app_back_save_work_context') }}">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_errors(form) }}
+                <p class="alert alert-info">
+                    Le contexte d'éxécution défini dans quelle entreprise vous menez des opérations. Vous ne pouvez effectuer une action qui sera prise en compte dans toutes vos entreprises affiliées.
+                </p>
+                <div class="company-context">
+                    {{ form_label(form.company) }}
+                    {% if form.company.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.company) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.company) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+</form>

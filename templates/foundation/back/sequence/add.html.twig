@@ -1,0 +1,98 @@
+{% extends 'foundation/back/form/back-form-add-right-side-i18n.html.twig' %}
+{% block tabBody %}
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="row form-row">
+                <div class="col-md-5 col-xs-12 form-label">
+                    {{ form_label(form.code) }}
+                </div>
+                <div class="col-md-7 col-xs-12 form-input">
+                    {% if form.code.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.code) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.code) }}
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-md-5 col-xs-12 form-label">
+                    {{ form_label(form.prefix) }}
+                </div>
+                <div class="col-md-7 col-xs-12 form-input">
+                    {% if form.prefix.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.prefix) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.prefix) }}
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-md-5 col-xs-12 form-label">
+                    {{ form_label(form.nextNumber) }}
+                </div>
+                <div class="col-md-7 col-xs-12 form-input">
+                    {% if form.nextNumber.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.nextNumber) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.nextNumber) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="row form-row">
+                <div class="col-md-5 col-xs-12 form-label">
+                    {{ form_label(form.incrementNumber) }}
+                </div>
+                <div class="col-md-7 col-xs-12 form-input">
+                    {% if form.incrementNumber.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.incrementNumber) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.incrementNumber) }}
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="col-md-5 col-xs-12 form-label">
+                    {{ form_label(form.padding) }}
+                </div>
+                <div class="col-md-7 col-xs-12 form-input">
+                    {% if form.padding.vars.errors|length %}
+                        <div class="has-error">{{ form_errors(form.padding) }}</div>
+                    {% endif %}
+                    {{ form_widget(form.padding) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block sideCard %}
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Informations</div>
+        </div>
+        <div class="card-body-c">
+            <div class="">
+                <p class="simple-compant-name">
+                    Date de création : {{ item.dateAdd|localizeddate('medium','none') }}
+                </p>
+                <p class="simple-compant-name">
+                    Dernière mise à jour : {{ item.dateUpd|localizeddate('medium','none') }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="components-panel__body-title">
+            <div class="components-button">Documentation</div>
+        </div>
+        <div class="card-body-c">
+            <p class="alert-dark alert size12">
+                <code>%year%</code> : Année en cours
+            </p>
+            <p class="alert-dark alert size12">
+                <code>%month%</code> : Mois en cours
+            </p>
+            <p class="alert-dark alert size12">
+                <code>%day%</code> : Jour en cours
+            </p>
+            <p> Exemple :  %year%/%month%/%day%.</p>
+        </div>
+    </div>
+{% endblock %}

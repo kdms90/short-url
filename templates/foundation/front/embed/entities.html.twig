@@ -1,0 +1,56 @@
+<section class="services-one pb-0">
+    <div class="services-one-container">
+        {% if enabledTitle %}
+            <div class="section-title text-center">
+                <h2 class="section-title__title">Quelques expertises des entités du Groupe</h2>
+            </div>
+        {% endif %}
+        <div class="bg-white">
+            <div class="container">
+                <div class="row h-100">
+                    <div class="col-xl-5 col-lg-5 col-12">
+                        <!--Services One Single-->
+                        <div class="services-one__single entities">
+                            {% for item in entities %}
+                                <div class="entity desktop d-none d-md-block"
+                                     data-uri="{{ path('app_business_front_ajax_entity_services',{'id':item.id}) }}">
+                                    <span class="entity-logo">
+                                        {% if item.thumbnail is not null and item.thumbnail.imageExists %}
+                                            <img data-full-size-image-url="{{ asset(item.thumbnail.webPath) }}"
+                                                 src="{{ asset(item.thumbnail.webPath) }}" alt="{{ item.name }}"
+                                                 typeof="foaf:Image" class="img-fluid">
+                                        {% else %}
+                                            <img src="{{ asset('images/blog/news-page-img-1.jpg') }}"
+                                                 typeof="foaf:Image" class="img-fluid">
+                                        {% endif %}
+                                    </span>
+                                    <span class="entity-name">{{ item.name }}</span>
+                                </div>
+                                <a class="entity d-block d-md-none" href="{{ path('app_business_front_group_entity_single',{'id':item.id, 'slug':item.slug}) }}">
+                                    <span class="entity-logo">
+                                        {% if item.thumbnail is not null and item.thumbnail.imageExists %}
+                                            <img data-full-size-image-url="{{ asset(item.thumbnail.webPath) }}"
+                                                 src="{{ asset(item.thumbnail.webPath) }}" alt="{{ item.name }}"
+                                                 typeof="foaf:Image" class="img-fluid">
+                                        {% else %}
+                                            <img src="{{ asset('images/blog/news-page-img-1.jpg') }}"
+                                                 typeof="foaf:Image" class="img-fluid">
+                                        {% endif %}
+                                    </span>
+                                    <span class="entity-name">{{ item.name }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-7 col-12">
+                        <div class="d-none d-md-block">
+                            <!--Services One Single-->
+                            <div class="services-one__single service-right-desc" id="entity-services">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,119 @@
+{% if is_granted('CAN_VIEW_BUSINESS_SERVICE') or is_granted('CAN_ADD_BUSINESS_SERVICE') or is_granted('CAN_VIEW_BUSINESS_PROJECT')  or is_granted('CAN_ADD_BUSINESS_PROJECT')%}
+    <div class="nav-lavel">BUSINESS</div>
+    <div class="nav-item has-sub">
+        <a href="#"><i class="ik ik-home"></i><span>The Best Group</span></a>
+        <div class="submenu-content">
+            {% if is_granted('CAN_VIEW_BUSINESS_ABOUT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_abouts') }}">{{ 'Tout savoir'|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_BUSINESS_ABOUT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_about_add') }}">{{ 'Nouvelle description'|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_CONTACT') %}
+                <a class="menu-item"
+                   href="{{ path('app_foundation_back_contacts') }}">{{ 'Demandes de contact'|trans({},'feature') }}</a>
+                <a class="menu-item"
+                   href="{{ path('app_foundation_back_contacts_newsletters') }}">{{ 'Newsletters'|trans({},'feature') }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="nav-item has-sub">
+        <a href="#"><i class="ik ik-box"></i><span>Services</span></a>
+        <div class="submenu-content">
+            {% if is_granted('CAN_VIEW_BUSINESS_SERVICE') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_services') }}">{{ 'Tous les services'|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_ADD_BUSINESS_SERVICE') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_service_add') }}">{{ 'Ajouter un service'|trans({}, 'core') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_BUSINESS_SERVICE') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_service_categories') }}">{{ 'Toutes les catégories'|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_ADD_BUSINESS_SERVICE') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_service_category_add') }}">{{ 'Ajouter une catégorie'|trans({}, 'core') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_BUSINESS_SERVICE') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_expertises') }}">{{ 'Toutes les expertises'|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_ADD_BUSINESS_SERVICE') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_expertise_add') }}">{{ 'Ajouter une expertise'|trans({}, 'core') }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="nav-item has-sub">
+        <a href="#"><i class="ik ik-octagon"></i><span>Objets Publicitaires</span></a>
+        <div class="submenu-content">
+            {% if is_granted('CAN_VIEW_BUSINESS_ADVERTISING_OBJECT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_advertising_objects') }}">{{ 'Tous les objets publicitaires'|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_ADD_BUSINESS_ADVERTISING_OBJECT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_advertising_object_add') }}">{{ 'Ajouter un objet'|trans({}, 'core') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_BUSINESS_ADVERTISING_OBJECT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_advertising_object_categories') }}">{{ 'Toutes les catégories'|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_ADD_BUSINESS_ADVERTISING_OBJECT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_advertising_object_category_add') }}">{{ 'Ajouter une catégorie'|trans({}, 'core') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_VIEW_BUSINESS_ADVERTISING_OBJECT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_advertising_object_types') }}">{{ 'Tous les types'|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_ADD_BUSINESS_ADVERTISING_OBJECT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_advertising_object_type_add') }}">{{ 'Ajouter un type'|trans({}, 'core') }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="nav-item has-sub">
+        <a href="#"><i class="ik ik-book"></i><span>Projets</span></a>
+        <div class="submenu-content">
+            {% if is_granted('CAN_VIEW_BUSINESS_PROJECT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_projects') }}">{{ 'Tous les projets'|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_ADD_BUSINESS_PROJECT') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_project_add') }}">{{ 'Ajouter un projet'|trans({}, 'core') }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="nav-item has-sub">
+        <a href="#"><i class="ik ik-users"></i><span>L'équipe</span></a>
+        <div class="submenu-content">
+            {% if is_granted('CAN_VIEW_BUSINESS_TEAM') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_teams') }}">{{ "Toute l'equipe"|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_ADD_BUSINESS_TEAM') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_team_add') }}">{{ 'Ajouter un membre'|trans({}, 'core') }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="nav-item has-sub">
+        <a href="#"><i class="ik ik-hash"></i><span>Partenaires / Clients</span></a>
+        <div class="submenu-content">
+            {% if is_granted('CAN_VIEW_BUSINESS_TEAM') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_partners') }}">{{ "Tous les partenaires"|trans({},'feature') }}</a>
+            {% endif %}
+            {% if is_granted('CAN_ADD_BUSINESS_TEAM') %}
+                <a class="menu-item"
+                   href="{{ path('app_business_back_partner_add') }}">{{ 'Ajouter un partenaire'|trans({}, 'core') }}</a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,11 @@
+{% extends 'foundation/back/back.html.twig' %}
+{% block back %}
+    <div class="wrap-table-list">
+        <div>
+            <h2 class="current-page-title">
+                {{ pageTitle }}
+                {% if itemsNb is defined and itemsNb %}<span>{{ itemsNb }}</span>{% endif %}
+            </h2>
+        </div>
+    </div>
+{% endblock %}

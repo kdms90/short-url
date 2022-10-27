@@ -1,0 +1,16 @@
+{% extends 'foundation.html.twig' %}
+{% block styles %}
+{% endblock %}
+{% block javascripts %}
+    {% block othersJavascripts %}
+    {% endblock %}
+{% endblock %}
+{% block title %}{{ pageTitle }}{% endblock %}
+{% block foundation %}
+    <div class="wrapper">
+        <!-- ##### Header Area End ##### -->
+        <div class="page-wrap back-office">
+            {% block back %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

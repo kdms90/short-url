@@ -1,0 +1,25 @@
+<div class="nav-lavel">AUTRES</div>
+{% if is_granted('CAN_VIEW_COLLABORATOR') %}
+    <div class="nav-item has-sub">
+        <a href="#"><i class="ik ik-shield"></i><span>Utilisateurs</span></a>
+        <div class="submenu-content">
+            <a class="menu-item"
+               href="{{ path('app_user_back_collaborators') }}">{{ 'Tous les utilisateurs'|trans({},'feature') }}</a>
+            {% if is_granted('CAN_ADD_COLLABORATOR') %}
+                <a class="menu-item"
+                   href="{{ path('app_user_back_collaborator_add') }}">{{ 'Créer un utilisateur'|trans({}, 'core') }}</a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+{% if is_granted('CAN_VIEW_PARAMETER') %}
+    <div class="nav-item has-sub">
+        <a href="#"><i class="ik ik-settings"></i><span>Système</span></a>
+        <div class="submenu-content">
+            <a class="menu-item"
+               href="{{ path('app_foundation_back_parameters') }}">{{ 'Paramètres'|trans({},'feature') }}</a>
+            <a class="menu-item"
+               href="{{ path('app_back_settings') }}">{{ 'Configurations'|trans({}, 'core') }}</a>
+        </div>
+    </div>
+{% endif %}

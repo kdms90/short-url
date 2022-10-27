@@ -1,0 +1,27 @@
+{% if locale is defined and locale and route_params is defined and route_params|length and route is defined and route %}
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-find" type="button" id="dropdownMenuButtonI18n"
+                data-bs-toggle="dropdown" aria-expanded="false">
+            <span style="color: #00499e">
+                {% if app.request.locale == 'fr' %}
+                    {{ 'locale.fr'|trans({},'core') }}
+                {% elseif app.request.locale == 'en' %}
+                    {{ 'locale.en'|trans({},'core') }}
+                {% endif %}
+            </span>
+            <span class="arrow-icon"><i class="arrow-down"></i></span>
+        </button>
+        <ul class="dropdown-menu top-dropdown-menu" aria-labelledby="dropdownMenuButtonI18n">
+            <li class="">
+                <a href="{{ path(masterRequest.get('_route'), masterRequest.get('_route_params')|merge({'_locale': 'en'})) }}">
+                    {{ 'locale.en'|trans({},'core') }}
+                </a>
+            </li>
+            <li class="">
+                <a href="{{ path(masterRequest.get('_route'), masterRequest.get('_route_params')|merge({'_locale': 'fr'})) }}">
+                    {{ 'locale.fr'|trans({},'core') }}
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endif %}

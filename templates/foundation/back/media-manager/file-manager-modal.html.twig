@@ -1,0 +1,84 @@
+<div class="modal fade file-manager-modal" id="file-manager-modal" tabindex="-1" role="dialog"
+     aria-labelledby="templateEmailFileManager"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header main-header">
+                <h4 class="modal-title" id="templateEmailFileManager">Gestionnaire de fichiers</h4>
+            </div>
+            <div id="old-files-container">
+                <div class="modal-body profile-consultant-modal-body-wrap">
+                    <div class="project-members-container project-members" id="project-members-container">
+                        <div class="row">
+                            <div class="col-12 ">
+                                <nav>
+                                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-browse-file-tab" data-toggle="tab"
+                                           href="#nav-browse-file" role="tab" aria-controls="nav-browse-file" aria-selected="true">Bibliothèque
+                                            de médias</a>
+                                        <a class="nav-item nav-link" id="nav-upload-file-tab" data-toggle="tab"
+                                           href="#nav-upload-file" role="tab" aria-controls="nav-upload-file"
+                                           aria-selected="false">Téléverser des fichiers</a>
+                                    </div>
+                                </nav>
+                                <div class="tab-content p-4" id="nav-tab-file-manager">
+                                    <div class="tab-pane fade show active" id="nav-browse-file" role="tabpanel"
+                                         aria-labelledby="nav-browse-file-tab">
+                                        <div class="file-upload">
+                                            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+
+                                            <div class="image-uploaxxxd-wrap">
+                                                <input class="file-upload-ixxxxnput" type='file' onchange="readURL(this);"  />
+                                                <div class="draxxg-text">
+                                                    <h3>Drag and drop a file or select add Image</h3>
+                                                </div>
+                                            </div>
+                                            <div class="file-upload-content">
+                                                <img class="file-upload-image" src="#" alt="your image" />
+                                                <div class="image-title-wrap">
+                                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-upload-file" role="tabpanel"
+                                         aria-labelledby="nav-upload-file-tab">
+                                        <div class="media-frame-content" data-columns="6">
+                                            <div class="uploader-inline">
+                                                <div class="dropzone">
+                                                    <i class="dropzone__icon download ik ik-download"></i>
+                                                    <div class="u--xxs-dn v-tac">
+                                                        <p class="dropzone__message mb-0 messages">
+                                                            <strong>Déposez vos fichiers n’importe où pour les téléverser</strong>
+                                                            <span class="d-block">Elle sera mise en avant</span>
+                                                        </p>
+                                                        <p class="text-center">ou</p>
+                                                    </div>
+                                                    <div class="d-noddne">
+                                                        <div id="app_feature_project_thumbnail"><div class="form-group"> <div class="custom-file"><input type="file" id="app_feature_project_thumbnail_file" name="app_feature_project[thumbnail][file]" class="previewImage"><label for="app_feature_project_thumbnail_file" class="custom-file-label"></label>
+                                                                </div>
+                                                            </div> <input type="hidden" id="app_feature_project_thumbnail_remove" name="app_feature_project[thumbnail][remove]" class="removeFile showUploadImage" value="0"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer even">
+            <button type="button" class="btn btn-default btn-sm close-modal-btn margin-right-20"
+                    data-dismiss="modal" id="cancel-file-manager-modal">
+                {{ 'button.cancel'|trans({}, 'core') }}
+            </button>
+            <button type="submit" id="profile-about-form" class="btn btn-primary btn-sm">
+                {{ 'button.save'|trans({}, 'core') }}
+            </button>
+        </div>
+    </div>
+</div>
